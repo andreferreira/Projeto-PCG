@@ -3,6 +3,7 @@
 #include <time.h>
 #include "plataforma.h"
 #include "plataformas.h"
+#include "scriptloader.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -198,6 +199,9 @@ void desenhaMundo() {
 
 int main() {
 	init();
+	luaRun luaEnv;
+	luaEnv.registerScripts();
+	luaEnv.loadScripts();
 	mapa = geraMapa(20);
 	mapa.push_back(chao);
 	Timer fps;
