@@ -1,5 +1,8 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_opengl.h"
+#include <time.h>
+#include "plataforma.h"
+#include "plataformas.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -131,7 +134,7 @@ bool Timer::is_paused()
 bool init_GL()
 {
     //Set clear color
-    glClearColor( 0, 0, 0, 0 );
+    glClearColor( 1, 1, 1, 0 );
 
     //Set projection
     glMatrixMode( GL_PROJECTION );
@@ -154,6 +157,7 @@ bool init_GL()
 
 bool init()
 {
+	
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
@@ -173,32 +177,29 @@ bool init()
     }
 
     //Set caption
-    SDL_WM_SetCaption( "OpenGL Test", NULL );
+    SDL_WM_SetCaption( "Prototipo Plataformas", NULL );
 
     return true;
 }
 
+const double alturachao = 400.0;
+
+Plataforma chao(0.0,alturachao,SCREEN_WIDTH,alturachao);
+std::vector<Plataforma> mapa;
+
+
 void desenhaMundo() {
 	glClear( GL_COLOR_BUFFER_BIT );
-	//Start quad
-    glBegin( GL_QUADS );
-
-        //Set color to white
-        glColor4f( 1.0, 1.0, 1.0, 1.0 );
-
-        //Draw square
-	    glVertex3f( 0,            0,             0 );
-	    glVertex3f( 20, 0,             0 );
-	    glVertex3f( 20, 20, 0 );
-	    glVertex3f( 0, 20, 0 );
-
-    //End quad
-    glEnd();
+	std::vector<Plataforma>::iterator it;
+	for (it = mapa.begin(); it != mapa.end(); it++)
+		it->desenha();
 	SDL_GL_SwapBuffers();
 }
 
 int main() {
 	init();
+	mapa = geraMapa(20);
+	mapa.push_back(chao);
 	Timer fps;
 	SDL_Event event;
 	bool quit = false;
