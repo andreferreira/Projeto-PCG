@@ -1,8 +1,8 @@
 #ifndef PLATAFORMAS_H
 #define PLATAFORMAS_H
-#include "plataforma.h"
+#include "geometry.h"
 #include <vector>
 
-std::vector<Plataforma> geraMapa(int n);
+std::vector<Linha> geraMapa(int n);
 
 #endif

@@ -3,9 +3,9 @@
 #include <time.h>
 #include <math.h>
 
-#include "plataforma.h"
+#include "geometry.h"
 #include "plataformas.h"
-#include "scriptloader.h"
+#include "luaenv.h"
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
@@ -200,13 +200,13 @@ bool init()
 
 const double alturachao = 400.0;
 
-Plataforma chao(0.0,alturachao,SCREEN_WIDTH,alturachao);
-std::vector<Plataforma> mapa;
+Linha chao(0.0,alturachao,SCREEN_WIDTH,alturachao);
+std::vector<Linha> mapa;
 
 
 void desenhaMundo() {
 	glClear( GL_COLOR_BUFFER_BIT );
-	std::vector<Plataforma>::iterator it;
+	std::vector<Linha>::iterator it;
 	for (it = mapa.begin(); it != mapa.end(); it++)
 		it->desenha();
 	glPushMatrix();

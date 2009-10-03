@@ -1,4 +1,4 @@
-#include "scriptloader.h"
+#include "luaenv.h"
 
 void luaRun::registerScripts() {
 	registerScript("helloworld.lua");
