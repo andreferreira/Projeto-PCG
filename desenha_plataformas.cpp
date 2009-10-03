@@ -1,14 +1,29 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_opengl.h"
 #include <time.h>
+#include <math.h>
+
 #include "plataforma.h"
 #include "plataformas.h"
 #include "scriptloader.h"
-
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 60;
+const double PI = 3.14159265358979323846;
+
+void drawCircle(double radius, int lines)
+{
+	double i2rad = PI/(lines/2.0);
+	glBegin(GL_LINE_LOOP);
+	for (int i=0; i < lines; i++) {
+		double degInRad = i*i2rad;
+		glVertex2f(cos(degInRad)*radius,sin(degInRad)*radius);
+	}
+
+	glEnd();
+}
+
 
 class Timer
 {
@@ -194,6 +209,10 @@ void desenhaMundo() {
 	std::vector<Plataforma>::iterator it;
 	for (it = mapa.begin(); it != mapa.end(); it++)
 		it->desenha();
+	glPushMatrix();
+		glTranslatef(300,300,0);
+		drawCircle(20,30);
+	glPopMatrix();
 	SDL_GL_SwapBuffers();
 }
 
