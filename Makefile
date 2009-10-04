@@ -3,6 +3,8 @@ OBJS = \
 	geometry.o \
 	plataformas.o \
 	luaenv.o \
+	player.o \
+	game.o \
 	
 	
 SRCS = $(OBJS,.o=.cpp) 

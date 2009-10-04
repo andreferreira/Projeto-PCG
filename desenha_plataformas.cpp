@@ -1,7 +1,5 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_opengl.h"
-#include <time.h>
-#include <math.h>
 
 #include "geometry.h"
 #include "plataformas.h"
@@ -10,20 +8,6 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 60;
-const double PI = 3.14159265358979323846;
-
-void drawCircle(double radius, int lines)
-{
-	double i2rad = PI/(lines/2.0);
-	glBegin(GL_LINE_LOOP);
-	for (int i=0; i < lines; i++) {
-		double degInRad = i*i2rad;
-		glVertex2f(cos(degInRad)*radius,sin(degInRad)*radius);
-	}
-
-	glEnd();
-}
-
 
 class Timer
 {
