@@ -1,8 +1,21 @@
-all: a.out
+OBJS = \
+	desenha_plataformas.o \
+	geometry.o \
+	plataformas.o \
+	luaenv.o \
+	player.o \
+	game.o \
 	
+	
+SRCS = $(OBJS,.o=.cpp) 
 
-a.out: desenha_plataformas.cpp geometry.cpp geometry.h plataformas.cpp luaenv.cpp luaenv.h
-	g++ -lSDL -lGL desenha_plataformas.cpp geometry.cpp plataformas.cpp luaenv.cpp liblua.a
+all: a.out
+
+a.out: $(OBJS)
+	g++ -lSDL -lGL $(OBJS) liblua.a
+
+.cpp.o:
+	g++ -c $<
 
 clean:
-	rm a.out
+	rm a.out *.o
