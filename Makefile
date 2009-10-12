@@ -1,10 +1,11 @@
 OBJS = \
-	desenha_plataformas.o \
+	main.o \
 	geometry.o \
 	plataformas.o \
 	luaenv.o \
 	player.o \
 	game.o \
+	timer.o \
 	
 	
 SRCS = $(OBJS,.o=.cpp) 
