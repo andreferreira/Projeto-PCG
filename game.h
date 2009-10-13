@@ -5,7 +5,7 @@ class Game {
 	public:
 	Game();
 	void update();
-	void show();
+	void show(Player jogador);
 	void mainLoop();
 };
 
