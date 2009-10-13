@@ -20,4 +20,4 @@ a.out: $(OBJS)
 	g++ -c $<
 
 clean:
-	rm a.out *.o
+	rm -f a.out *.o

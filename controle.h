@@ -5,14 +5,14 @@
 
 class Controle {
     private:
-        Player jogador;
+        Player &jogador;
         SDL_Event e;
         bool quit;
     public:
-        Controle(Player p);
+        Controle(Player &p) ;
         void eventLoop();
         bool getQuit();
-        Player getJogador();
+        Player& getJogador();
 };
 
 #endif

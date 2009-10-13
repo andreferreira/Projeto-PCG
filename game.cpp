@@ -68,7 +68,7 @@ Game::Game()
 
 }
 
-void Game::show(Player jogador) {
+void Game::show(Player &jogador) {
 	glClear( GL_COLOR_BUFFER_BIT );
 	jogador.desenha();
 	std::vector<Linha>::iterator it;
@@ -93,7 +93,8 @@ void Game::mainLoop() {
 	mapa = geraMapa(20);
 	mapa.push_back(chao);
 	Timer fps;
-	Controle c(Player(0, 0));
+	Player player(0,0);
+	Controle c(player);
 	bool quit = false;
 	while (!quit) {
 		fps.start();

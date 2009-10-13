@@ -1,7 +1,7 @@
 #include "controle.h"
 
-Controle::Controle(Player p) {
-    jogador = p;
+Controle::Controle(Player &p) : jogador( p )  {
+    
 }
 
 void Controle::eventLoop() {
@@ -35,6 +35,6 @@ bool Controle::getQuit() {
     return quit;
 }
 
-Player Controle::getJogador() {
+Player& Controle::getJogador() {
     return jogador;
 }

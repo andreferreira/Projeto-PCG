@@ -7,7 +7,7 @@ class Game {
 	public:
 	Game();
 	void update();
-	void show(Player jogador);
+	void show(Player &jogador);
 	void mainLoop();
 };
 
