@@ -9,6 +9,7 @@ class Player {
 		Vetor velocidade;
 	public:
         Player(int x, int y);
+        void move(int x, int y);
 		void desenha();
 };
 
