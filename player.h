@@ -8,6 +8,7 @@ class Player {
 		Ponto posicao;
 		Vetor velocidade;
 	public:
+        Player(int x, int y);
 		void desenha();
 };
 

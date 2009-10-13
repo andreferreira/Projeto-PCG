@@ -3,6 +3,8 @@
 #include "plataformas.h"
 #include "luaenv.h"
 #include "timer.h"
+#include "player.h"
+#include "controle.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -14,6 +16,7 @@ const double alturachao = 400.0;
 
 Linha chao(0.0,alturachao,SCREEN_WIDTH,alturachao);
 std::vector<Linha> mapa;
+Player jogador(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
 
 bool init_GL()
 {
@@ -41,7 +44,7 @@ bool init_GL()
 
 Game::Game()
 {
-	
+
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
@@ -67,6 +70,7 @@ Game::Game()
 
 void Game::show() {
 	glClear( GL_COLOR_BUFFER_BIT );
+	jogador.desenha();
 	std::vector<Linha>::iterator it;
 	for (it = mapa.begin(); it != mapa.end(); it++)
 		it->desenha();
@@ -78,7 +82,7 @@ void Game::show() {
 }
 
 void Game::update(){
-	
+
 }
 
 
@@ -89,17 +93,12 @@ void Game::mainLoop() {
 	mapa = geraMapa(20);
 	mapa.push_back(chao);
 	Timer fps;
-	SDL_Event event;
+	//Controle c(Player(0, 0));
 	bool quit = false;
 	while (!quit) {
 		fps.start();
-		while( SDL_PollEvent( &event ) )
-		{
-			if( event.type == SDL_QUIT )
-			{
-                quit = true;
-            }
-		}
+		c.eventLoop();
+		quit = c.getQuit();
 		show();
 		if (fps.get_ticks() < 1000 / FRAMES_PER_SECOND ) {
 			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );

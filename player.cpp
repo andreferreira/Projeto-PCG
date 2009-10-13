@@ -1,5 +1,11 @@
 #include "player.h"
-#include "geometry.h"
+
+Player::Player(int x, int y) {
+    posicao.x = x;
+    posicao.y = y;
+    velocidade.x = 0;
+    velocidade.y = 0;
+}
 
 void Player::desenha() {
 	glPushMatrix();
