@@ -1,16 +1,18 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "game.h"
 #include "geometry.h"
+#include "thing.h"
 
-class Player {
+class Game;
+
+class Player: public Thing {
 	private:
-		Ponto posicao;
-		Vetor velocidade;
+		Game* game;
 	public:
-        Player(int x, int y);
-        void move(int x, int y);
-		void desenha();
+        Player(Game* agame);
+        void desenha();
 };
 
 #endif

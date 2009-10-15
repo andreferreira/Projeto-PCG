@@ -16,7 +16,6 @@ const double alturachao = 400.0;
 
 Linha chao(0.0,alturachao,SCREEN_WIDTH,alturachao);
 std::vector<Linha> mapa;
-Player jogador(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
 
 bool init_GL()
 {
@@ -44,7 +43,8 @@ bool init_GL()
 
 Game::Game()
 {
-
+	gravityManager = new GravityManager;
+	
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
@@ -68,9 +68,9 @@ Game::Game()
 
 }
 
-void Game::show(Player &jogador) {
+void Game::show() {
 	glClear( GL_COLOR_BUFFER_BIT );
-	jogador.desenha();
+	player->desenha();
 	std::vector<Linha>::iterator it;
 	for (it = mapa.begin(); it != mapa.end(); it++)
 		it->desenha();
@@ -93,14 +93,23 @@ void Game::mainLoop() {
 	mapa = geraMapa(20);
 	mapa.push_back(chao);
 	Timer fps;
-	Player player(0,0);
-	Controle c(player);
+	
+	player = new Player(this);
+	Controle c(*player);
 	bool quit = false;
 	while (!quit) {
 		fps.start();
+		//player events
 		c.eventLoop();
+		
+		//colision, gravity
+		gravityManager->update();
+		
+		//movements
+		
+		player->move();
 		quit = c.getQuit();
-		show(c.getJogador());
+		show();
 		if (fps.get_ticks() < 1000 / FRAMES_PER_SECOND ) {
 			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
 		}

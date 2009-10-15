@@ -7,6 +7,8 @@ OBJS = \
 	game.o \
 	timer.o \
 	controle.o \
+	thing.o \
+	gravity.o \
 	
 	
 SRCS = $(OBJS,.o=.cpp) 

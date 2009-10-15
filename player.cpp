@@ -1,20 +1,18 @@
 #include "player.h"
+#include "gravity.h"
 
-Player::Player(int x, int y) {
-    posicao.x = x;
-    posicao.y = y;
-    velocidade.x = 1;
-    velocidade.y = 1;
+Player::Player(Game* agame) {
+    setPosition(0,0);
+    setSpeed(0,0);
+	game = agame;
+	game->gravityManager->subscribe(this);
 }
 
 void Player::desenha() {
 	glPushMatrix();
-		glTranslatef(posicao.x,posicao.y,0);
+		glTranslatef(getX(),getY(),0);
 		drawCircle(10,30);
 	glPopMatrix();
 }
 
-void Player::move(int x, int y) {
-    posicao.x += velocidade.x * x;
-    posicao.y += velocidade.y * y;
-}
+
