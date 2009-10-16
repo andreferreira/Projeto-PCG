@@ -45,6 +45,13 @@ bool init_GL()
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 
+    //Linhas
+    glLineWidth(2.5);
+    glEnable(GL_LINE_SMOOTH);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+
     //If there was any errors
     if( glGetError() != GL_NO_ERROR )
     {
@@ -79,7 +86,6 @@ Game::Game()
 
     //Set caption
     SDL_WM_SetCaption( "Prototipo Jogo", NULL );
-
 }
 
 void Game::show() {
