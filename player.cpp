@@ -18,19 +18,49 @@ Ponto Player::rightFeet() {
 	return pe;
 }
 
+Ponto Player::body() {
+    Ponto corpo(CINTURA);
+    return corpo;
+}
+
+Ponto Player::leftArm() {
+    Ponto braco(-10,-30);
+    return braco;
+}
+
+Ponto Player::rightArm() {
+    Ponto braco(10,-30);
+    return braco;
+}
+
 void Player::desenha() {
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
 		Ponto leftfeet = leftFeet();
 		Ponto rightfeet = rightFeet();
+		Ponto corpo = body();
+		Ponto leftarm = leftArm();
+		Ponto rightarm = rightArm();
 		glBegin(GL_LINES);
+			glVertex3f(corpo.x,corpo.y,0);
+			glVertex3f(PESCOCO,0);
+
 			glVertex3f(leftfeet.x,leftfeet.y,0);
-			glVertex3f(0,-30,0);
+            glVertex3f(CINTURA,0);
+
 			glVertex3f(rightfeet.x,rightfeet.y,0);
-			glVertex3f(0,-30,0);
-			//bracos aqui
-		glEnd();//depois uma cabeça
-		//drawCircle(10,30);
+            glVertex3f(CINTURA,0);
+
+			glVertex3f(leftarm.x,leftarm.y,0);
+			glVertex3f(PESCOCO,0);
+
+			glVertex3f(rightarm.x,rightarm.y,0);
+			glVertex3f(PESCOCO,0);
+		glEnd();
+		glPushMatrix();
+            glTranslatef(0,-70,0);
+            drawCircle(10,30);
+        glPopMatrix();
 	glPopMatrix();
 }
 
