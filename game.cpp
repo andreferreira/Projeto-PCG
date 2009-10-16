@@ -21,6 +21,12 @@ void Game::geraMapa() {
 	mapa.push_back(plat1);
 	Linha plat2(200,320,250,320);
 	mapa.push_back(plat2);
+	Linha plat3(400,275,450,275);
+	mapa.push_back(plat3);
+	Linha plat4(200,200,250,200);
+	mapa.push_back(plat4);
+	Linha plat5(30,100,100,100);
+	mapa.push_back(plat5);
 	for (int i = 0; i < mapa.size();i++)
 		gravityManager->addPlataform(&mapa[i]);
 }
@@ -52,7 +58,7 @@ bool init_GL()
 Game::Game()
 {
 	gravityManager = new GravityManager;
-	
+
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
@@ -96,7 +102,7 @@ void Game::mainLoop() {
 	luaEnv.loadScripts();
 	geraMapa();
 	Timer fps;
-	
+
 	player = new Player(this);
 	Controle c(*player);
 	bool quit = false;
@@ -104,12 +110,12 @@ void Game::mainLoop() {
 		fps.start();
 		//player events
 		c.eventLoop();
-		
+
 		//colision, gravity
 		gravityManager->update();
-		
+
 		//movements
-		
+
 		player->move();
 		quit = c.getQuit();
 		show();
