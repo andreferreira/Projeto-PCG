@@ -8,7 +8,7 @@ OBJS = \
 	controle.o \
 	thing.o \
 	gravity.o \
-	
+	mapa.o \
 	
 SRCS = $(OBJS,.o=.cpp) 
 

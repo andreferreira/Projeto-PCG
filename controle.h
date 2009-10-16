@@ -12,7 +12,6 @@ class Controle {
         Controle(Player &p) ;
         void eventLoop();
         bool getQuit();
-        Player& getJogador();
 };
 
 #endif

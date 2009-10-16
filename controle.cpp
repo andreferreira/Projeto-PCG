@@ -54,7 +54,3 @@ void Controle::eventLoop() {
 bool Controle::getQuit() {
     return quit;
 }
-
-Player& Controle::getJogador() {
-    return jogador;
-}

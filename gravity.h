@@ -12,7 +12,7 @@ class GravityManager {
 		bool checkGround(Thing* thing, Linha* plataform);
 	public:
 		void subscribe(Thing* thing);
-		void addPlataform(Linha* linha);
+		void addPlatform(Linha* linha);
 		void update();
 };
 

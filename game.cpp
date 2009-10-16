@@ -10,25 +10,15 @@ const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 60;
 
-
-const double alturachao = 400.0;
-
-
 void Game::geraMapa() {
-	Linha chao(0.0,alturachao,SCREEN_WIDTH,alturachao);
-	mapa.push_back(chao);
-	Linha plat1(30,350,100,350);
-	mapa.push_back(plat1);
-	Linha plat2(200,320,250,320);
-	mapa.push_back(plat2);
-	Linha plat3(400,275,450,275);
-	mapa.push_back(plat3);
-	Linha plat4(200,200,250,200);
-	mapa.push_back(plat4);
-	Linha plat5(30,100,100,100);
-	mapa.push_back(plat5);
-	for (int i = 0; i < mapa.size();i++)
-		gravityManager->addPlataform(&mapa[i]);
+	const double alturaChao = 400;
+	mapa = new Mapa(800, 600, player, gravityManager);
+	mapa->novaLinha(0,alturaChao,mapa->xmax(),alturaChao);
+	mapa->novaLinha(30,350,100,350);
+	mapa->novaLinha(200,320,250,320);
+	mapa->novaLinha(400,275,450,275);
+	mapa->novaLinha(200,200,250,200);
+	mapa->novaLinha(30,100,100,100);
 }
 
 bool init_GL()
@@ -79,7 +69,7 @@ Game::Game()
     }
 
     //Initialize OpenGL
-    if( init_GL() == false )
+    if( !init_GL() )
     {
         //erro
     }
@@ -90,26 +80,39 @@ Game::Game()
 
 void Game::show() {
 	glClear( GL_COLOR_BUFFER_BIT );
+    double x, y;
+
+    if (player->getX() <= SCREEN_WIDTH/2)
+    	x = 0;
+    else if (player->getX() >= mapa->xmax() - SCREEN_WIDTH/2)
+    	x = mapa->xmax() - SCREEN_WIDTH;
+    else
+    	x = player->getX() - SCREEN_WIDTH/2;
+
+    if (player->getY() <= 2*SCREEN_HEIGHT/3)
+    	y = 0;
+    else if (player->getY() >= mapa->ymax() - SCREEN_HEIGHT/3)
+    	y = mapa->ymax() - SCREEN_HEIGHT;
+    else
+    	y = player->getY() - 2*SCREEN_HEIGHT/3;
+
 	player->desenha();
-	std::vector<Linha>::iterator it;
-	for (it = mapa.begin(); it != mapa.end(); it++)
-		it->desenha();
+	mapa->desenha();
+
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+    glOrtho( x, x+SCREEN_WIDTH, y+SCREEN_HEIGHT, y, -1, 1 );
 	SDL_GL_SwapBuffers();
 }
-
-void Game::update(){
-
-}
-
 
 void Game::mainLoop() {
 	luaRun luaEnv;
 	luaEnv.registerScripts();
 	luaEnv.loadScripts();
-	geraMapa();
 	Timer fps;
 
 	player = new Player(this);
+	geraMapa();
 	Controle c(*player);
 	bool quit = false;
 	while (!quit) {
@@ -121,7 +124,6 @@ void Game::mainLoop() {
 		gravityManager->update();
 
 		//movements
-
 		player->move();
 		quit = c.getQuit();
 		show();

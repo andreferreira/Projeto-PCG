@@ -15,7 +15,7 @@ class Player: public Thing {
 		Ponto cintura();
 		Ponto leftArm();
 		Ponto rightArm();
-                Ponto pescoco();
+        Ponto pescoco();
 	public:
         Player(Game* agame);
         void desenha();

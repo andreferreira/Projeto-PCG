@@ -5,7 +5,7 @@ void GravityManager::subscribe(Thing* thing) {
 	things.insert(thing);
 }
 
-void GravityManager::addPlataform(Linha* linha) {
+void GravityManager::addPlatform(Linha* linha) {
 	plataforms.insert(linha);
 }
 

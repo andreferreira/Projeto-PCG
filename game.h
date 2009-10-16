@@ -3,20 +3,22 @@
 
 #include "player.h"
 #include "gravity.h"
-#include <vector>
+#include "mapa.h"
 
 class Player;
 
+class Mapa;
+
 class Game {
+	private:
+		void show();
+		void geraMapa();
 	public:
-	std::vector<Linha> mapa;
-	Game();
-	void update();
-	void show();
-	void mainLoop();
-	void geraMapa();
-	Player *player;
-	GravityManager *gravityManager;
+		Game();
+		void mainLoop();
+		Player *player;
+		Mapa *mapa;
+		GravityManager *gravityManager;
 };
 
 #endif

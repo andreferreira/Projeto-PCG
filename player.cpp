@@ -46,7 +46,7 @@ void Player::desenha() {
 		Ponto hips = cintura();
 		Ponto leftarm = leftArm();
 		Ponto rightarm = rightArm();
-                Ponto neck = pescoco();
+		Ponto neck = pescoco();
 		glBegin(GL_LINES);
 			glVertex3f(hips.x,hips.y,0);
 			glVertex3f(neck.x,neck.y,0);
