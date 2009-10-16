@@ -1,6 +1,5 @@
 #include "game.h"
 #include "geometry.h"
-#include "plataformas.h"
 #include "luaenv.h"
 #include "timer.h"
 #include "player.h"
@@ -14,8 +13,17 @@ const int FRAMES_PER_SECOND = 60;
 
 const double alturachao = 400.0;
 
-Linha chao(0.0,alturachao,SCREEN_WIDTH,alturachao);
-std::vector<Linha> mapa;
+
+void Game::geraMapa() {
+	Linha chao(0.0,alturachao,SCREEN_WIDTH,alturachao);
+	mapa.push_back(chao);
+	Linha plat1(30,350,100,350);
+	mapa.push_back(plat1);
+	Linha plat2(200,320,250,320);
+	mapa.push_back(plat2);
+	for (int i = 0; i < mapa.size();i++)
+		gravityManager->addPlataform(&mapa[i]);
+}
 
 bool init_GL()
 {
@@ -74,10 +82,6 @@ void Game::show() {
 	std::vector<Linha>::iterator it;
 	for (it = mapa.begin(); it != mapa.end(); it++)
 		it->desenha();
-	glPushMatrix();
-		glTranslatef(300,300,0);
-		drawCircle(20,30);
-	glPopMatrix();
 	SDL_GL_SwapBuffers();
 }
 
@@ -90,8 +94,7 @@ void Game::mainLoop() {
 	luaRun luaEnv;
 	luaEnv.registerScripts();
 	luaEnv.loadScripts();
-	mapa = geraMapa(20);
-	mapa.push_back(chao);
+	geraMapa();
 	Timer fps;
 	
 	player = new Player(this);

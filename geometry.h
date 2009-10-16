@@ -12,12 +12,21 @@ struct Vetor {
 };
 
 class Linha {
-	private:
-	Ponto vertices[2];
 	public:
+	Ponto vertices[2];
+
 	void desenha();
 	Linha(double x1,double y1,double x2, double y2);
 	Linha(Ponto a, Ponto b) {vertices[0] = a; vertices[1] = b;}
+};
+
+class Rect {
+	private:
+		void normaliza();
+	public:
+	Ponto vertices[2];
+	Rect(double x1,double y1,double x2, double y2);
+	Rect(Ponto a, Ponto b) {vertices[0] = a; vertices[1] = b; normaliza();}
 };
 
 void drawCircle(double radius, int lines);

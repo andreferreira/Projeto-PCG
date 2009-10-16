@@ -1,7 +1,6 @@
 OBJS = \
 	main.o \
 	geometry.o \
-	plataformas.o \
 	luaenv.o \
 	player.o \
 	game.o \

@@ -2,7 +2,7 @@
 #include "gravity.h"
 
 Player::Player(Game* agame) {
-    setPosition(0,0);
+    setPosition(40,40);
     setSpeed(0,0);
 	game = agame;
 	game->gravityManager->subscribe(this);
@@ -16,3 +16,7 @@ void Player::desenha() {
 }
 
 
+Rect Player::getBaseRect() {
+	Rect ret(-10+getX(),-10+getY(),10+getX(),10+getY());
+	return ret;
+}

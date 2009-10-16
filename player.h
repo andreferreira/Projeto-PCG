@@ -13,6 +13,7 @@ class Player: public Thing {
 	public:
         Player(Game* agame);
         void desenha();
+		virtual Rect getBaseRect();
 };
 
 #endif

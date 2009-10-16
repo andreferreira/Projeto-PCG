@@ -1,7 +1,7 @@
 #include "thing.h"
 
 Thing::Thing() {
-
+	onGround = false;
 }
 
 void Thing::addSpeed(double xspeed, double yspeed) {
@@ -22,4 +22,9 @@ void Thing::setPosition(double x, double y) {
 void Thing::move() {
 	posicao.x += velocidade.x;
 	posicao.y += velocidade.y;
+}
+
+Rect Thing::getBaseRect() {
+	Rect ret(0,0,0,0);
+	return ret;
 }

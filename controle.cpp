@@ -13,16 +13,16 @@ void Controle::eventLoop() {
             case SDL_KEYUP:
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
-                        jogador.addSpeed(0,1);
+                        //jogador.addSpeed(0,1);
                         break;
                     case SDLK_DOWN:
-                        jogador.addSpeed(0,-1);
+                        //jogador.addSpeed(0,-1);
                         break;
                     case SDLK_LEFT:
-                        jogador.addSpeed(1,0);
+                        jogador.addSpeed(3,0);
                         break;
                     case SDLK_RIGHT:
-                        jogador.addSpeed(-1,0);
+                        jogador.addSpeed(-3,0);
                         break;
                     default: break;
                 }
@@ -30,16 +30,19 @@ void Controle::eventLoop() {
             case SDL_KEYDOWN:
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
-                        jogador.addSpeed( 0, -1);
+						if (jogador.onGround) {
+							jogador.addSpeed( 0, -4);
+							jogador.onGround = false;
+						}
                         break;
                     case SDLK_DOWN:
-                        jogador.addSpeed( 0,  1);
+                        //jogador.addSpeed( 0,  1);
                         break;
                     case SDLK_LEFT:
-                        jogador.addSpeed(-1,  0);
+                        jogador.addSpeed(-3,  0);
                         break;
                     case SDLK_RIGHT:
-                        jogador.addSpeed( 1,  0);
+                        jogador.addSpeed( 3,  0);
                         break;
                     default: break;
                 }

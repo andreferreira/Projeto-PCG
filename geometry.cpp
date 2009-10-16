@@ -1,5 +1,6 @@
 #include "geometry.h"
 #include "math.h"
+#include <vector>
 
 const double PI = 3.14159265358979323846;
 
@@ -8,6 +9,26 @@ Linha::Linha(double x1,double y1,double x2, double y2) {
 	vertices[0].y = y1;
 	vertices[1].x = x2;
 	vertices[1].y = y2;
+}
+
+Rect::Rect(double x1,double y1,double x2, double y2) {
+	vertices[0].x = x1;
+	vertices[0].y = y1;
+	vertices[1].x = x2;
+	vertices[1].y = y2;
+	normaliza();
+}
+
+void Rect::normaliza() {
+	double xmin,xmax,ymin,ymax;
+	xmin = std::min(vertices[0].x,vertices[1].x);
+	xmax = std::max(vertices[0].x,vertices[1].x);
+	ymin = std::min(vertices[0].y,vertices[1].y);
+	ymax = std::max(vertices[0].y,vertices[1].y);
+	vertices[0].x = xmin;
+	vertices[1].x = xmax;
+	vertices[0].y = ymin;
+	vertices[1].y = ymax;
 }
 
 void Linha::desenha() {
