@@ -14,6 +14,7 @@ void Game::geraMapa() {
 	const double alturaChao = 400;
 	mapa = new Mapa(800, 600, player, gravityManager);
 	mapa->novaLinha(0,alturaChao,mapa->xmax(),alturaChao);
+	mapa->novaLinha(0,mapa->ymax(),mapa->xmax(),mapa->ymax());
 	mapa->novaLinha(30,350,100,350);
 	mapa->novaLinha(200,320,250,320);
 	mapa->novaLinha(400,275,450,275);
@@ -25,11 +26,6 @@ bool init_GL()
 {
     //Set clear color
     glClearColor( 1, 1, 1, 0 );
-
-    //Set projection
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    glOrtho( 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1 );
 
     //Initialize modelview matrix
     glMatrixMode( GL_MODELVIEW );
