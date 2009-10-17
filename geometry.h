@@ -9,6 +9,10 @@ struct Ponto {
 	Ponto (double x1, double y1) {x = x1; y = y1;}
 };
 
+double operator*(const Ponto &a, const Ponto &b);
+Ponto operator-(const Ponto &a, const Ponto &b);
+Ponto operator+(const Ponto &a, const Ponto &b);
+
 struct Vetor { 
 	double x,y;
 };

@@ -18,7 +18,7 @@ class Thing {
 		double getX() {return posicao.x;}
 		double getY() {return posicao.y;}
 		void move();
-		virtual Rect getBaseRect();
+		virtual Linha getBaseLine();
 };
 
 

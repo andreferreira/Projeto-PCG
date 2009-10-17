@@ -39,6 +39,24 @@ void Linha::desenha() {
 	glEnd( );
 }
 
+double operator*(const Ponto &a, const Ponto &b) {
+	return a.x * b.y - b.x * a.y;
+}
+
+Ponto operator-(const Ponto &a, const Ponto &b) {
+	Ponto ret;
+	ret.x = a.x - b.x;
+	ret.y = a.y - b.y;
+	return ret;
+}
+
+Ponto operator+(const Ponto &a, const Ponto &b) {
+	Ponto ret;
+	ret.x = a.x + b.x;
+	ret.y = a.y + b.y;
+	return ret;
+}
+
 void drawCircle(double radius, int lines)
 {
 	double i2rad = PI/(lines/2.0);

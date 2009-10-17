@@ -13,23 +13,17 @@ void GravityManager::update() {
 	std::set<Thing*>::iterator it;
 	std::set<Linha*>::iterator plat;
 	for (it = things.begin(); it != things.end(); it++) {
-		if ((*it)->getSpeedY() > 0.6)
-			(*it)->onGround = false;
-		if ((*it)->getSpeedY() <= 0 && !(*it)->onGround) {
-			(*it)->addSpeed(0,0.1);
-			continue;
-		}
+		(*it)->addSpeed(0,0.1);
 		bool colisao = false;
 		for (plat = plataforms.begin(); !colisao && plat != plataforms.end(); plat++) {
-			colisao = checkGround(*it,*plat);
+			colisao = checkGround(*it,*(*plat));
 		}
 		if (colisao) {
-			//std::cout<<"colisao"<<std::endl;
 			(*it)->onGround = true;
-			(*it)->setSpeed((*it)->getSpeedX(),-0.2);
+			(*it)->setSpeed((*it)->getSpeedX(),0.0);
 		}
 		else {
-			(*it)->addSpeed(0,0.1);
+			(*it)->onGround = false;
 		}
 	}
 }
@@ -38,24 +32,55 @@ bool contido(double x1,double y1, double x2, double y2, Ponto &ponto) {
 	return x1 <= ponto.x && ponto.x <= x2 && y1 <= ponto.y && ponto.y <= y2;
 }
 
+//calcula se a direcao dos segmentos p0p1 p1p2 é horaria, antihoraria ou se sao colineares
+double direction(Ponto &p0, Ponto &p1, Ponto &p2) {
+	return (p2 - p0) * (p1 - p0);
+}
 
-//xy1 é o canto debaixo esq, xy2 decima direito
-bool collisionRectLine(double x1,double y1, double x2, double y2, Linha &linha) {
-	if (contido(x1,y1,x2,y2,linha.vertices[0]) || contido(x1,y1,x2,y2,linha.vertices[1]))
-		return true;
-	double minxlinha = std::min(linha.vertices[0].x,linha.vertices[1].x);
-	double minylinha = std::min(linha.vertices[0].y,linha.vertices[1].y);
-	double maxxlinha = std::max(linha.vertices[0].x,linha.vertices[1].x);
-	double maxylinha = std::max(linha.vertices[0].y,linha.vertices[1].y);
-	//std::cout<<y1<<" "<<maxylinha<<" "<<y2<<" "<<minylinha<<" "<< x1<<" "<<maxxlinha<<" "<< x2 <<" "<<minylinha<<std::endl;
-	if (y1 > maxylinha || y2 < minylinha || x1 > maxxlinha || x2 < minxlinha)
+bool onsegment(Ponto &pi,Ponto &pj,Ponto &pk) { 
+	if ((std::min(pi.x, pj.x) <= pk.x && pk.x <= std::max(pi.x, pj.x)) &&
+	    (std::min(pi.y, pj.y) <= pk.y && pk.y <= std::max(pi.y, pj.y)))
+		return true; 
+	else 
 		return false;
-	return true;
+}
+
+bool linesIntersect(Linha &a, Linha &b) {
+	Ponto p1 = a.vertices[0];
+	Ponto p2 = a.vertices[1];
+	Ponto p3 = b.vertices[0];
+	Ponto p4 = b.vertices[1];
+	double d1 = direction(p3, p4, p1);
+	double d2 = direction(p3, p4, p2);
+	double d3 = direction(p1, p2, p3);
+	double d4 = direction(p1, p2, p4);
+	if (((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) &&
+	   ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0)))
+		return true; 
+	else if (d1 == 0.0 && onsegment(p3, p4, p1)) 
+		return true;
+	else if (d2 == 0.0 && onsegment(p3, p4, p2))
+		return true; 
+	else if (d3 == 0.0 && onsegment(p1, p2, p3))
+		return true; 
+	else if (d4 == 0.0 && onsegment(p1, p2, p4))
+		return true;
+	else
+		return false;
 }
 
 
-bool GravityManager::checkGround(Thing* thing, Linha* plataform) {
-	Rect baseRect = thing->getBaseRect();
-	return collisionRectLine(baseRect.vertices[0].x,baseRect.vertices[0].y,
-							 baseRect.vertices[1].x,baseRect.vertices[1].y,*plataform);
+bool GravityManager::checkGround(Thing* thing, Linha &plataform) {
+	Linha baseLine = thing->getBaseLine();
+	Linha l1 = baseLine;
+	Linha l2(baseLine.vertices[0].x + thing->getSpeedX(),
+	         baseLine.vertices[0].y + thing->getSpeedY(),
+			 baseLine.vertices[1].x + thing->getSpeedX(),
+			 baseLine.vertices[1].y + thing->getSpeedY());
+	Linha l3(l1.vertices[0],l2.vertices[0]);
+	Linha l4(l1.vertices[1],l2.vertices[1]);
+	return linesIntersect(l1,plataform) ||
+	       linesIntersect(l2,plataform) ||
+		   linesIntersect(l3,plataform) ||
+		   linesIntersect(l4,plataform);
 }

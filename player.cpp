@@ -71,9 +71,9 @@ void Player::desenha() {
 }
 
 
-Rect Player::getBaseRect() {
+Linha Player::getBaseLine() {
 	Ponto leftfeet = leftFeet();
 	Ponto rightfeet = rightFeet();
-	Rect ret(leftfeet.x+getX(),leftfeet.y+getY(),rightfeet.x+getX(),-10+getY()+std::min(leftfeet.y,rightfeet.y));
+	Linha ret(leftfeet.x+getX(),leftfeet.y+getY(),rightfeet.x+getX(),rightfeet.y+getY());
 	return ret;
 }

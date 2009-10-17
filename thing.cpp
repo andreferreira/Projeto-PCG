@@ -24,7 +24,7 @@ void Thing::move() {
 	posicao.y += velocidade.y;
 }
 
-Rect Thing::getBaseRect() {
-	Rect ret(0,0,0,0);
+Linha Thing::getBaseLine() {
+	Linha ret(0,0,0,0);
 	return ret;
 }
