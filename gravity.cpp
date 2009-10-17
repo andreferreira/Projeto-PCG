@@ -14,6 +14,7 @@ void GravityManager::update() {
 	std::set<Linha*>::iterator plat;
 	for (it = things.begin(); it != things.end(); it++) {
 		(*it)->addSpeed(0,0.1);
+		if ((*it)->getSpeedY() < 0.0) continue;
 		bool colisao = false;
 		for (plat = plataforms.begin(); !colisao && plat != plataforms.end(); plat++) {
 			colisao = checkGround(*it,*(*plat));
