@@ -5,19 +5,19 @@ void GravityManager::subscribe(Thing* thing) {
 	things.insert(thing);
 }
 
-void GravityManager::addPlatform(Linha* linha) {
+void GravityManager::addPlatform(Plataform* linha) {
 	plataforms.insert(linha);
 }
 
 void GravityManager::update() {
 	std::set<Thing*>::iterator it;
-	std::set<Linha*>::iterator plat;
+	std::set<Plataform*>::iterator plat;
 	for (it = things.begin(); it != things.end(); it++) {
 		(*it)->addSpeed(0,0.1);
 		if ((*it)->getSpeedY() < 0.0) continue;
 		bool colisao = false;
 		for (plat = plataforms.begin(); !colisao && plat != plataforms.end(); plat++) {
-			colisao = checkGround(*it,*(*plat));
+			colisao = checkGround(*it,*plat);
 		}
 		if (colisao) {
 			(*it)->onGround = true;
@@ -34,11 +34,11 @@ bool contido(double x1,double y1, double x2, double y2, Ponto &ponto) {
 }
 
 //calcula se a direcao dos segmentos p0p1 p1p2 é horaria, antihoraria ou se sao colineares
-double direction(Ponto &p0, Ponto &p1, Ponto &p2) {
+double direction(const Ponto &p0,const Ponto &p1,const Ponto &p2) {
 	return (p2 - p0) * (p1 - p0);
 }
 
-bool onsegment(Ponto &pi,Ponto &pj,Ponto &pk) { 
+bool onsegment(const Ponto &pi,const Ponto &pj,const Ponto &pk) { 
 	if ((std::min(pi.x, pj.x) <= pk.x && pk.x <= std::max(pi.x, pj.x)) &&
 	    (std::min(pi.y, pj.y) <= pk.y && pk.y <= std::max(pi.y, pj.y)))
 		return true; 
@@ -46,7 +46,7 @@ bool onsegment(Ponto &pi,Ponto &pj,Ponto &pk) {
 		return false;
 }
 
-bool linesIntersect(Linha &a, Linha &b) {
+bool linesIntersect(const Linha a,const Linha b) {
 	Ponto p1 = a.vertices[0];
 	Ponto p2 = a.vertices[1];
 	Ponto p3 = b.vertices[0];
@@ -71,7 +71,7 @@ bool linesIntersect(Linha &a, Linha &b) {
 }
 
 
-bool GravityManager::checkGround(Thing* thing, Linha &plataform) {
+bool GravityManager::checkGround(Thing* thing, Plataform *plataform) {
 	Linha baseLine = thing->getBaseLine();
 	Linha l1 = baseLine;
 	Linha l2(baseLine.vertices[0].x + thing->getSpeedX(),
@@ -80,8 +80,8 @@ bool GravityManager::checkGround(Thing* thing, Linha &plataform) {
 			 baseLine.vertices[1].y + thing->getSpeedY());
 	Linha l3(l1.vertices[0],l2.vertices[0]);
 	Linha l4(l1.vertices[1],l2.vertices[1]);
-	return linesIntersect(l1,plataform) ||
-	       linesIntersect(l2,plataform) ||
-		   linesIntersect(l3,plataform) ||
-		   linesIntersect(l4,plataform);
+	return linesIntersect(l1,plataform->getLine()) ||
+	       linesIntersect(l2,plataform->getLine()) ||
+		   linesIntersect(l3,plataform->getLine()) ||
+		   linesIntersect(l4,plataform->getLine());
 }

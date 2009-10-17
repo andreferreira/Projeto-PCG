@@ -9,6 +9,7 @@ OBJS = \
 	thing.o \
 	gravity.o \
 	mapa.o \
+	plataform.o \
 	
 SRCS = $(OBJS,.o=.cpp) 
 

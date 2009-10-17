@@ -5,16 +5,17 @@ Mapa::Mapa(double xmax, double ymax, Player *p, GravityManager *g): jogador(p), 
 	tamanho.y = ymax;
 }
 
-void Mapa::novaLinha(double xmin, double ymin, double xmax, double ymax) {
+void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax) {
 	Linha l(xmin, ymin, xmax, ymax);
-	linhas.push_front(l);
-	gravidade->addPlatform(&linhas.front());
+	Plataform *plat = new Plataform(l);
+	linhas.push_front(plat);
+	gravidade->addPlatform(plat);
 }
 
 void Mapa::desenha() {
-	std::list<Linha>::iterator it;
+	std::list<Plataform*>::iterator it;
 	for (it = linhas.begin(); it != linhas.end(); it++)
-		it->desenha();
+		(*it)->desenha();
 }
 
 double Mapa::xmax() {
