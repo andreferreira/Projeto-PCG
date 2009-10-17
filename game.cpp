@@ -51,7 +51,8 @@ bool init_GL()
 Game::Game()
 {
 	gravityManager = new GravityManager;
-
+	mapa = NULL;
+	player = NULL;
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
