@@ -4,7 +4,7 @@ void luaRun::registerScripts() {
 	registerScript("helloworld.lua");
 }
 
-void luaRun::registerScript(const std::string name) {
+void luaRun::registerScript(const std::string &name) {
 	Script novo(name);
 	scripts.push_back(novo);
 }

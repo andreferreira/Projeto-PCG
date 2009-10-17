@@ -22,7 +22,7 @@ class luaRun {
 		void loadScripts();
 		void registerScripts();
 	private:
-		void registerScript(const std::string name);
+		void registerScript(const std::string &name);
 		std::vector<Script> scripts;
 };
 
