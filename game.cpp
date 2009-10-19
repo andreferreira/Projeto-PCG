@@ -75,6 +75,13 @@ Game::Game()
     SDL_WM_SetCaption( "Prototipo Jogo", NULL );
 }
 
+void Game::desenhaMira(Ponto aim) {
+	glPushMatrix();
+		glTranslatef(camera.x+aim.x,camera.y+aim.y,0);
+		drawCircle(10,10);
+	glPopMatrix();
+}
+
 void Game::show() {
 	glClear( GL_COLOR_BUFFER_BIT );
     double x, y;
@@ -92,13 +99,14 @@ void Game::show() {
     	y = mapa->ymax() - SCREEN_HEIGHT;
     else
     	y = player->getY() - 2*SCREEN_HEIGHT/3;
-
+	camera.x = x;
+	camera.y = y;
 	player->desenha();
 	mapa->desenha();
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    glOrtho( x, x+SCREEN_WIDTH, y+SCREEN_HEIGHT, y, -1, 1 );
+    glOrtho( camera.x, camera.x+SCREEN_WIDTH, camera.y+SCREEN_HEIGHT, camera.y, -1, 1 );
 	SDL_GL_SwapBuffers();
 }
 

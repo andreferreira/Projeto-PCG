@@ -39,6 +39,7 @@ Ponto Player::pescoco() {
 }
 
 void Player::desenha() {
+	game->desenhaMira(aim);
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
 		Ponto leftfeet = leftFeet();
@@ -76,4 +77,9 @@ Linha Player::getBaseLine() {
 	Ponto rightfeet = rightFeet();
 	Linha ret(leftfeet.x+getX(),leftfeet.y+getY(),rightfeet.x+getX(),rightfeet.y+getY());
 	return ret;
+}
+
+void Player::setAim(double x, double y) {
+	aim.x = x;
+	aim.y = y;
 }

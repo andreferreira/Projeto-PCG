@@ -14,8 +14,10 @@ class Game {
 		void show();
 		void geraMapa();
 	public:
+		Ponto camera;
 		Game();
 		void mainLoop();
+		void desenhaMira(Ponto aim);
 		Player *player;
 		Mapa *mapa;
 		GravityManager *gravityManager;

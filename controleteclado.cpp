@@ -10,6 +10,10 @@ void ControleTeclado::eventLoop() {
             case SDL_QUIT:
                 quit = true;
                 break;
+			case SDL_MOUSEMOTION: {
+					jogador.setAim(e.motion.x,e.motion.y);
+				}
+				break;
             case SDL_KEYUP:
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:

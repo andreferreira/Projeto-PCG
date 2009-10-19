@@ -16,9 +16,11 @@ class Player: public Thing {
 		Ponto leftArm();
 		Ponto rightArm();
         Ponto pescoco();
+		Ponto aim;
 	public:
         Player(Game* agame);
         void desenha();
+		void setAim(double x, double y);
 		virtual Linha getBaseLine();
 };
 
