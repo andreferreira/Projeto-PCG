@@ -3,7 +3,7 @@
 #include "luaenv.h"
 #include "timer.h"
 #include "player.h"
-#include "controle.h"
+#include "controleteclado.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -110,7 +110,7 @@ void Game::mainLoop() {
 
 	player = new Player(this);
 	geraMapa();
-	Controle c(*player);
+	ControleTeclado c(*player);
 	bool quit = false;
 	while (!quit) {
 		fps.start();

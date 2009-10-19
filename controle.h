@@ -4,13 +4,13 @@
 #include "player.h"
 
 class Controle {
-    private:
+    protected:
         Player &jogador;
         SDL_Event e;
         bool quit;
     public:
-        Controle(Player &p) ;
-        void eventLoop();
+        Controle(Player &p);
+        virtual void eventLoop() = 0;
         bool getQuit();
 };
 

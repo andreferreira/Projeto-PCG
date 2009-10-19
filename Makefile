@@ -10,6 +10,7 @@ OBJS = \
 	gravity.o \
 	mapa.o \
 	plataform.o \
+	controleteclado.o \
 	
 SRCS = $(OBJS,.o=.cpp) 
 
