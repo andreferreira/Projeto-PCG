@@ -62,7 +62,6 @@ double areaTriangle(double a, double b, double c) {
 	return sqrt((a+(b+c))*(c-(a-b))*(c+(a-b))*(a+(b-c)))/4.0;	
 }
 
-
 //retorna cotovelo em relacao ao ombro, usa matematica levemente pesada, cuidado ao mexer
 Ponto Player::getCotovelo(Ponto ombro, Ponto hand) {
 	double a = tamanhoBraco();
@@ -71,11 +70,11 @@ Ponto Player::getCotovelo(Ponto ombro, Ponto hand) {
 	double area = areaTriangle(a,b,d);
 	double ylinha = 2.0*area/d;
 	double xlinha = sqrt(a*a-ylinha*ylinha);
-	double sinTheta = ylinha/a;
-	double cosTheta = xlinha/a;
+	double sinTheta = (hand.y-ombro.y)/d;
+	double cosTheta = (hand.x-ombro.x)/d;
 	Ponto ret;
-	ret.x = -(cosTheta*xlinha-sinTheta*ylinha);
-	ret.y = -(sinTheta*xlinha+cosTheta*ylinha);
+	ret.x = (cosTheta*xlinha-sinTheta*ylinha);
+	ret.y = (sinTheta*xlinha+cosTheta*ylinha);
 	return ret;
 }
 
