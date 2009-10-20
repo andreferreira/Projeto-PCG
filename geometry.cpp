@@ -2,8 +2,6 @@
 #include "math.h"
 #include <vector>
 
-const double PI = 3.14159265358979323846;
-
 Linha::Linha(double x1,double y1,double x2, double y2) {
 	vertices[0].x = x1;
 	vertices[0].y = y1;
@@ -39,8 +37,15 @@ void Linha::desenha() {
 	glEnd( );
 }
 
+void Polygon::desenha() {
+	int n = linhas.size();
+	for (int i = 0; i < n; i++) {
+		linhas[i].desenha();
+	}
+}
+
 double operator*(const Ponto &a, const Ponto &b) {
-	return a.x * b.y - b.x * a.y;
+	return a.x * b.y - b.x * a.y; 
 }
 
 Ponto operator-(const Ponto &a, const Ponto &b) {
@@ -55,6 +60,10 @@ Ponto operator+(const Ponto &a, const Ponto &b) {
 	ret.x = a.x + b.x;
 	ret.y = a.y + b.y;
 	return ret;
+}
+
+double distance(const Ponto &a,const Ponto &b) {
+	return sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
 }
 
 void drawCircle(double radius, int lines)

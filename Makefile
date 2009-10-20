@@ -11,6 +11,7 @@ OBJS = \
 	mapa.o \
 	plataform.o \
 	controleteclado.o \
+	weapon.o \
 	
 SRCS = $(OBJS,.o=.cpp) 
 

@@ -120,6 +120,24 @@ void Game::mainLoop() {
 	geraMapa();
 	ControleTeclado c(*player);
 	bool quit = false;
+	//demo temporario de arma, mais tarde criar com lua
+	Weapon shotgun;
+	Polygon shotgunsprite;
+	Linha cabo(-15,-15,-15,-15+10);
+	Linha cabo2(-15+1,-15+1,-15+1,-15+10+1);
+	Linha cano(-15,-15+10,-45,-15+10);
+	Linha cano2(-15+1,-15+10+1,-45+1,-15+10+1);
+	shotgunsprite.addLinha(cabo);
+	shotgunsprite.addLinha(cabo2);
+	shotgunsprite.addLinha(cano);
+	shotgunsprite.addLinha(cano2);
+	shotgun.setSprite(shotgunsprite);
+	Ponto r(-15,-15);
+	shotgun.setRightHand(r);
+	Ponto l(-30,-15+10);
+	shotgun.setLeftHand(l);
+	player->equip(&shotgun);
+	//fim demo
 	while (!quit) {
 		fps.start();
 		//player events
@@ -136,4 +154,5 @@ void Game::mainLoop() {
 			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
 		}
 	}
+	SDL_Quit();
 }
