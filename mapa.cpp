@@ -5,9 +5,9 @@ Mapa::Mapa(double xmax, double ymax, Player *p, GravityManager *g): jogador(p), 
 	tamanho.y = ymax;
 }
 
-void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax) {
+void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass) {
 	Linha l(xmin, ymin, xmax, ymax);
-	Plataform *plat = new Plataform(l);
+	Plataform *plat = new Plataform(l, pass);
 	linhas.push_front(plat);
 	gravidade->addPlatform(plat);
 }

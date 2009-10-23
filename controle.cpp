@@ -2,8 +2,5 @@
 
 Controle::Controle(Player &p) : jogador( p )  {
     quit = false;
-}
-
-bool Controle::getQuit() {
-    return quit;
+    passing = false;
 }

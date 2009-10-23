@@ -13,13 +13,13 @@ const int FRAMES_PER_SECOND = 60;
 void Game::geraMapa() {
 	const double alturaChao = 400;
 	mapa = new Mapa(800, 600, player, gravityManager);
-	mapa->novaPlataforma(0,alturaChao,mapa->xmax(),alturaChao);
-	mapa->novaPlataforma(0,mapa->ymax(),mapa->xmax(),mapa->ymax());
-	mapa->novaPlataforma(30,350,100,350);
-	mapa->novaPlataforma(200,320,250,320);
-	mapa->novaPlataforma(400,275,450,275);
-	mapa->novaPlataforma(200,200,250,200);
-	mapa->novaPlataforma(30,100,100,100);
+	mapa->novaPlataforma(0,alturaChao,mapa->xmax(),alturaChao,false);
+	mapa->novaPlataforma(0,mapa->ymax(),mapa->xmax(),mapa->ymax(),false);
+	mapa->novaPlataforma(30,350,100,350,true);
+	mapa->novaPlataforma(200,320,250,320,true);
+	mapa->novaPlataforma(400,275,450,275,true);
+	mapa->novaPlataforma(200,200,250,200,true);
+	mapa->novaPlataforma(30,100,100,100,true);
 }
 
 bool init_GL()
@@ -144,7 +144,7 @@ void Game::mainLoop() {
 		c.eventLoop();
 
 		//colision, gravity
-		gravityManager->update();
+		gravityManager->update(c.isPassing());
 
 		//movements
 		player->move();

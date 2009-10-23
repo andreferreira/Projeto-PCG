@@ -8,9 +8,9 @@ class Plataform {
 	Linha line;
 	bool passable;
 	public:
-	Plataform(Linha aline);
+	Plataform(Linha aline, bool pass);
 	Linha getLine() {return line;};
-	bool isPassable();
+	bool isPassable() {return passable;};
 	void setPassable() {passable = true;}
 	void desenha();
 };

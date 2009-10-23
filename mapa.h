@@ -17,7 +17,7 @@ class Mapa {
 		std::list<Plataform*> linhas;
 	public:
 		Mapa(double xmax, double ymax, Player *p, GravityManager *g);
-		void novaPlataforma(double xmin, double ymin, double xmax, double ymax);
+		void novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass);
 		void desenha();
 		double xmax();
 		double ymax();
