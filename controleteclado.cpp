@@ -41,10 +41,7 @@ void ControleTeclado::eventLoop() {
 						}
                         break;
                     case SDLK_DOWN:
-						if (jogador.onGround) {
-							jogador.addSpeed( 0,  4);
-							jogador.onGround = false;
-						}
+						jogador.onGround = false;
 						passing = true;
                         break;
                     case SDLK_LEFT:
