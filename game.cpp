@@ -2,7 +2,6 @@
 #include "geometry.h"
 #include "luaenv.h"
 #include "timer.h"
-#include "player.h"
 #include "controleteclado.h"
 
 const int SCREEN_WIDTH = 640;
@@ -144,7 +143,7 @@ void Game::mainLoop() {
 		c.eventLoop();
 
 		//colision, gravity
-		gravityManager->update(c.isPassing());
+		gravityManager->update();
 
 		//movements
 		player->move();

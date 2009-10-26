@@ -9,6 +9,7 @@ class Thing {
 		Vetor velocidade;
 	public:
 		bool onGround;
+		bool bypass;
 		Thing();
 		void addSpeed(double xspeed, double yspeed);
 		void setSpeed(double xspeed, double yspeed);

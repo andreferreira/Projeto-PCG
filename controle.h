@@ -8,12 +8,10 @@ class Controle {
         Player &jogador;
         SDL_Event e;
         bool quit;
-        bool passing;
     public:
         Controle(Player &p);
         virtual void eventLoop() = 0;
         bool getQuit() {return quit;};
-        bool isPassing() {return passing;};
 };
 
 #endif

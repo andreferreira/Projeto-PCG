@@ -5,7 +5,6 @@ ControleTeclado::ControleTeclado(Player &p) : Controle(p) {
 }
 
 void ControleTeclado::eventLoop() {
-    passing = false;
     while( SDL_PollEvent( &e ) ) {
         switch( e.type ) {
             case SDL_QUIT:
@@ -42,7 +41,7 @@ void ControleTeclado::eventLoop() {
                         break;
                     case SDLK_DOWN:
 						jogador.onGround = false;
-						passing = true;
+						jogador.bypass = true;
                         break;
                     case SDLK_LEFT:
                         jogador.addSpeed(-3,  0);
