@@ -5,18 +5,19 @@
 
 #include "player.h"
 #include "geometry.h"
-#include "plataform.h"
+#include "platform.h"
+#include "game.h"
 
 class Player;
+class Game;
 
 class Mapa {
 	private:
 		Ponto tamanho;
-		Player *jogador;
-		GravityManager *gravidade;
-		std::list<Plataform*> linhas;
+		Game *game;
+		std::list<Platform*> linhas;
 	public:
-		Mapa(double xmax, double ymax, Player *p, GravityManager *g);
+		Mapa(double xmax, double ymax, Game *g);
 		void novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass);
 		void desenha();
 		double xmax();

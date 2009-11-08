@@ -9,7 +9,7 @@ OBJS = \
 	thing.o \
 	gravity.o \
 	mapa.o \
-	plataform.o \
+	platform.o \
 	controleteclado.o \
 	weapon.o \
 	

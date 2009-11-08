@@ -12,7 +12,7 @@ class Mapa;
 class Game {
 	private:
 		void show();
-		void geraMapa();
+		void loadMap();
 	public:
 		Ponto camera;
 		Game();
@@ -20,6 +20,7 @@ class Game {
 		void desenhaMira(Ponto aim);
 		Player *player;
 		Mapa *mapa;
+		void addPlatform(Platform* plat);
 		GravityManager *gravityManager;
 };
 

@@ -3,12 +3,12 @@
 
 #include "geometry.h"
 
-class Plataform {
+class Platform {
 	private:
 	Linha line;
 	bool passable;
 	public:
-	Plataform(Linha aline, bool pass);
+	Platform(Linha aline, bool pass);
 	Linha getLine() {return line;};
 	bool isPassable() {return passable;};
 	void setPassable() {passable = true;}

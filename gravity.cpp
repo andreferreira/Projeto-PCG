@@ -5,18 +5,18 @@ void GravityManager::subscribe(Thing* thing) {
 	things.insert(thing);
 }
 
-void GravityManager::addPlatform(Plataform* linha) {
-	plataforms.insert(linha);
+void GravityManager::addPlatform(Platform* linha) {
+	platforms.insert(linha);
 }
 
 void GravityManager::update() {
 	std::set<Thing*>::iterator it;
-	std::set<Plataform*>::iterator plat;
+	std::set<Platform*>::iterator plat;
 	for (it = things.begin(); it != things.end(); it++) {
 		(*it)->addSpeed(0,0.1);
 		if ((*it)->getSpeedY() < 0.0) continue;
 		bool colisao = false;
-		for (plat = plataforms.begin(); !colisao && plat != plataforms.end(); plat++) {
+		for (plat = platforms.begin(); !colisao && plat != platforms.end(); plat++) {
 			colisao = checkGround(*it, *plat);
 		}
 		if (colisao) {
@@ -72,7 +72,7 @@ bool linesIntersect(const Linha a,const Linha b) {
 }
 
 
-bool GravityManager::checkGround(Thing* thing, Plataform *plataform) {
+bool GravityManager::checkGround(Thing* thing, Platform *platform) {
 	Linha baseLine = thing->getBaseLine();
 	Linha l1 = baseLine;
 	Linha l2(baseLine.vertices[0].x + thing->getSpeedX(),
@@ -81,9 +81,9 @@ bool GravityManager::checkGround(Thing* thing, Plataform *plataform) {
 			 baseLine.vertices[1].y + thing->getSpeedY());
 	Linha l3(l1.vertices[0],l2.vertices[0]);
 	Linha l4(l1.vertices[1],l2.vertices[1]);
-	return (!plataform->isPassable() || !thing->bypass) && (
-	           linesIntersect(l1,plataform->getLine()) ||
-	           linesIntersect(l2,plataform->getLine()) ||
-		       linesIntersect(l3,plataform->getLine()) ||
-		       linesIntersect(l4,plataform->getLine()));
+	return (!platform->isPassable() || !thing->bypass) && (
+	           linesIntersect(l1,platform->getLine()) ||
+	           linesIntersect(l2,platform->getLine()) ||
+		       linesIntersect(l3,platform->getLine()) ||
+		       linesIntersect(l4,platform->getLine()));
 }

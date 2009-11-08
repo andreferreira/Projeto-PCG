@@ -1,19 +1,19 @@
 #include "mapa.h"
 
-Mapa::Mapa(double xmax, double ymax, Player *p, GravityManager *g): jogador(p), gravidade(g) {
+Mapa::Mapa(double xmax, double ymax, Game* g): game(g) {
 	tamanho.x = xmax;
 	tamanho.y = ymax;
 }
 
 void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass) {
 	Linha l(xmin, ymin, xmax, ymax);
-	Plataform *plat = new Plataform(l, pass);
+	Platform *plat = new Platform(l, pass);
 	linhas.push_front(plat);
-	gravidade->addPlatform(plat);
+	game->addPlatform(plat);
 }
 
 void Mapa::desenha() {
-	std::list<Plataform*>::iterator it;
+	std::list<Platform*>::iterator it;
 	for (it = linhas.begin(); it != linhas.end(); it++)
 		(*it)->desenha();
 }

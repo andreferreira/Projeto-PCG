@@ -4,16 +4,16 @@
 #include <set>
 #include "geometry.h"
 #include "thing.h"
-#include "plataform.h"
+#include "platform.h"
 
 class GravityManager {
 	private:
 		std::set<Thing*> things;
-		std::set<Plataform*> plataforms;
-		bool checkGround(Thing* thing, Plataform *plataform);
+		std::set<Platform*> platforms;
+		bool checkGround(Thing* thing, Platform *platform);
 	public:
 		void subscribe(Thing* thing);
-		void addPlatform(Plataform* linha);
+		void addPlatform(Platform* linha);
 		void update();
 };
 
