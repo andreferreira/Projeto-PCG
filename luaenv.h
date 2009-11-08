@@ -17,6 +17,10 @@ class Script {
 		Script(std::string name) { this->name = name; L = NULL;}
 };
 
+lua_State* newState();
+void doLuaFile(lua_State* l,std::string file);
+void registerFunction(lua_State* l, std::string name, lua_CFunction function);
+
 class luaRun {
 	public:
 		void loadScripts();

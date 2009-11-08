@@ -4,6 +4,7 @@
 #include "player.h"
 #include "gravity.h"
 #include "mapa.h"
+#include <string>
 
 class Player;
 
@@ -12,7 +13,7 @@ class Mapa;
 class Game {
 	private:
 		void show();
-		void loadMap();
+		void loadMap(std::string mapname);
 	public:
 		Ponto camera;
 		Game();

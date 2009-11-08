@@ -1,8 +1,15 @@
 #include "mapa.h"
+#include "maploader.h"
 
-Mapa::Mapa(double xmax, double ymax, Game* g): game(g) {
-	tamanho.x = xmax;
-	tamanho.y = ymax;
+Mapa::Mapa(std::string name, Game* g) {
+	game = g;
+	MapLoader loader;
+	loader.load(name,this);
+}
+
+void Mapa::setTamanho(double width, double height) {
+	tamanho.x = width;
+	tamanho.y = height;
 }
 
 void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass) {

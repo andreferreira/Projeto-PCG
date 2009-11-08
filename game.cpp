@@ -9,17 +9,11 @@ const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 const int FRAMES_PER_SECOND = 60;
 
-void Game::loadMap() {
-	
+void Game::loadMap(std::string mapname) {
+	if (mapa != NULL)
+		delete mapa;
 	const double alturaChao = 400;
-	mapa = new Mapa(800, 600, this);
-	mapa->novaPlataforma(0,alturaChao,mapa->xmax(),alturaChao,false);
-	mapa->novaPlataforma(0,mapa->ymax(),mapa->xmax(),mapa->ymax(),false);
-	mapa->novaPlataforma(30,350,100,350,true);
-	mapa->novaPlataforma(200,320,250,320,true);
-	mapa->novaPlataforma(400,275,450,275,true);
-	mapa->novaPlataforma(200,200,250,200,true);
-	mapa->novaPlataforma(30,100,100,100,true);
+	mapa = new Mapa(mapname,this);
 }
 
 void Game::addPlatform(Platform* plat) {
@@ -121,7 +115,7 @@ void Game::mainLoop() {
 	Timer fps;
 
 	player = new Player(this);
-	loadMap();
+	loadMap("map1.lua");
 	ControleTeclado c(*player);
 	bool quit = false;
 	//demo temporario de arma, mais tarde criar com lua
