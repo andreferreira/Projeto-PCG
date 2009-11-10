@@ -7,6 +7,13 @@ Mapa::Mapa(std::string name, Game* g) {
 	loader.load(name,this);
 }
 
+Mapa::~Mapa() {
+	std::list<Platform*>::iterator it;
+	for (it = platforms.begin(); it != platforms.end(); it++)
+		delete (*it);
+	game->removePlatforms();
+}
+
 void Mapa::setTamanho(double width, double height) {
 	tamanho.x = width;
 	tamanho.y = height;
@@ -15,13 +22,13 @@ void Mapa::setTamanho(double width, double height) {
 void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass) {
 	Linha l(xmin, ymin, xmax, ymax);
 	Platform *plat = new Platform(l, pass);
-	linhas.push_front(plat);
+	platforms.push_front(plat);
 	game->addPlatform(plat);
 }
 
 void Mapa::desenha() {
 	std::list<Platform*>::iterator it;
-	for (it = linhas.begin(); it != linhas.end(); it++)
+	for (it = platforms.begin(); it != platforms.end(); it++)
 		(*it)->desenha();
 }
 

@@ -14,6 +14,7 @@ class Game {
 	private:
 		void show();
 		void loadMap(std::string mapname);
+		std::string currentMap;
 	public:
 		Ponto camera;
 		Game();
@@ -23,6 +24,8 @@ class Game {
 		Mapa *mapa;
 		void addPlatform(Platform* plat);
 		GravityManager *gravityManager;
+		void reloadMap();
+		void removePlatforms();
 };
 
 #endif

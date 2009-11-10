@@ -30,6 +30,10 @@ void GravityManager::update() {
 	}
 }
 
+void GravityManager::removePlatforms() {
+	platforms.clear();
+}
+
 bool contido(double x1,double y1, double x2, double y2, Ponto &ponto) {
 	return x1 <= ponto.x && ponto.x <= x2 && y1 <= ponto.y && ponto.y <= y2;
 }

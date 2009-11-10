@@ -15,6 +15,7 @@ class GravityManager {
 		void subscribe(Thing* thing);
 		void addPlatform(Platform* linha);
 		void update();
+		void removePlatforms();
 };
 
 #endif

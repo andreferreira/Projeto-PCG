@@ -16,9 +16,10 @@ class Mapa {
 	private:
 		Ponto tamanho;
 		Game *game;
-		std::list<Platform*> linhas;
+		std::list<Platform*> platforms;
 	public:
 		Mapa(std::string name, Game *g);
+		~Mapa();
 		void novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass);
 		void desenha();
 		double xmax();

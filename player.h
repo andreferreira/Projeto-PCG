@@ -10,7 +10,6 @@ class Game;
 
 class Player: public Thing {
 	private:
-		Game* game;
 		Ponto leftFeet();
 		Ponto rightFeet();
 		Ponto cintura();
@@ -24,6 +23,7 @@ class Player: public Thing {
 		double getAngle();
 		Ponto getCotovelo(Ponto ombro, Ponto hand);
 	public:
+		Game* game;
         Player(Game* agame);
         void desenha();
 		void setAim(double x, double y);

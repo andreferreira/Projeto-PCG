@@ -20,6 +20,10 @@ void Game::addPlatform(Platform* plat) {
 	gravityManager->addPlatform(plat);
 }
 
+void Game::removePlatforms() {
+	gravityManager->removePlatforms();
+}
+
 bool init_GL()
 {
     //Set clear color
@@ -108,6 +112,10 @@ void Game::show() {
 	SDL_GL_SwapBuffers();
 }
 
+void Game::reloadMap() {
+	loadMap(currentMap);
+}
+
 void Game::mainLoop() {
 	luaRun luaEnv;
 	luaEnv.registerScripts();
@@ -115,7 +123,8 @@ void Game::mainLoop() {
 	Timer fps;
 
 	player = new Player(this);
-	loadMap("map1.lua");
+	currentMap = "map1.lua";
+	loadMap(currentMap);
 	ControleTeclado c(*player);
 	bool quit = false;
 	//demo temporario de arma, mais tarde criar com lua

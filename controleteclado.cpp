@@ -49,6 +49,8 @@ void ControleTeclado::eventLoop() {
                     case SDLK_RIGHT:
                         jogador.addSpeed( 3,  0);
                         break;
+					case SDLK_F5:
+						jogador.game->reloadMap();
                     default: break;
                 }
                 break;
