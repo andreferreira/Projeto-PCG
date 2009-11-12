@@ -112,8 +112,10 @@ void Game::show() {
 	SDL_GL_SwapBuffers();
 }
 
-void Game::reloadMap() {
+void Game::reloadLua() {
 	loadMap(currentMap);
+	weaponManager->loadWeapons();
+	player->equip(weaponManager->getWeapon("Shotgun"));
 }
 
 void Game::mainLoop() {

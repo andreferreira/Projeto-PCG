@@ -48,6 +48,10 @@ Weapon* WeaponManager::getWeapon(std::string name) {
 void WeaponManager::loadWeapons() {
 	if (lstate != NULL)
 		lua_close(lstate);
+	std::list<Weapon*>::iterator it;
+	for (it = weapons.begin(); it != weapons.end(); it++)
+		delete (*it);
+	weapons.clear();
 	_weapons = &weapons;
 	lstate = newState();
 	registerFunction(lstate,"regweapon",regweapon);

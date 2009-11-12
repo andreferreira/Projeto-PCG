@@ -50,7 +50,7 @@ void ControleTeclado::eventLoop() {
                         jogador.addSpeed( 3,  0);
                         break;
 					case SDLK_F5:
-						jogador.game->reloadMap();
+						jogador.game->reloadLua();
                     default: break;
                 }
                 break;

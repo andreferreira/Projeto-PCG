@@ -24,7 +24,7 @@ class Game {
 		Mapa *mapa;
 		void addPlatform(Platform* plat);
 		GravityManager *gravityManager;
-		void reloadMap();
+		void reloadLua();
 		void removePlatforms();
 };
 
