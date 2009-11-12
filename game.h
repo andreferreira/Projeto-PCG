@@ -1,9 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <string>
 #include "gravity.h"
 #include "mapa.h"
-#include <string>
+#include "weaponmanager.h"
 
 class Player;
 class Mapa;
@@ -13,6 +14,7 @@ class Game {
 		void show();
 		void loadMap(std::string mapname);
 		std::string currentMap;
+		WeaponManager* weaponManager;
 	public:
 		Ponto camera;
 		Game();
