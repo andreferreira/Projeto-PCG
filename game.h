@@ -7,7 +7,6 @@
 #include <string>
 
 class Player;
-
 class Mapa;
 
 class Game {

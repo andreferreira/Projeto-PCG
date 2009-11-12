@@ -2,6 +2,7 @@ OBJS = \
 	main.o \
 	geometry.o \
 	luaenv.o \
+	shooter.o \
 	player.o \
 	game.o \
 	timer.o \
