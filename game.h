@@ -1,7 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "player.h"
 #include "gravity.h"
 #include "mapa.h"
 #include <string>

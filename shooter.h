@@ -7,9 +7,10 @@
 #include "weapon.h"
 
 class Game;
+class Player;
 
 class Shooter: public Thing {
-	private:
+	protected:
 		Ponto leftFeet();
 		Ponto rightFeet();
 		Ponto cintura();

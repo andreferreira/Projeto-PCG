@@ -4,7 +4,6 @@
 #include <list>
 #include <string>
 
-#include "player.h"
 #include "geometry.h"
 #include "platform.h"
 #include "game.h"
