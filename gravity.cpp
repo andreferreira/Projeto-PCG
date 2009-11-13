@@ -13,7 +13,7 @@ void GravityManager::update() {
 	std::set<Thing*>::iterator it;
 	std::set<Platform*>::iterator plat;
 	for (it = things.begin(); it != things.end(); it++) {
-		(*it)->addSpeed(0,0.1);
+		(*it)->addSpeed(0,0.3);
 		if ((*it)->getSpeedY() < 0.0) continue;
 		bool colisao = false;
 		for (plat = platforms.begin(); !colisao && plat != platforms.end(); plat++) {

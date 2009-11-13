@@ -118,6 +118,10 @@ void Game::reloadLua() {
 	player->equip(weaponManager->getWeapon("Shotgun"));
 }
 
+void Game::setSpawn(Ponto spawn) {
+	this->spawn = spawn;
+}
+
 void Game::mainLoop() {
 	luaRun luaEnv;
 	luaEnv.registerScripts();
@@ -127,6 +131,7 @@ void Game::mainLoop() {
 	player = new Player(this);
 	currentMap = "map1.lua";
 	loadMap(currentMap);
+	player->setPosition(spawn.x,spawn.y);
 	ControleTeclado c(*player);
 	bool quit = false;
 	weaponManager = new WeaponManager;

@@ -15,6 +15,7 @@ class Game {
 		void loadMap(std::string mapname);
 		std::string currentMap;
 		WeaponManager* weaponManager;
+		Ponto spawn;
 	public:
 		Ponto camera;
 		Game();
@@ -26,6 +27,8 @@ class Game {
 		GravityManager *gravityManager;
 		void reloadLua();
 		void removePlatforms();
+		void setSpawn(Ponto spawn);
+		Ponto getSpawn() {return spawn;}
 };
 
 #endif

@@ -6,6 +6,10 @@ static Mapa* mapa = NULL;
 static int regmap (lua_State *L) {
 	double width = lua_tonumber(L, 1);
 	double height = lua_tonumber(L, 2);
+	Ponto spawn;
+	spawn.x = lua_tonumber(L, 3);
+	spawn.y = lua_tonumber(L, 4);
+	mapa->setSpawn(spawn);
 	mapa->setTamanho(width,height);
 	return 0;
 }

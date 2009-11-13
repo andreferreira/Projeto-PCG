@@ -19,6 +19,10 @@ void Mapa::setTamanho(double width, double height) {
 	tamanho.y = height;
 }
 
+void Mapa::setSpawn(Ponto spawn) {
+	game->setSpawn(spawn);
+}
+
 void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass) {
 	Linha l(xmin, ymin, xmax, ymax);
 	Platform *plat = new Platform(l, pass);

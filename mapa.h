@@ -21,6 +21,7 @@ class Mapa {
 		~Mapa();
 		void novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass);
 		void desenha();
+		void setSpawn(Ponto spawn);
 		double xmax();
 		double ymax();
 		void setTamanho(double width, double height);

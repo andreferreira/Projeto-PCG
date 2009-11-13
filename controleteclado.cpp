@@ -35,7 +35,7 @@ void ControleTeclado::eventLoop() {
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
 						if (jogador.onGround) {
-							jogador.addSpeed( 0, -4);
+							jogador.addSpeed( 0, -8);
 							jogador.onGround = false;
 						}
                         break;
@@ -51,6 +51,10 @@ void ControleTeclado::eventLoop() {
                         break;
 					case SDLK_F5:
 						jogador.game->reloadLua();
+						break;
+					case SDLK_F6:
+						jogador.setPosition(jogador.game->getSpawn().x,jogador.game->getSpawn().y);
+						break;
                     default: break;
                 }
                 break;
