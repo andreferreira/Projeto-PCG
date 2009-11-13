@@ -11,11 +11,6 @@ void Controle::handleEvents() {
             case SDL_QUIT:
                 quit = true;
                 break;
-            case SDL_KEYUP:
-                switch (e.key.keysym.sym) {
-                    default: handleEvent(e);break;
-                }
-                break;
             case SDL_KEYDOWN:
                 switch (e.key.keysym.sym) {
 					case SDLK_F5:
@@ -32,10 +27,5 @@ void Controle::handleEvents() {
 				break;
         }
     }
-	Uint8 *keystates = SDL_GetKeyState( NULL );
-	if (keystates[SDLK_DOWN]) {
-		jogador.onGround = false;
-		jogador.bypass = true;
-	}
-	
+	handleOther();
 }

@@ -11,6 +11,7 @@ class Controle {
         Controle(Player &p);
         void handleEvents();
 		virtual void handleEvent(SDL_Event &e) = 0;
+		virtual void handleOther() = 0;
         bool getQuit() {return quit;};
 };
 

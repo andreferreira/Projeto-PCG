@@ -7,6 +7,7 @@ class ControleTeclado: public Controle {
 	public:
 		ControleTeclado(Player &p);
 		virtual void handleEvent(SDL_Event &e);
+		virtual void handleOther();
 };
 
 #endif

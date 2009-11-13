@@ -4,6 +4,14 @@ ControleTeclado::ControleTeclado(Player &p) : Controle(p) {
 	
 }
 
+void ControleTeclado::handleOther() {
+	Uint8 *keystates = SDL_GetKeyState( NULL );
+	if (keystates[SDLK_DOWN]) {
+		jogador.onGround = false;
+		jogador.bypass = true;
+	}
+}
+
 void ControleTeclado::handleEvent(SDL_Event &e) {
 	switch( e.type ) {
 		case SDL_MOUSEMOTION: {
