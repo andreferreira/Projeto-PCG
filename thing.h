@@ -4,9 +4,10 @@
 #include "geometry.h"
 
 class Thing {
-	private:
+	protected:
 		Ponto posicao;
 		Vetor velocidade;
+		Vetor maxspeed;
 	public:
 		bool onGround;
 		bool bypass;

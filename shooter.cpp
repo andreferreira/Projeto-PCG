@@ -8,6 +8,8 @@ Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
     setSpeed(speed.x, speed.y);
 	game = agame;
 	game->gravityManager->subscribe(this);
+	maxspeed.x = 5;
+	maxspeed.y = 20;
 }
 
 void Shooter::equip(Weapon* aweapon) {
