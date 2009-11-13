@@ -140,7 +140,7 @@ void Game::mainLoop() {
 	while (!quit) {
 		fps.start();
 		//player events
-		c.eventLoop();
+		c.handleEvents();
 
 		//colision, gravity
 		gravityManager->update();

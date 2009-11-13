@@ -2,8 +2,8 @@ local w = 800
 local h = 1600
 
 local platforms = {
-		platform{0,h-200,w,h-200},
-		platform{0,h,w,h}
+		platform{0,h-200,w,h-200,passable = false},
+		platform{0,h,w,h,passable=false}
 }
 
 function addPlat(plat)
