@@ -5,6 +5,7 @@
 #include "gravity.h"
 #include "mapa.h"
 #include "weaponmanager.h"
+#include "configmanager.h"
 
 class Player;
 class Mapa;
@@ -15,9 +16,10 @@ class Game {
 		void loadMap(std::string mapname);
 		std::string currentMap;
 		WeaponManager* weaponManager;
+		ConfigManager *config;
 	public:
 		Ponto camera;
-		Game();
+		Game(ConfigManager *cfg);
 		void mainLoop();
 		void desenhaMira(Ponto aim);
 		Player *player;

@@ -6,7 +6,7 @@
 
 class Player: public Shooter {
 	public:
-		Player(Game* agame);
+        Player(Game* agame, Ponto pos, Ponto speed);
 		void desenha();
 };
 

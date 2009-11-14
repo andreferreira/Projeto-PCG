@@ -4,15 +4,9 @@
 #include "timer.h"
 #include "controleteclado.h"
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-const int SCREEN_BPP = 32;
-const int FRAMES_PER_SECOND = 60;
-
 void Game::loadMap(std::string mapname) {
 	if (mapa != NULL)
 		delete mapa;
-	const double alturaChao = 400;
 	mapa = new Mapa(mapname,this);
 }
 
@@ -24,8 +18,7 @@ void Game::removePlatforms() {
 	gravityManager->removePlatforms();
 }
 
-bool init_GL()
-{
+bool init_GL() {
     //Set clear color
     glClearColor( 1, 1, 1, 0 );
 
@@ -50,11 +43,11 @@ bool init_GL()
     return true;
 }
 
-Game::Game()
-{
+Game::Game(ConfigManager *cfg) {
 	gravityManager = new GravityManager;
 	mapa = NULL;
 	player = NULL;
+	config = cfg;
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
@@ -62,7 +55,7 @@ Game::Game()
     }
 
     //Create Window
-    if( SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_OPENGL ) == NULL )
+    if( SDL_SetVideoMode( config->screen["width"], config->screen["height"], config->screen["bpp"], SDL_OPENGL ) == NULL )
     {
         //erro
     }
@@ -87,20 +80,22 @@ void Game::desenhaMira(Ponto aim) {
 void Game::show() {
 	glClear( GL_COLOR_BUFFER_BIT );
     double x, y;
-
-    if (player->getX() <= SCREEN_WIDTH/2)
+	int width = config->screen["width"];
+	int height = config->screen["height"];
+	
+    if (player->getX() <= width/2)
     	x = 0;
-    else if (player->getX() >= mapa->xmax() - SCREEN_WIDTH/2)
-    	x = mapa->xmax() - SCREEN_WIDTH;
+    else if (player->getX() >= mapa->xmax() - width/2)
+    	x = mapa->xmax() - width;
     else
-    	x = player->getX() - SCREEN_WIDTH/2;
+    	x = player->getX() - width/2;
 
-    if (player->getY() <= 2*SCREEN_HEIGHT/3)
+    if (player->getY() <= 2*height/3)
     	y = 0;
-    else if (player->getY() >= mapa->ymax() - SCREEN_HEIGHT/3)
-    	y = mapa->ymax() - SCREEN_HEIGHT;
+    else if (player->getY() >= mapa->ymax() - height/3)
+    	y = mapa->ymax() - height;
     else
-    	y = player->getY() - 2*SCREEN_HEIGHT/3;
+    	y = player->getY() - 2*height/3;
 	camera.x = x;
 	camera.y = y;
 	player->desenha();
@@ -108,12 +103,13 @@ void Game::show() {
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    glOrtho( camera.x, camera.x+SCREEN_WIDTH, camera.y+SCREEN_HEIGHT, camera.y, -1, 1 );
+    glOrtho( camera.x, camera.x+width, camera.y+height, camera.y, -1, 1 );
 	SDL_GL_SwapBuffers();
 }
 
 void Game::reloadLua() {
-	loadMap(currentMap);
+	config->load();
+	loadMap(config->maps.front());
 	weaponManager->loadWeapons();
 	player->equip(weaponManager->getWeapon("Shotgun"));
 }
@@ -124,14 +120,16 @@ void Game::mainLoop() {
 	luaEnv.loadScripts();
 	Timer fps;
 
-	player = new Player(this);
-	currentMap = "map1.lua";
-	loadMap(currentMap);
+	loadMap(config->maps.front());
+
+	player = new Player(this, config->player["pos"], config->player["speed"]);
 	ControleTeclado c(*player);
-	bool quit = false;
+
 	weaponManager = new WeaponManager;
 	weaponManager->loadWeapons();
 	player->equip(weaponManager->getWeapon("Shotgun"));
+
+	bool quit = false;
 	while (!quit) {
 		fps.start();
 		//player events
@@ -144,8 +142,8 @@ void Game::mainLoop() {
 		player->move();
 		quit = c.getQuit();
 		show();
-		if (fps.get_ticks() < 1000 / FRAMES_PER_SECOND ) {
-			SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
+		if (fps.get_ticks() < 1000 / config->screen["fps"] ) {
+			SDL_Delay( ( 1000 / config->screen["fps"] ) - fps.get_ticks() );
 		}
 	}
 	SDL_Quit();

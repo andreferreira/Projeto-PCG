@@ -1,7 +1,9 @@
 #include "game.h"
-
+#include "configmanager.h"
 
 int main() {
-	Game agame;
+	ConfigManager config;
+	config.load();
+	Game agame(&config);
 	agame.mainLoop();
 }

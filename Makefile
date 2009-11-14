@@ -15,6 +15,7 @@ OBJS = \
 	weapon.o \
 	maploader.o \
 	weaponmanager.o \
+	configmanager.o \
 	
 	
 SRCS = $(OBJS,.o=.cpp) 
