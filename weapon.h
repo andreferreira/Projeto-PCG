@@ -12,6 +12,7 @@ class Weapon: public Thing {
 		Ponto rightHand;
 	public:
 		Polygon sprite;
+		int fireRate;
 		std::string name;
 		void setSprite(Polygon asprite) { sprite = asprite;}
 		void setLeftHand(Ponto hand) {leftHand = hand;}

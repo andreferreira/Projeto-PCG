@@ -23,12 +23,15 @@ class Shooter: public Thing {
 		double tamanhoBraco();
 		double getAngle();
 		Ponto getCotovelo(Ponto ombro, Ponto hand);
+		bool canfire;
 	public:
 		Game* game;
         Shooter(Game* agame, Ponto pos, Ponto speed);
         void desenha();
 		void setAim(double x, double y);
 		void equip(Weapon* aweapon);
+		void fire();
+		void allowFire();
 		virtual Linha getBaseLine();
 };
 

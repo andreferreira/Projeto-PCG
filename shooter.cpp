@@ -10,12 +10,45 @@ Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
 	game->gravityManager->subscribe(this);
 	maxspeed.x = 5;
 	maxspeed.y = 20;
+	canfire = true;
 }
 
 void Shooter::equip(Weapon* aweapon) {
 	//desequipar a anterior aqui mais tarde
 	weapon = aweapon;
 }
+
+void allowFireFunc(void* param) {
+	((Shooter*)param)->allowFire();
+}
+
+Uint32 allowFireCallback(Uint32 interval, void *param) {
+	SDL_Event event;
+	SDL_UserEvent userevent;
+	userevent.type = SDL_USEREVENT;
+	userevent.code = 0;
+	userevent.data1 = (void*)allowFireFunc;
+	userevent.data2 = (void*)param;
+	
+	event.type = SDL_USEREVENT;
+	event.user = userevent;
+
+	SDL_PushEvent(&event);
+
+	return 0;
+}
+
+void Shooter::allowFire() {
+	canfire = true;
+}
+
+void Shooter::fire() {
+	if (!canfire)
+		return;
+	SDL_AddTimer(weapon->fireRate,allowFireCallback,this);
+	canfire = false;
+}
+
 
 Ponto Shooter::leftFeet() {
 	Ponto pe(-10,0);

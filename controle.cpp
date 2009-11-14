@@ -8,6 +8,11 @@ void Controle::handleEvents() {
 	SDL_Event e;	
     while( SDL_PollEvent( &e ) ) {
         switch( e.type ) {
+			case SDL_USEREVENT: {
+				void (*p) (void*) = (void (*)(void*))e.user.data1;
+				p(e.user.data2);
+				}
+				break;
             case SDL_QUIT:
                 quit = true;
                 break;

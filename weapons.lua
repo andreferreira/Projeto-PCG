@@ -7,6 +7,7 @@ shotgun = Weapon{
 			name = "Shotgun",
 			righthand = {-15,-15},
 			lefthand = {-30,-15+10},
+			firerate = 1000,
 			sprite = {
 					Line(cabo),
 					Line(cabo2),

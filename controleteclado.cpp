@@ -10,6 +10,9 @@ void ControleTeclado::handleOther() {
 		jogador.onGround = false;
 		jogador.bypass = true;
 	}
+	if(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1)) { //botao esquerdo do mouse pressionado
+		jogador.fire();
+	}
 }
 
 void ControleTeclado::handleEvent(SDL_Event &e) {
@@ -18,6 +21,9 @@ void ControleTeclado::handleEvent(SDL_Event &e) {
 				jogador.setAim(e.motion.x,e.motion.y);
 			}
 			break;
+		case SDL_MOUSEBUTTONDOWN:
+			jogador.fire();
+		break;
 		case SDL_KEYUP:
 			switch (e.key.keysym.sym) {
 				case SDLK_LEFT:
@@ -31,6 +37,10 @@ void ControleTeclado::handleEvent(SDL_Event &e) {
 			break;
 		case SDL_KEYDOWN:
 			switch (e.key.keysym.sym) {
+				case SDLK_DOWN:
+					jogador.onGround = false;
+					jogador.bypass = true;
+					break;
 				case SDLK_UP:
 					if (jogador.onGround) {
 						jogador.addSpeed( 0, -8);

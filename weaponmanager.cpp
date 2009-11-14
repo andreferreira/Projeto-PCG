@@ -16,6 +16,7 @@ static int regweapon (lua_State *L) {
 	l.y = lua_tonumber(L, 4);
 	Weapon* newweapon = new Weapon();
 	newweapon->name = lua_tostring (L, 5);
+	newweapon->fireRate = lua_tonumber(L, 6);
 	newweapon->setRightHand(r);
 	newweapon->setLeftHand(l);
 	lua_pushlightuserdata(L, newweapon);
