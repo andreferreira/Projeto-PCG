@@ -121,15 +121,13 @@ void Game::setSpawn(Ponto spawn) {
 }
 
 void Game::mainLoop() {
-	luaRun luaEnv;
-	luaEnv.registerScripts();
-	luaEnv.loadScripts();
 	Timer fps;
 	
 	loadMap(config->maps.front());
 
-	player = new Player(this, config->player["pos"], config->player["speed"]);
+	player = new Player(this, spawn, config->player["speed"]);
 	ControleTeclado c(*player);
+	
 	shotManager = new ShotManager;
 	weaponManager = new WeaponManager;
 	weaponManager->loadWeapons();
