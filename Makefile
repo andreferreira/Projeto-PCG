@@ -17,7 +17,8 @@ OBJS = \
 	weaponmanager.o \
 	configmanager.o \
 	shot.o \
-	shotmanager.o \	
+	shotmanager.o \
+	
 	
 SRCS = $(OBJS,.o=.cpp) 
 
