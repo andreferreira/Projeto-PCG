@@ -3,6 +3,7 @@
 #include "luaenv.h"
 #include "timer.h"
 #include "controleteclado.h"
+#include "shotmanager.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -105,6 +106,7 @@ void Game::show() {
 	camera.y = y;
 	player->desenha();
 	mapa->desenha();
+	shotManager->desenha();
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
@@ -134,6 +136,7 @@ void Game::mainLoop() {
 	player->setPosition(spawn.x,spawn.y);
 	ControleTeclado c(*player);
 	bool quit = false;
+	shotManager = new ShotManager;
 	weaponManager = new WeaponManager;
 	weaponManager->loadWeapons();
 	player->equip(weaponManager->getWeapon("Shotgun"));
@@ -147,6 +150,7 @@ void Game::mainLoop() {
 
 		//movements
 		player->move();
+		shotManager->move();
 		quit = c.getQuit();
 		show();
 		if (fps.get_ticks() < 1000 / FRAMES_PER_SECOND ) {

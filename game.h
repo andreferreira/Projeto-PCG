@@ -8,6 +8,7 @@
 
 class Player;
 class Mapa;
+class ShotManager;
 
 class Game {
 	private:
@@ -17,6 +18,7 @@ class Game {
 		WeaponManager* weaponManager;
 		Ponto spawn;
 	public:
+		ShotManager* shotManager;
 		Ponto camera;
 		Game();
 		void mainLoop();

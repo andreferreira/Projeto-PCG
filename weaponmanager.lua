@@ -1,7 +1,8 @@
 function Weapon(t)
 	local w = regweapon(t.righthand[1],t.righthand[2],
 						t.lefthand[1],t.lefthand[2],
-						t.name,t.firerate)
+						t.name,t.firerate,
+						t.tip[1],t.tip[2])
 	for i = 1, #t.sprite do
 		regspriteline(w,t.sprite[i][1],t.sprite[i][2],t.sprite[i][3],t.sprite[i][4])
 	end

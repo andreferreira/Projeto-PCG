@@ -9,7 +9,7 @@ WeaponManager::WeaponManager() {
 std::list<Weapon*> *_weapons = NULL;
 
 static int regweapon (lua_State *L) {
-	Ponto r,l;
+	Ponto r,l,tip;
 	r.x = lua_tonumber(L, 1);
 	r.y = lua_tonumber(L, 2);
 	l.x = lua_tonumber(L, 3);
@@ -17,8 +17,12 @@ static int regweapon (lua_State *L) {
 	Weapon* newweapon = new Weapon();
 	newweapon->name = lua_tostring (L, 5);
 	newweapon->fireRate = lua_tonumber(L, 6);
+	tip.x = lua_tonumber(L, 7);
+	tip.y = lua_tonumber(L, 8);
+	newweapon->shotSpeed = 10;
 	newweapon->setRightHand(r);
 	newweapon->setLeftHand(l);
+	newweapon->setTip(tip);
 	lua_pushlightuserdata(L, newweapon);
 	_weapons->push_front(newweapon);
 	return 1;

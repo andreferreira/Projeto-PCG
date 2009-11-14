@@ -11,8 +11,8 @@ void Thing::addSpeed(double xspeed, double yspeed) {
 }
 
 void Thing::setSpeed(double xspeed, double yspeed) {
-	velocidade.x = xspeed;
-	velocidade.y = yspeed;
+	velocidade.x = std::max(std::min(xspeed,maxspeed.x),-maxspeed.x);
+	velocidade.y = std::max(std::min(yspeed,maxspeed.y),-maxspeed.y);
 }
 
 void Thing::setPosition(double x, double y) {
@@ -21,8 +21,8 @@ void Thing::setPosition(double x, double y) {
 }
 
 void Thing::move() {
-	posicao.x += std::max(std::min(velocidade.x,maxspeed.x),-maxspeed.x);
-	posicao.y += std::max(std::min(velocidade.y,maxspeed.y),-maxspeed.y);
+	posicao.x += velocidade.x;
+	posicao.y += velocidade.y;
 }
 
 Linha Thing::getBaseLine() {
