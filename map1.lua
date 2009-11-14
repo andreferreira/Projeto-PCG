@@ -1,13 +1,34 @@
+local w = 800
+local h = 1600
+
+local platforms = {
+		platform{0,h-200,w,h-200,passable = false},
+		platform{0,h,w,h,passable=false}
+}
+
+function addPlat(plat)
+	platforms[#platforms+1] = platform(plat)
+end
+
+local platW = 160
+local platH = 50
+local platSize = 80
+
+for x = 0, 4 do
+	for y = 1, 50 do
+		addPlat({x*platW,h-200-y*platH,platSize+x*platW,h-200-y*platH})
+	end
+end
+
+for x = 0, 4 do
+	for y = 1, 50 do
+		addPlat({platSize+5+x*platW,h-175-y*platH,platSize+platSize+x*platW-5,h-175-y*platH})
+	end
+end
+
 map {
-	width = 800,
-	height = 600,
-	platforms = {
-		platform{0,400,800,400,passable = false},
-		platform{0,600,800,600,passable = false},
-		platform{30,350,100,350},
-		platform{200,320,250,320},
-		platform{400,275,450,275},
-		platform{200,200,250,200},
-		platform{30,100,100,100}
-	}
+	spawn = {400,h-200},
+	width = w,
+	height = h,
+	platforms = platforms
 }

@@ -6,11 +6,12 @@
 class Controle {
     protected:
         Player &jogador;
-        SDL_Event e;
         bool quit;
     public:
         Controle(Player &p);
-        virtual void eventLoop() = 0;
+        void handleEvents();
+		virtual void handleEvent(SDL_Event &e) = 0;
+		virtual void handleOther() = 0;
         bool getQuit() {return quit;};
 };
 

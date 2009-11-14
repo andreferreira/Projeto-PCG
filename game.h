@@ -9,6 +9,7 @@
 
 class Player;
 class Mapa;
+class ShotManager;
 
 class Game {
 	private:
@@ -17,7 +18,9 @@ class Game {
 		std::string currentMap;
 		WeaponManager* weaponManager;
 		ConfigManager *config;
+		Ponto spawn;
 	public:
+		ShotManager* shotManager;
 		Ponto camera;
 		Game(ConfigManager *cfg);
 		void mainLoop();
@@ -28,6 +31,8 @@ class Game {
 		GravityManager *gravityManager;
 		void reloadLua();
 		void removePlatforms();
+		void setSpawn(Ponto spawn);
+		Ponto getSpawn() {return spawn;}
 };
 
 #endif

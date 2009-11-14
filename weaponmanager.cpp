@@ -9,23 +9,27 @@ WeaponManager::WeaponManager() {
 std::list<Weapon*> *_weapons = NULL;
 
 static int regweapon (lua_State *L) {
-	Ponto r,l;
+	Ponto r,l,tip;
 	r.x = lua_tonumber(L, 1);
 	r.y = lua_tonumber(L, 2);
 	l.x = lua_tonumber(L, 3);
 	l.y = lua_tonumber(L, 4);
 	Weapon* newweapon = new Weapon();
 	newweapon->name = lua_tostring (L, 5);
+	newweapon->fireRate = lua_tonumber(L, 6);
+	tip.x = lua_tonumber(L, 7);
+	tip.y = lua_tonumber(L, 8);
+	newweapon->shotSpeed = 10;
 	newweapon->setRightHand(r);
 	newweapon->setLeftHand(l);
-	Weapon** instack = (Weapon**)lua_newuserdata(L, sizeof(Weapon*));
-	*instack = newweapon;
+	newweapon->setTip(tip);
+	lua_pushlightuserdata(L, newweapon);
 	_weapons->push_front(newweapon);
 	return 1;
 }
 
 static int regspriteline (lua_State *L) {
-	Weapon* w = *(Weapon **)(Weapon*)lua_touserdata(L, 1);
+	Weapon* w = (Weapon*)lua_touserdata(L, 1);
 	Ponto a,b;
 	a.x = lua_tonumber(L, 2);
 	a.y = lua_tonumber(L, 3);

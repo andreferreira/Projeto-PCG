@@ -4,11 +4,10 @@
 #include "controle.h"
 
 class ControleTeclado: public Controle {
-	private:
-		SDL_Event e;
 	public:
 		ControleTeclado(Player &p);
-		virtual void eventLoop();
+		virtual void handleEvent(SDL_Event &e);
+		virtual void handleOther();
 };
 
 #endif

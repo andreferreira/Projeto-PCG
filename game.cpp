@@ -3,6 +3,7 @@
 #include "luaenv.h"
 #include "timer.h"
 #include "controleteclado.h"
+#include "shotmanager.h"
 
 void Game::loadMap(std::string mapname) {
 	if (mapa != NULL)
@@ -100,6 +101,7 @@ void Game::show() {
 	camera.y = y;
 	player->desenha();
 	mapa->desenha();
+	shotManager->desenha();
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
@@ -114,17 +116,21 @@ void Game::reloadLua() {
 	player->equip(weaponManager->getWeapon("Shotgun"));
 }
 
+void Game::setSpawn(Ponto spawn) {
+	this->spawn = spawn;
+}
+
 void Game::mainLoop() {
 	luaRun luaEnv;
 	luaEnv.registerScripts();
 	luaEnv.loadScripts();
 	Timer fps;
-
+	
 	loadMap(config->maps.front());
 
 	player = new Player(this, config->player["pos"], config->player["speed"]);
 	ControleTeclado c(*player);
-
+	shotManager = new ShotManager;
 	weaponManager = new WeaponManager;
 	weaponManager->loadWeapons();
 	player->equip(weaponManager->getWeapon("Shotgun"));
@@ -133,13 +139,14 @@ void Game::mainLoop() {
 	while (!quit) {
 		fps.start();
 		//player events
-		c.eventLoop();
+		c.handleEvents();
 
 		//colision, gravity
 		gravityManager->update();
 
 		//movements
 		player->move();
+		shotManager->move();
 		quit = c.getQuit();
 		show();
 		if (fps.get_ticks() < 1000 / config->screen["fps"] ) {

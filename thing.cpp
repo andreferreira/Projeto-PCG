@@ -2,16 +2,17 @@
 
 Thing::Thing() {
 	onGround = false;
+	maxspeed.x = 99999;
+	maxspeed.y = 99999;
 }
 
 void Thing::addSpeed(double xspeed, double yspeed) {
-	velocidade.x += xspeed;
-	velocidade.y += yspeed;
+	setSpeed(velocidade.x+xspeed,velocidade.y+yspeed);
 }
 
 void Thing::setSpeed(double xspeed, double yspeed) {
-	velocidade.x = xspeed;
-	velocidade.y = yspeed;
+	velocidade.x = std::max(std::min(xspeed,maxspeed.x),-maxspeed.x);
+	velocidade.y = std::max(std::min(yspeed,maxspeed.y),-maxspeed.y);
 }
 
 void Thing::setPosition(double x, double y) {

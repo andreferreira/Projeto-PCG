@@ -10,8 +10,11 @@ class Weapon: public Thing {
 	private:
 		Ponto leftHand;
 		Ponto rightHand;
+		Ponto tip;
 	public:
+		double shotSpeed;
 		Polygon sprite;
+		int fireRate;
 		std::string name;
 		void setSprite(Polygon asprite) { sprite = asprite;}
 		void setLeftHand(Ponto hand) {leftHand = hand;}
@@ -19,6 +22,8 @@ class Weapon: public Thing {
 		Ponto getLeftHand() {return leftHand;}
 		Ponto getRightHand(){return rightHand;}
 		void desenha();
+		void setTip(Ponto t) {tip = t;}
+		Ponto getTip() {return tip;}
 };
 
 

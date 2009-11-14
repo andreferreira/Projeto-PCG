@@ -3,3 +3,34 @@
 Controle::Controle(Player &p) : jogador( p )  {
     quit = false;
 }
+
+void Controle::handleEvents() {
+	SDL_Event e;	
+    while( SDL_PollEvent( &e ) ) {
+        switch( e.type ) {
+			case SDL_USEREVENT: {
+				void (*p) (void*) = (void (*)(void*))e.user.data1;
+				p(e.user.data2);
+				}
+				break;
+            case SDL_QUIT:
+                quit = true;
+                break;
+            case SDL_KEYDOWN:
+                switch (e.key.keysym.sym) {
+					case SDLK_F5:
+						jogador.game->reloadLua();
+						break;
+					case SDLK_F6:
+						jogador.setPosition(jogador.game->getSpawn().x,jogador.game->getSpawn().y);
+						break;
+                    default: handleEvent(e);break;
+                }
+                break;
+			default:
+				handleEvent(e);
+				break;
+        }
+    }
+	handleOther();
+}
