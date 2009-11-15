@@ -13,3 +13,10 @@ end
 function Line(t)
 	return t
 end
+
+function Shot(t)
+	if t.gravity == nil then
+		t.gravity = 0
+	end
+	createshot(t.x,t.y,t.angle,t.duration,t.weapon,t.gravity)
+end

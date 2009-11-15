@@ -51,7 +51,6 @@ static int regspriteline (lua_State *L) {
 
 static void deleteShotFunc(void* param) {
 	Shot* shot = (Shot*) param;
-	shot->shotManager->deleteShot(shot);
 	delete shot;
 }
 
@@ -73,15 +72,16 @@ static Uint32 deleteShotCallback(Uint32 interval, void *param) {
 
 
 static int createshot (lua_State *L) {
-	double x,y,angle,rate;
+	double x,y,angle,rate,gravity;
 	Weapon* weapon;
 	x = lua_tonumber(L, 1);
 	y = lua_tonumber(L, 2);
 	angle = lua_tonumber(L, 3);
 	rate = lua_tonumber(L, 4);
 	weapon = (Weapon*)lua_touserdata(L, 5);
+	gravity = lua_tonumber(L, 6);
 	
-	Shot* newshot = new Shot(x,y,angle,weapon,weapon->game->shotManager);
+	Shot* newshot = new Shot(x,y,angle,gravity,weapon);
 	weapon->game->shotManager->addShot(newshot);
 	SDL_AddTimer(rate,deleteShotCallback,newshot);
 			

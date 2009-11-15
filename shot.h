@@ -4,15 +4,14 @@
 #include "thing.h"
 
 class Weapon;
-class ShotManager;
 
 class Shot: public Thing {
 	private:
 	Weapon* weapon;
 	public:
-	ShotManager* shotManager;
+	Shot(double x, double y, double angle, double gravityRate, Weapon* w);
+	~Shot();
 	void desenha();
-	Shot(double x, double y, double angle, Weapon* w, ShotManager* s);
 };
 
 #endif

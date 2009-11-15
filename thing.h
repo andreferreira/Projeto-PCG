@@ -9,6 +9,7 @@ class Thing {
 		Vetor velocidade;
 		Vetor maxspeed;
 	public:
+		double gravityRate;
 		bool onGround;
 		bool bypass;
 		Thing();

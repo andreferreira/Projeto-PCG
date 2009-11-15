@@ -4,6 +4,7 @@ Thing::Thing() {
 	onGround = false;
 	maxspeed.x = 99999;
 	maxspeed.y = 99999;
+	gravityRate = 0.3;
 }
 
 void Thing::addSpeed(double xspeed, double yspeed) {

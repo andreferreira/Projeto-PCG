@@ -1,12 +1,23 @@
 #include "shot.h"
 #include "weapon.h"
+#include "game.h"
+#include "shotmanager.h"
 #include <math.h>
 
-Shot::Shot(double x, double y, double angle, Weapon* w, ShotManager* s) {
+Shot::Shot(double x, double y, double angle, double gravity, Weapon* w) {
 	weapon = w;
-	shotManager = s;
 	setPosition(x,y);
+	if (gravity != 0.0)
+		weapon->game->gravityManager->subscribe(this);
+	gravityRate = gravity;
+	bypass = true;
 	setSpeed(-cos(angle)*weapon->shotSpeed,sin(angle)*weapon->shotSpeed);
+}
+
+Shot::~Shot() {
+	weapon->game->shotManager->deleteShot(this);
+	if (gravityRate != 0.0)
+		weapon->game->gravityManager->deleteThing(this);
 }
 
 void Shot::desenha() {

@@ -9,11 +9,15 @@ void GravityManager::addPlatform(Platform* linha) {
 	platforms.insert(linha);
 }
 
+void GravityManager::deleteThing(Thing* thing) {
+	things.erase(things.find(thing));
+}
+
 void GravityManager::update() {
 	std::set<Thing*>::iterator it;
 	std::set<Platform*>::iterator plat;
 	for (it = things.begin(); it != things.end(); it++) {
-		(*it)->addSpeed(0,0.3);
+		(*it)->addSpeed(0,(*it)->gravityRate);
 		if ((*it)->getSpeedY() < 0.0) continue;
 		bool colisao = false;
 		for (plat = platforms.begin(); !colisao && plat != platforms.end(); plat++) {
@@ -24,7 +28,6 @@ void GravityManager::update() {
 			(*it)->setSpeed((*it)->getSpeedX(),0.0);
 		}
 		else {
-			(*it)->bypass = false;
 			(*it)->onGround = false;
 		}
 	}

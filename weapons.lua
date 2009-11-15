@@ -22,7 +22,14 @@ shotgun = Weapon{
 					Line(cano2)},
 			whenfire = function (x,y,angle,w)
 						for i = 1,5 do
-							createshot(x,y,angle+randomspread(0.2),1000,w)
+							Shot {
+								x = x,
+								y = y,
+								angle = angle+randomspread(0.2),
+								weapon = w,
+								duration = 1000
+								}
 						end
 					   end
 }
+
