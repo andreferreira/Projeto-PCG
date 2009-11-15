@@ -9,7 +9,7 @@ class Shot: public Thing {
 	private:
 	Weapon* weapon;
 	public:
-	Shot(double x, double y, double angle, double gravityRate, Weapon* w);
+	Shot(double x, double y, double angle, double speed, double gravityRate, Weapon* w);
 	~Shot();
 	void desenha();
 };

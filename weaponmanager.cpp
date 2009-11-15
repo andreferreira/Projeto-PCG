@@ -24,7 +24,6 @@ static int regweapon (lua_State *L) {
 	newweapon->fireRate = lua_tonumber(L, 6);
 	tip.x = lua_tonumber(L, 7);
 	tip.y = lua_tonumber(L, 8);
-	newweapon->shotSpeed = 10;
 	newweapon->setRightHand(r);
 	newweapon->setLeftHand(l);
 	newweapon->setTip(tip);
@@ -72,7 +71,7 @@ static Uint32 deleteShotCallback(Uint32 interval, void *param) {
 
 
 static int createshot (lua_State *L) {
-	double x,y,angle,rate,gravity;
+	double x,y,angle,rate,gravity,speed;
 	Weapon* weapon;
 	x = lua_tonumber(L, 1);
 	y = lua_tonumber(L, 2);
@@ -80,8 +79,9 @@ static int createshot (lua_State *L) {
 	rate = lua_tonumber(L, 4);
 	weapon = (Weapon*)lua_touserdata(L, 5);
 	gravity = lua_tonumber(L, 6);
+	speed = lua_tonumber(L, 7);
 	
-	Shot* newshot = new Shot(x,y,angle,gravity,weapon);
+	Shot* newshot = new Shot(x,y,angle,speed,gravity,weapon);
 	weapon->game->shotManager->addShot(newshot);
 	SDL_AddTimer(rate,deleteShotCallback,newshot);
 			

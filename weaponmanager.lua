@@ -14,9 +14,15 @@ function Line(t)
 	return t
 end
 
-function Shot(t)
-	if t.gravity == nil then
-		t.gravity = 0
+function default(t,k,v)
+	if t[k] == nil then
+		t[k] = v
 	end
-	createshot(t.x,t.y,t.angle,t.duration,t.weapon,t.gravity)
+end
+
+function Shot(t)
+	default(t,"gravity",0)
+	default(t,"duration",3000)
+	default(t,"speed",10)
+	createshot(t.x,t.y,t.angle,t.duration,t.weapon,t.gravity,t.speed)
 end

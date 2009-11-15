@@ -17,7 +17,6 @@ class Weapon: public Thing {
 	public:
 		Game *game;
 		Weapon (Game* g,lua_State* l) {game = g; lstate = l;}
-		double shotSpeed;
 		Polygon sprite;
 		int fireRate;
 		std::string name;

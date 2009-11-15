@@ -4,14 +4,14 @@
 #include "shotmanager.h"
 #include <math.h>
 
-Shot::Shot(double x, double y, double angle, double gravity, Weapon* w) {
+Shot::Shot(double x, double y, double angle, double speed, double gravity, Weapon* w) {
 	weapon = w;
 	setPosition(x,y);
 	if (gravity != 0.0)
 		weapon->game->gravityManager->subscribe(this);
 	gravityRate = gravity;
 	bypass = true;
-	setSpeed(-cos(angle)*weapon->shotSpeed,sin(angle)*weapon->shotSpeed);
+	setSpeed(-cos(angle)*speed,sin(angle)*speed);
 }
 
 Shot::~Shot() {
