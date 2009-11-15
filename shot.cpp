@@ -1,7 +1,7 @@
 #include "shot.h"
 #include "weapon.h"
 #include <math.h>
-#include <iostream>
+
 Shot::Shot(double x, double y, double angle, Weapon* w, ShotManager* s) {
 	weapon = w;
 	shotManager = s;

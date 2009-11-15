@@ -129,7 +129,7 @@ void Game::mainLoop() {
 	ControleTeclado c(*player);
 	
 	shotManager = new ShotManager;
-	weaponManager = new WeaponManager;
+	weaponManager = new WeaponManager(this);
 	weaponManager->loadWeapons();
 	player->equip(weaponManager->getWeapon("Shotgun"));
 

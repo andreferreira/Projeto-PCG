@@ -1,12 +1,17 @@
 #include "weaponmanager.h"
 #include "luaenv.h"
 #include "weapon.h"
+#include "game.h"
+#include "shotmanager.h"
+#include "shot.h"
 
-WeaponManager::WeaponManager() {
+WeaponManager::WeaponManager(Game* g) {
 	lstate = NULL;
+	game = g;
 }
 
 std::list<Weapon*> *_weapons = NULL;
+Game *_game = NULL;
 
 static int regweapon (lua_State *L) {
 	Ponto r,l,tip;
@@ -14,7 +19,7 @@ static int regweapon (lua_State *L) {
 	r.y = lua_tonumber(L, 2);
 	l.x = lua_tonumber(L, 3);
 	l.y = lua_tonumber(L, 4);
-	Weapon* newweapon = new Weapon();
+	Weapon* newweapon = new Weapon(_game,L);
 	newweapon->name = lua_tostring (L, 5);
 	newweapon->fireRate = lua_tonumber(L, 6);
 	tip.x = lua_tonumber(L, 7);
@@ -28,6 +33,10 @@ static int regweapon (lua_State *L) {
 	return 1;
 }
 
+static int regfirefunction (lua_State *L) {
+	lua_settable(L, LUA_REGISTRYINDEX);
+}
+
 static int regspriteline (lua_State *L) {
 	Weapon* w = (Weapon*)lua_touserdata(L, 1);
 	Ponto a,b;
@@ -38,6 +47,44 @@ static int regspriteline (lua_State *L) {
 	Linha linha(a,b);
 	w->sprite.addLinha(linha);
 	return 0;
+}
+
+static void deleteShotFunc(void* param) {
+	Shot* shot = (Shot*) param;
+	shot->shotManager->deleteShot(shot);
+	delete shot;
+}
+
+static Uint32 deleteShotCallback(Uint32 interval, void *param) {
+	SDL_Event event;
+	SDL_UserEvent userevent;
+	userevent.type = SDL_USEREVENT;
+	userevent.code = 0;
+	userevent.data1 = (void*)deleteShotFunc;
+	userevent.data2 = (void*)param;
+	
+	event.type = SDL_USEREVENT;
+	event.user = userevent;
+
+	SDL_PushEvent(&event);
+
+	return 0;
+}
+
+
+static int createshot (lua_State *L) {
+	double x,y,angle,rate;
+	Weapon* weapon;
+	x = lua_tonumber(L, 1);
+	y = lua_tonumber(L, 2);
+	angle = lua_tonumber(L, 3);
+	rate = lua_tonumber(L, 4);
+	weapon = (Weapon*)lua_touserdata(L, 5);
+	
+	Shot* newshot = new Shot(x,y,angle,weapon,weapon->game->shotManager);
+	weapon->game->shotManager->addShot(newshot);
+	SDL_AddTimer(rate,deleteShotCallback,newshot);
+			
 }
 
 Weapon* WeaponManager::getWeapon(std::string name) {
@@ -57,9 +104,12 @@ void WeaponManager::loadWeapons() {
 		delete (*it);
 	weapons.clear();
 	_weapons = &weapons;
+	_game = game;
 	lstate = newState();
 	registerFunction(lstate,"regweapon",regweapon);
 	registerFunction(lstate,"regspriteline",regspriteline);
+	registerFunction(lstate,"regfirefunction",regfirefunction);
+	registerFunction(lstate,"createshot",createshot);
 	doLuaFile(lstate,"weaponmanager.lua");
 	doLuaFile(lstate,"weapons.lua");
 }

@@ -20,17 +20,11 @@ void Shooter::equip(Weapon* aweapon) {
 	weapon = aweapon;
 }
 
-void allowFireFunc(void* param) {
+static void allowFireFunc(void* param) {
 	((Shooter*)param)->allowFire();
 }
 
-void deleteShotFunc(void* param) {
-	Shot* shot = (Shot*) param;
-	shot->shotManager->deleteShot(shot);
-	delete shot;
-}
-
-Uint32 allowFireCallback(Uint32 interval, void *param) {
+static Uint32 allowFireCallback(Uint32 interval, void *param) {
 	SDL_Event event;
 	SDL_UserEvent userevent;
 	userevent.type = SDL_USEREVENT;
@@ -46,26 +40,11 @@ Uint32 allowFireCallback(Uint32 interval, void *param) {
 	return 0;
 }
 
-
-Uint32 deleteShotCallback(Uint32 interval, void *param) {
-	SDL_Event event;
-	SDL_UserEvent userevent;
-	userevent.type = SDL_USEREVENT;
-	userevent.code = 0;
-	userevent.data1 = (void*)deleteShotFunc;
-	userevent.data2 = (void*)param;
-	
-	event.type = SDL_USEREVENT;
-	event.user = userevent;
-
-	SDL_PushEvent(&event);
-
-	return 0;
-}
-
 void Shooter::allowFire() {
 	canfire = true;
 }
+
+
 
 void Shooter::fire() {
 	if (!canfire || weapon == NULL)
@@ -79,10 +58,11 @@ void Shooter::fire() {
 	Ponto tip;
 	tip.x = (cosAngle*tiplinha.x-sinAngle*tiplinha.y);
 	tip.y = -(sinAngle*tiplinha.x+cosAngle*tiplinha.y);
-	tip = tip + pescoco();		
-	Shot* newshot = new Shot(tip.x+getX(),tip.y+getY(),angle,weapon,game->shotManager);
-	game->shotManager->addShot(newshot);
-	SDL_AddTimer(weapon->fireRate*2,deleteShotCallback,newshot);
+	tip = tip + pescoco();
+	tip.x += getX();
+	tip.y += getY();
+	
+	weapon->fire(tip,angle);
 }
 
 

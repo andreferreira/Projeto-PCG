@@ -6,12 +6,17 @@
 #include "thing.h"
 #include "luaenv.h"
 
+class Game;
+
 class Weapon: public Thing {
 	private:
 		Ponto leftHand;
 		Ponto rightHand;
 		Ponto tip;
+		lua_State* lstate;
 	public:
+		Game *game;
+		Weapon (Game* g,lua_State* l) {game = g; lstate = l;}
 		double shotSpeed;
 		Polygon sprite;
 		int fireRate;
@@ -24,6 +29,7 @@ class Weapon: public Thing {
 		void desenha();
 		void setTip(Ponto t) {tip = t;}
 		Ponto getTip() {return tip;}
+		void fire(Ponto place, double angle);
 };
 
 
