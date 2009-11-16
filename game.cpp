@@ -127,10 +127,11 @@ void Game::mainLoop() {
 	loadMap(config->maps.front());
 
 	player = new Player(this, spawn, config->player["speed"]);
+	Controle *c;
 	if (true) 
-		ControleTeclado c(*player);
+		c = new ControleTeclado(*player);
 	else
-		ControleWii c(*player);
+		c = new ControleWii(*player);
 	
 	shotManager = new ShotManager;
 	weaponManager = new WeaponManager(this);
@@ -141,7 +142,7 @@ void Game::mainLoop() {
 	while (!quit) {
 		fps.start();
 		//player events
-		c.handleEvents();
+		c->handleEvents();
 
 		//colision, gravity
 		gravityManager->update();
@@ -149,7 +150,7 @@ void Game::mainLoop() {
 		//movements
 		player->move();
 		shotManager->move();
-		quit = c.getQuit();
+		quit = c->getQuit();
 		show();
 		if (fps.get_ticks() < 1000 / config->screen["fps"] ) {
 			SDL_Delay( ( 1000 / config->screen["fps"] ) - fps.get_ticks() );
