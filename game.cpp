@@ -3,6 +3,7 @@
 #include "luaenv.h"
 #include "timer.h"
 #include "controleteclado.h"
+#include "controlewii.h"
 #include "shotmanager.h"
 
 void Game::loadMap(std::string mapname) {
@@ -126,7 +127,10 @@ void Game::mainLoop() {
 	loadMap(config->maps.front());
 
 	player = new Player(this, spawn, config->player["speed"]);
-	ControleTeclado c(*player);
+	if (true) 
+		ControleTeclado c(*player);
+	else
+		ControleWii c(*player);
 	
 	shotManager = new ShotManager;
 	weaponManager = new WeaponManager(this);

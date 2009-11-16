@@ -1,0 +1,2 @@
+#define FUNCTIONCALL 0
+#define WIIMOTEEVENT 1

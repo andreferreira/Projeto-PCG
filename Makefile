@@ -18,6 +18,7 @@ OBJS = \
 	configmanager.o \
 	shot.o \
 	shotmanager.o \
+	controlewii.o \
 	
 	
 SRCS = $(OBJS,.o=.cpp) 
@@ -25,7 +26,7 @@ SRCS = $(OBJS,.o=.cpp)
 all: a.out
 
 a.out: $(OBJS)
-	g++ -lSDL -lGL $(OBJS) liblua.a
+	g++ -lSDL -lGL -lcwiid $(OBJS) liblua.a
 
 .cpp.o:
 	g++ -c $<

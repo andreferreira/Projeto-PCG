@@ -3,6 +3,8 @@
 #include "gravity.h"
 #include "shot.h"
 #include "shotmanager.h"
+#include "usereventtype.h"
+
 
 Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
 	weapon = NULL;
@@ -28,7 +30,7 @@ static Uint32 allowFireCallback(Uint32 interval, void *param) {
 	SDL_Event event;
 	SDL_UserEvent userevent;
 	userevent.type = SDL_USEREVENT;
-	userevent.code = 0;
+	userevent.code = FUNCTIONCALL;
 	userevent.data1 = (void*)allowFireFunc;
 	userevent.data2 = (void*)param;
 	

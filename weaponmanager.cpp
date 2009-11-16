@@ -4,6 +4,7 @@
 #include "game.h"
 #include "shotmanager.h"
 #include "shot.h"
+#include "usereventtype.h"
 
 WeaponManager::WeaponManager(Game* g) {
 	lstate = NULL;
@@ -57,7 +58,7 @@ static Uint32 deleteShotCallback(Uint32 interval, void *param) {
 	SDL_Event event;
 	SDL_UserEvent userevent;
 	userevent.type = SDL_USEREVENT;
-	userevent.code = 0;
+	userevent.code = FUNCTIONCALL;
 	userevent.data1 = (void*)deleteShotFunc;
 	userevent.data2 = (void*)param;
 	
