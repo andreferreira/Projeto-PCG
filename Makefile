@@ -34,5 +34,5 @@ a.out: $(OBJS)
 clean:
 	rm -f a.out *.o
 
-bruno: $(OBJS)
-	g++ -lSDL -lGL -llua5.1 $(OBJS)
+ubuntu: $(OBJS)
+	g++ -lSDL -lGL -llua5.1 -lcwiid $(OBJS)
