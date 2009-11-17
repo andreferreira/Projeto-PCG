@@ -4,11 +4,13 @@
 #include "thing.h"
 
 class Weapon;
+class Game;
 
 class Shot: public Thing {
 	private:
-	Weapon* weapon;
+	Game* game;
 	public:
+	Polygon sprite;
 	Shot(double x, double y, double angle, double speed, double gravityRate, Weapon* w);
 	~Shot();
 	void desenha();

@@ -13,6 +13,7 @@ class ShotManager {
 		void desenha();
 		void move();
 		void deleteShot(Shot* shot);
+		void clearShots();
 };
 
 #endif

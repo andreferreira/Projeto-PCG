@@ -114,6 +114,7 @@ void Game::reloadLua() {
 	config->load();
 	loadMap(config->maps.front());
 	weaponManager->loadWeapons();
+	shotManager->clearShots();
 	player->equip(weaponManager->getWeapon("Shotgun"));
 }
 

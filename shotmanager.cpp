@@ -28,3 +28,7 @@ void ShotManager::deleteShot(Shot* shot) {
 		}
 	}
 }
+
+void ShotManager::clearShots() {
+	shots.clear();
+}

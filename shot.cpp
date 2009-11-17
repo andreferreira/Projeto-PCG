@@ -5,24 +5,24 @@
 #include <math.h>
 
 Shot::Shot(double x, double y, double angle, double speed, double gravity, Weapon* w) {
-	weapon = w;
+	game = w->game;
 	setPosition(x,y);
 	if (gravity != 0.0)
-		weapon->game->gravityManager->subscribe(this);
+		game->gravityManager->subscribe(this);
 	gravityRate = gravity;
 	bypass = true;
 	setSpeed(-cos(angle)*speed,sin(angle)*speed);
 }
 
 Shot::~Shot() {
-	weapon->game->shotManager->deleteShot(this);
+	game->shotManager->deleteShot(this);
 	if (gravityRate != 0.0)
-		weapon->game->gravityManager->deleteThing(this);
+		game->gravityManager->deleteThing(this);
 }
 
 void Shot::desenha() {
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
-		drawCircle(1,30);
+		sprite.desenha();
 	glPopMatrix();
 }

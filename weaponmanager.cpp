@@ -49,6 +49,18 @@ static int regspriteline (lua_State *L) {
 	return 0;
 }
 
+static int regspritelineshot (lua_State *L) {
+	Shot* w = (Shot*)lua_touserdata(L, 1);
+	Ponto a,b;
+	a.x = lua_tonumber(L, 2);
+	a.y = lua_tonumber(L, 3);
+	b.x = lua_tonumber(L, 4);
+	b.y = lua_tonumber(L, 5);
+	Linha linha(a,b);
+	w->sprite.addLinha(linha);
+	return 0;
+}
+
 static void deleteShotFunc(void* param) {
 	Shot* shot = (Shot*) param;
 	delete shot;
@@ -85,7 +97,8 @@ static int createshot (lua_State *L) {
 	Shot* newshot = new Shot(x,y,angle,speed,gravity,weapon);
 	weapon->game->shotManager->addShot(newshot);
 	SDL_AddTimer(rate,deleteShotCallback,newshot);
-			
+	lua_pushlightuserdata(L, newshot);
+	return 1;
 }
 
 Weapon* WeaponManager::getWeapon(std::string name) {
@@ -109,6 +122,7 @@ void WeaponManager::loadWeapons() {
 	lstate = newState();
 	registerFunction(lstate,"regweapon",regweapon);
 	registerFunction(lstate,"regspriteline",regspriteline);
+	registerFunction(lstate,"regspritelineshot",regspritelineshot);
 	registerFunction(lstate,"regfirefunction",regfirefunction);
 	registerFunction(lstate,"createshot",createshot);
 	doLuaFile(lstate,"weaponmanager.lua");

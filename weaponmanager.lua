@@ -24,5 +24,8 @@ function Shot(t)
 	default(t,"gravity",0)
 	default(t,"duration",3000)
 	default(t,"speed",10)
-	createshot(t.x,t.y,t.angle,t.duration,t.weapon,t.gravity,t.speed)
+	local s = createshot(t.x,t.y,t.angle,t.duration,t.weapon,t.gravity,t.speed)
+	for i = 1, #t.sprite do
+		regspritelineshot(s,t.sprite[i][1],t.sprite[i][2],t.sprite[i][3],t.sprite[i][4])
+	end
 end
