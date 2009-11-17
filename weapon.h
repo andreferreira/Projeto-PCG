@@ -8,7 +8,7 @@
 
 class Game;
 
-class Weapon: public Thing {
+class Weapon {
 	private:
 		Ponto leftHand;
 		Ponto rightHand;
