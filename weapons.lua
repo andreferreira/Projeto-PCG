@@ -36,16 +36,35 @@ shotgun = Weapon{
 					   end
 }
 
+function addX(x,...)
+	local t = {...}
+	for i = 1, #t do
+		t[i][1] = t[i][1] + x
+		t[i][3] = t[i][3] + x
+	end
+	return unpack(t)
+end
+
 flamethrower = Weapon{
 			name = "Shotgun",
-			righthand = {15,-15},
-			lefthand = {30,-15+10},
-			tip = {-45,-15+10},
+			righthand = {-15,-15},
+			lefthand = {-30,-15+10},
+			tip = {-65,-15+10},
 			firerate = 60,
-			sprite = {
-					Line{-15,-15,-15,-15+10},
-					Line{-15,-15+10,-45,-15+10},
-					Line{-60,-15+5,-60,-15+15},
+			sprite = {addX(-10,
+					Line{-20,-15,-20,-15+10},
+					Line{-20,-15,-35,-15},
+					Line{-35,-15,-35,-15+10},
+					Line{-5,-15,-15,-15+10},
+					Line{-15,-15+10,-50,-15+10},
+					Line{-40,-15+10,-50,-15},
+					Line{-50,-15,-65,-15},
+					Line{-65,-15,-65,-10},
+					Line{-60,-15+6,-60,-15+13},
+					Line{-50,-15+6,-60,-15+6},
+					Line{-50,-15+13,-60,-15+13},
+					Line{-50,-15+6,-50,-15+13}
+					)
 					},
 			whenfire = function (x,y,angle,w)
 						local flamesprite = {
@@ -54,7 +73,7 @@ flamethrower = Weapon{
 											Line{10,10,10,0},
 											Line{10,0,0,0},
 											}
-						for i = 1,math.random(7) do
+						for i = 1,math.random(4) do
 							Shot {
 								x = x,
 								y = y,
