@@ -36,11 +36,13 @@ shotgun = Weapon{
 					   end
 }
 
-function addX(x,...)
+function addXY(x,y,...)
 	local t = {...}
 	for i = 1, #t do
 		t[i][1] = t[i][1] + x
+		t[i][2] = t[i][2] + y
 		t[i][3] = t[i][3] + x
+		t[i][2] = t[i][2] + y
 	end
 	return unpack(t)
 end
@@ -51,7 +53,7 @@ flamethrower = Weapon{
 			lefthand = {-30,-15+10},
 			tip = {-65,-15+10},
 			firerate = 60,
-			sprite = {addX(-10,
+			sprite = {addXY(-10,0,
 					Line{-20,-15,-20,-15+10},
 					Line{-20,-15,-35,-15},
 					Line{-35,-15,-35,-15+10},
