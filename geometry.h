@@ -41,13 +41,13 @@ class Rect {
 };
 
 class Polygon {
-	private:
-		std::vector<Linha> linhas;
 	public:
+		std::vector<Linha> linhas;
 		void addLinha(Linha linha) {linhas.push_back(linha);}
 		void desenha();
 };
 
 void drawCircle(double radius, int lines);
+bool linesIntersect(const Linha a,const Linha b);
 
 #endif

@@ -19,6 +19,8 @@ OBJS = \
 	shot.o \
 	shotmanager.o \
 	controlewii.o \
+	collision.o \
+	enemy.o \
 	
 	
 SRCS = $(OBJS,.o=.cpp) 

@@ -136,17 +136,20 @@ void Game::mainLoop() {
 	
 	shotManager = new ShotManager;
 	weaponManager = new WeaponManager(this);
+	collisionManager = new CollisionManager;
 	weaponManager->loadWeapons();
 	player->equip(weaponManager->getWeapon("Shotgun"));
 
+	collisionManager->subscribe(player);
 	bool quit = false;
 	while (!quit) {
 		fps.start();
 		//player events
 		c->handleEvents();
 
-		//colision, gravity
+		//collision, gravity
 		gravityManager->update();
+		collisionManager->update();
 
 		//movements
 		player->move();

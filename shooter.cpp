@@ -203,6 +203,26 @@ Linha Shooter::getBaseLine() {
 	return ret;
 }
 
+Polygon Shooter::getCollision() {
+	Polygon poly;
+	Ponto atual(getX(),getY());
+	Linha a(leftFeet()+atual,rightFeet()+atual);
+	Linha b(rightFeet()+atual,cintura()+atual);
+	Linha c(cintura()+atual,rightArm()+atual);
+	Linha d(rightArm()+atual,pescoco()+atual);
+	Linha e(pescoco()+atual,leftArm()+atual);
+	Linha f(leftArm()+atual,cintura()+atual);
+	Linha g(cintura()+atual,leftFeet()+atual);
+	poly.addLinha(a);
+	poly.addLinha(b);
+	poly.addLinha(c);
+	poly.addLinha(d);
+	poly.addLinha(e);
+	poly.addLinha(f);
+	poly.addLinha(g);
+	return poly;
+}
+
 void Shooter::setAim(double x, double y) {
 	aim.x = x;
 	aim.y = y;				

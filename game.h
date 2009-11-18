@@ -6,6 +6,7 @@
 #include "mapa.h"
 #include "weaponmanager.h"
 #include "configmanager.h"
+#include "collision.h"
 
 class Player;
 class Mapa;
@@ -20,6 +21,7 @@ class Game {
 		ConfigManager *config;
 		Ponto spawn;
 	public:
+		CollisionManager* collisionManager;
 		ShotManager* shotManager;
 		Ponto camera;
 		Game(ConfigManager *cfg);

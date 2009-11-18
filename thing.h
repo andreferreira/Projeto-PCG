@@ -22,6 +22,8 @@ class Thing {
 		double getY() {return posicao.y;}
 		void move();
 		virtual Linha getBaseLine();
+		virtual Polygon getCollision();
+		virtual void collide(Thing* b);
 };
 
 

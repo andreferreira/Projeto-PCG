@@ -30,3 +30,12 @@ Linha Thing::getBaseLine() {
 	Linha ret(0,0,0,0);
 	return ret;
 }
+
+Polygon Thing::getCollision() {
+	Polygon poly;
+	return poly;
+}
+
+void Thing::collide(Thing* b) {
+	return;
+}

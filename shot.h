@@ -14,6 +14,8 @@ class Shot: public Thing {
 	Shot(double x, double y, double angle, double speed, double gravityRate, Weapon* w);
 	~Shot();
 	void desenha();
+	virtual Polygon getCollision();
+	virtual void collide(Thing* b);
 };
 
 #endif

@@ -33,6 +33,7 @@ class Shooter: public Thing {
 		void fire();
 		void allowFire();
 		virtual Linha getBaseLine();
+		virtual Polygon getCollision();
 };
 
 #endif
