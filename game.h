@@ -8,6 +8,8 @@
 #include "configmanager.h"
 #include "collision.h"
 
+#define TIME_RATE 25.0
+
 class Player;
 class Mapa;
 class ShotManager;

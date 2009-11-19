@@ -1,5 +1,5 @@
 #include "gravity.h"
-#include <iostream>
+#include "game.h"
 
 void GravityManager::subscribe(Thing* thing) {
 	things.insert(thing);
@@ -13,11 +13,11 @@ void GravityManager::deleteThing(Thing* thing) {
 	things.erase(things.find(thing));
 }
 
-void GravityManager::update() {
+void GravityManager::update(int t) {
 	std::set<Thing*>::iterator it;
 	std::set<Platform*>::iterator plat;
 	for (it = things.begin(); it != things.end(); it++) {
-		(*it)->addSpeed(0,(*it)->gravityRate);
+		(*it)->addSpeed(0,(*it)->gravityRate*t/TIME_RATE);
 		if ((*it)->getSpeedY() < 0.0) continue;
 		bool colisao = false;
 		for (plat = platforms.begin(); !colisao && plat != platforms.end(); plat++) {
