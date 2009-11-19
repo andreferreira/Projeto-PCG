@@ -1,5 +1,4 @@
 #include "thing.h"
-#include "game.h"
 
 Thing::Thing() {
 	onGround = false;
@@ -22,9 +21,9 @@ void Thing::setPosition(double x, double y) {
 	posicao.y = y;
 }
 
-void Thing::move(int t) {
-	posicao.x += velocidade.x*t/TIME_RATE;
-	posicao.y += velocidade.y*t/TIME_RATE;
+void Thing::move() {
+	posicao.x += velocidade.x;
+	posicao.y += velocidade.y;
 }
 
 Linha Thing::getBaseLine() {

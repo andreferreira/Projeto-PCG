@@ -123,7 +123,7 @@ void Game::setSpawn(Ponto spawn) {
 }
 
 void Game::mainLoop() {
-	Timer fps,lastMove;
+	Timer fps;
 	
 	loadMap(config->maps.front());
 
@@ -142,20 +142,18 @@ void Game::mainLoop() {
 
 	collisionManager->subscribe(player);
 	bool quit = false;
-	lastMove.start();
 	while (!quit) {
 		fps.start();
 		//player events
 		c->handleEvents();
 
 		//collision, gravity
-		gravityManager->update(lastMove.get_ticks());
+		gravityManager->update();
 		collisionManager->update();
-		
+
 		//movements
-		player->move(lastMove.get_ticks());
-		shotManager->move(lastMove.get_ticks());
-		lastMove.start();
+		player->move();
+		shotManager->move();
 		quit = c->getQuit();
 		show();
 		if (fps.get_ticks() < 1000 / config->screen["fps"] ) {

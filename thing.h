@@ -20,7 +20,7 @@ class Thing {
 		void setPosition(double x, double y);
 		double getX() {return posicao.x;}
 		double getY() {return posicao.y;}
-		void move(int t);
+		void move();
 		virtual Linha getBaseLine();
 		virtual Polygon getCollision();
 		virtual void collide(Thing* b);

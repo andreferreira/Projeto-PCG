@@ -11,7 +11,7 @@ class ShotManager {
 	public:
 		void addShot(Shot* shot);
 		void desenha();
-		void move(int t);
+		void move();
 		void deleteShot(Shot* shot);
 		void clearShots();
 };

@@ -12,10 +12,10 @@ void ShotManager::desenha() {
 	}
 }
 
-void ShotManager::move(int t) {
+void ShotManager::move() {
 	std::vector<Shot*>::iterator it;
 	for (it = shots.begin(); it != shots.end(); it++) {
-		(*it)->move(t);
+		(*it)->move();
 	}
 }
 
