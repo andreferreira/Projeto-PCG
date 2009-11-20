@@ -58,8 +58,8 @@ void Shooter::fire() {
 	double cosAngle = cos(angle);
 	double sinAngle = sin(angle);
 	Ponto tip;
-	tip.x = (cosAngle*tiplinha.x-sinAngle*tiplinha.y);
-	tip.y = -(sinAngle*tiplinha.x+cosAngle*tiplinha.y);
+	tip.x = (cosAngle*tiplinha.x+sinAngle*tiplinha.y);
+	tip.y = -(sinAngle*tiplinha.x-cosAngle*tiplinha.y);
 	tip = tip + pescoco();
 	tip.x += getX();
 	tip.y += getY();
