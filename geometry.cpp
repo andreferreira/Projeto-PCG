@@ -32,8 +32,8 @@ void Rect::normaliza() {
 void Linha::desenha() {
 	glColor3f(0,0,0);
 	glBegin(GL_LINES);
-		glVertex3f(vertices[0].x, vertices[0].y, 0.0f); // origin of the line
-		glVertex3f(vertices[1].x, vertices[1].y, 0.0f); // origin of the line
+		glVertex3f(vertices[0].x, vertices[0].y, -1.5f); // origin of the line
+		glVertex3f(vertices[1].x, vertices[1].y, -1.5f); // origin of the line
 	glEnd( );
 }
 
@@ -69,10 +69,18 @@ double distance(const Ponto &a,const Ponto &b) {
 void drawCircle(double radius, int lines)
 {
 	double i2rad = PI/(lines/2.0);
+	glColor3f(1.0,1.0,1.0);
+	glBegin(GL_POLYGON);
+	for (int i=0; i < lines; i++) {
+		double degInRad = i*i2rad;
+		glVertex3f(cos(degInRad)*radius,sin(degInRad)*radius,0);
+	}
+	glEnd();
+	glColor3f(0.0,0.0,0.0);
 	glBegin(GL_LINE_LOOP);
 	for (int i=0; i < lines; i++) {
 		double degInRad = i*i2rad;
-		glVertex2f(cos(degInRad)*radius,sin(degInRad)*radius);
+		glVertex3f(cos(degInRad)*radius,sin(degInRad)*radius,0);
 	}
 
 	glEnd();

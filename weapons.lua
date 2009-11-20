@@ -10,7 +10,7 @@ function randomspread(spread)
 end
 
 shotgun = Weapon{
-			name = "Shotgun2",
+			name = "Shotgun",
 			righthand = {-15,-15},
 			lefthand = {-30,-15+10},
 			tip = {-45,-15+10},
@@ -64,7 +64,7 @@ end
 
 local t = 0
 flamethrower = Weapon{
-			name = "Shotgun",
+			name = "Flamethrower",
 			righthand = {-20,-13},
 			lefthand = {-25,-10},
 			tip = {-65,-15+10},
@@ -103,7 +103,7 @@ flamethrower = Weapon{
 								y = y,
 								angle = angle+math.sin(t)*0.6+randomspread(0.4),
 								weapon = w,
-								speed = 2,
+								speed = 3,
 								duration = 500+math.random(500)-250,
 								gravity = -0.04,
 								sprite = flamesprite,

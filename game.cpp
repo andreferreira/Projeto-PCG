@@ -28,6 +28,10 @@ bool init_GL() {
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 
+	//Z-buffer
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
     //Linhas
     glLineWidth(2.5);
     glEnable(GL_LINE_SMOOTH);
@@ -57,7 +61,7 @@ Game::Game(ConfigManager *cfg) {
     }
 
     //Create Window
-    if( SDL_SetVideoMode( config->screen["width"], config->screen["height"], config->screen["bpp"], SDL_OPENGL ) == NULL )
+    if( SDL_SetVideoMode( config->screen["width"], config->screen["height"], config->screen["bpp"], SDL_OPENGL | SDL_RESIZABLE ) == NULL )
     {
         //erro
     }
@@ -80,7 +84,7 @@ void Game::desenhaMira(Ponto aim) {
 }
 
 void Game::show() {
-	glClear( GL_COLOR_BUFFER_BIT );
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     double x, y;
 	int width = config->screen["width"];
 	int height = config->screen["height"];
@@ -106,12 +110,13 @@ void Game::show() {
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    glOrtho( camera.x, camera.x+width, camera.y+height, camera.y, -1, 1 );
+    glOrtho( camera.x, camera.x+width, camera.y+height, camera.y, -2, 2 );
 	SDL_GL_SwapBuffers();
 }
 
 void Game::reloadLua() {
 	config->load();
+	resize(config->screen["width"], config->screen["height"]);
 	loadMap(config->maps.front());
 	weaponManager->loadWeapons();
 	shotManager->clearShots();
@@ -120,6 +125,13 @@ void Game::reloadLua() {
 
 void Game::setSpawn(Ponto spawn) {
 	this->spawn = spawn;
+}
+
+void Game::resize(GLsizei x, GLsizei y) {
+	config->screen["width"] = x;
+	config->screen["height"] = y;
+	SDL_SetVideoMode(x, y, config->screen["bpp"], SDL_OPENGL | SDL_RESIZABLE);
+	glViewport(0, 0, x, y);
 }
 
 void Game::mainLoop() {
@@ -143,6 +155,7 @@ void Game::mainLoop() {
 	collisionManager->subscribe(player);
 	bool quit = false;
 	while (!quit) {
+		int ifps = config->screen["fps"];
 		fps.start();
 		//player events
 		c->handleEvents();
@@ -156,8 +169,9 @@ void Game::mainLoop() {
 		shotManager->move();
 		quit = c->getQuit();
 		show();
-		if (fps.get_ticks() < 1000 / config->screen["fps"] ) {
-			SDL_Delay( ( 1000 / config->screen["fps"] ) - fps.get_ticks() );
+		rate = ((double)fps.get_ticks())/ifps;
+		if (fps.get_ticks() < 1000 / ifps ) {
+			SDL_Delay( ( 1000 / ifps ) - fps.get_ticks() );
 		}
 	}
 	SDL_Quit();

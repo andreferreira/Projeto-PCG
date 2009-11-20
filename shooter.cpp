@@ -51,7 +51,7 @@ void Shooter::allowFire() {
 void Shooter::fire() {
 	if (!canfire || weapon == NULL)
 		return;
-	SDL_AddTimer(weapon->fireRate,allowFireCallback,this);
+	SDL_AddTimer(weapon->fireRate*game->rate,allowFireCallback,this);
 	canfire = false;
 	Ponto tiplinha = weapon->getTip();
 	double angle = getAngle();
@@ -176,15 +176,15 @@ void Shooter::desenha() {
 			glTranslatef(neck.x,neck.y,0);
 			glRotatef(getAngle()*180.0/PI,0,0,-1);
 			glBegin(GL_LINES);
-				glVertex3f(0,0,0);
-				glVertex3f(leftelbow.x,leftelbow.y,0);
-				glVertex3f(leftelbow.x,leftelbow.y,0);
-				glVertex3f(leftarm.x,leftarm.y,0);
+				glVertex3f(0,0,-1);
+				glVertex3f(leftelbow.x,leftelbow.y,-1);
+				glVertex3f(leftelbow.x,leftelbow.y,-1);
+				glVertex3f(leftarm.x,leftarm.y,-1);
 				
-				glVertex3f(0,0,0);
-				glVertex3f(rightelbow.x,rightelbow.y,0);
-				glVertex3f(rightelbow.x,rightelbow.y,0);
-				glVertex3f(rightarm.x,rightarm.y,0);
+				glVertex3f(0,0,1);
+				glVertex3f(rightelbow.x,rightelbow.y,1);
+				glVertex3f(rightelbow.x,rightelbow.y,1);
+				glVertex3f(rightarm.x,rightarm.y,1);
 			glEnd();
 			if (weapon != NULL) weapon->desenha();
 		glPopMatrix();

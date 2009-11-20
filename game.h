@@ -17,12 +17,13 @@ class Game {
 		void show();
 		void loadMap(std::string mapname);
 		std::string currentMap;
-		WeaponManager* weaponManager;
-		ConfigManager *config;
 		Ponto spawn;
 	public:
+		ConfigManager *config;
 		CollisionManager* collisionManager;
+		WeaponManager* weaponManager;
 		ShotManager* shotManager;
+		double rate;
 		Ponto camera;
 		Game(ConfigManager *cfg);
 		void mainLoop();
@@ -35,6 +36,7 @@ class Game {
 		void removePlatforms();
 		void setSpawn(Ponto spawn);
 		Ponto getSpawn() {return spawn;}
+		void resize(GLsizei x, GLsizei y);
 };
 
 #endif

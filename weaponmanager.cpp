@@ -96,7 +96,7 @@ static int createshot (lua_State *L) {
 	
 	Shot* newshot = new Shot(x,y,angle,speed,gravity,weapon);
 	weapon->game->shotManager->addShot(newshot);
-	SDL_AddTimer(rate,deleteShotCallback,newshot);
+	SDL_AddTimer(rate*_game->rate,deleteShotCallback,newshot);
 	lua_pushlightuserdata(L, newshot);
 	return 1;
 }

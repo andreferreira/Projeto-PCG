@@ -24,6 +24,12 @@ void Controle::handleEvents() {
                 break;
             case SDL_KEYDOWN:
                 switch (e.key.keysym.sym) {
+					case SDLK_F3:
+						jogador.equip(jogador.game->weaponManager->getWeapon("Shotgun"));
+						break;
+					case SDLK_F4:
+						jogador.equip(jogador.game->weaponManager->getWeapon("Flamethrower"));
+						break;
 					case SDLK_F5:
 						jogador.game->reloadLua();
 						break;
@@ -33,6 +39,9 @@ void Controle::handleEvents() {
                     default: handleEvent(e);break;
                 }
                 break;
+			case SDL_VIDEORESIZE:
+				jogador.game->resize(e.resize.w, e.resize.h);
+				break;
 			default:
 				handleEvent(e);
 				break;
