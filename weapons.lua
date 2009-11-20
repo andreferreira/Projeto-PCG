@@ -10,7 +10,7 @@ function randomspread(spread)
 end
 
 shotgun = Weapon{
-			name = "Shotgun2",
+			name = "Shotgun",
 			righthand = {-15,-15},
 			lefthand = {-30,-15+10},
 			tip = {-45,-15+10},
@@ -28,8 +28,12 @@ shotgun = Weapon{
 								angle = angle+randomspread(0.2),
 								weapon = w,
 								duration = 1000,
+								speed = 4,
 								sprite = {
-										Line{0,0,1,1},
+										Line{0,0,3,0},
+										Line{3,0,3,3},
+										Line{3,3,0,3},
+										Line{0,3,0,0},
 										}
 								}
 						end
@@ -59,7 +63,7 @@ function mulXY(x,y,...)
 end
 
 flamethrower = Weapon{
-			name = "Shotgun",
+			name = "Shotgun2",
 			righthand = {-20,-13},
 			lefthand = {-25,-10},
 			tip = {-65,-15+10},
@@ -95,11 +99,11 @@ flamethrower = Weapon{
 							Shot {
 								x = x,
 								y = y,
-								angle = angle+randomspread(0.2),
+								angle = angle+randomspread(0.6),
 								weapon = w,
-								speed = 5,
-								duration = 1000+math.random(1000)-500,
-								gravity = -0.12,
+								speed = 2,
+								duration = 500+math.random(500)-250,
+								gravity = -0.03,
 								sprite = flamesprite,
 								}
 						end
