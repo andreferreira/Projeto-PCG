@@ -6,7 +6,8 @@ Controle::Controle(Player &p) : jogador( p )  {
 }
 
 void Controle::handleEvents() {
-	SDL_Event e;	
+	SDL_Event e;
+	jogador.bypass = false;
     while( SDL_PollEvent( &e ) ) {
         switch( e.type ) {
 			case SDL_USEREVENT:

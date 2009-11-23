@@ -4,11 +4,14 @@
 
 ControleWii::ControleWii(Player &p) : Controle(p) {
 	initializeWiimote();
+	stickX = 0xffff;
+	stickY = 0xffff;
+	buttonsNunchuck = 0;
+	buttonsWii = 0;
 }
 
 void ControleWii::handleOther() {
 	Uint8 *keystates = SDL_GetKeyState( NULL );
-	jogador.bypass = false;
 	if (keystates[SDLK_DOWN]) {
 		jogador.onGround = false;
 		jogador.bypass = true;
@@ -16,6 +19,21 @@ void ControleWii::handleOther() {
 	if(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1)) { //botao esquerdo do mouse pressionado
 		jogador.fire();
 	}
+	if (jogador.onGround && 
+		buttonsNunchuck & 2) { //pulo com botao C ou para cima
+		jogador.addSpeed( 0, -8);
+		jogador.onGround = false;
+	}
+
+	if (buttonsNunchuck & 1) {//descer com botao Z ou para baixo
+		jogador.onGround = false;
+		jogador.bypass = true;
+	}
+	
+	if (buttonsWii & 4) { //R atira
+		jogador.fire();
+	}
+
 }
 
 void ControleWii::handleEvent(SDL_Event &e) {
@@ -26,36 +44,51 @@ void ControleWii::handleEvent(SDL_Event &e) {
 					cwiid_mesg_type* type = (cwiid_mesg_type*)e.user.data1;
 					union cwiid_mesg *mesg = (union cwiid_mesg*)e.user.data2;
 					switch (*type) {
-						case CWIID_MESG_NUNCHUK: {
-							printf("Nunchuk Report: btns=%.2X stick=(%d,%d) acc.x=%d acc.y=%d "
-								   "acc.z=%d\n", mesg->nunchuk_mesg.buttons,
-								   mesg->nunchuk_mesg.stick[CWIID_X],
-								   mesg->nunchuk_mesg.stick[CWIID_Y],
-								   mesg->nunchuk_mesg.acc[CWIID_X],
-								   mesg->nunchuk_mesg.acc[CWIID_Y],
-								   mesg->nunchuk_mesg.acc[CWIID_Z]);
+						case CWIID_MESG_BTN: {
+							//printf("Button Report: %.4X\n", mesg->btn_mesg.buttons);
+							buttonsWii = mesg->btn_mesg.buttons;
+							if (mesg->btn_mesg.buttons & 4) { //R atira
+								jogador.fire();
+							}
 						}
 						break;
+						case CWIID_MESG_NUNCHUK: {
+							int newX = mesg->nunchuk_mesg.stick[CWIID_X] - 120;
+							int newY = mesg->nunchuk_mesg.stick[CWIID_Y] - 131;
+							/*
+							printf("Nunchuk Report: btns=%.2X stick=(%d,%d) acc.x=%d acc.y=%d "
+								   "acc.z=%d\n", mesg->nunchuk_mesg.buttons,
+								   newX,
+								   newY,
+								   mesg->nunchuk_mesg.acc[CWIID_X],
+								   mesg->nunchuk_mesg.acc[CWIID_Y],
+								   mesg->nunchuk_mesg.acc[CWIID_Z]);*/
+
+							if (stickX != 0xffff) { //para calibrar
+								jogador.addSpeed(-3.0*stickX/128,0);
+								jogador.addSpeed(3.0*newX/128,0);
+							}
+							stickX = newX;
+							stickY = newY;
+							buttonsNunchuck = mesg->nunchuk_mesg.buttons;
+							
+							if (jogador.onGround && 
+								((mesg->nunchuk_mesg.buttons & 2) ||
+								 newY > 60)) { //pulo com botao C ou para cima
+								jogador.addSpeed( 0, -8);
+								jogador.onGround = false;
+							}
+
+							if (newY < -60 || (mesg->nunchuk_mesg.buttons & 1)) {//descer com botao Z ou para baixo
+								jogador.onGround = false;
+								jogador.bypass = true;
+							}
+						}
+						break;
+					
 					}
 					free(e.user.data1);
 					free(e.user.data2);
-							/*case CWIID_MESG_NUNCHUK: {
-			userevent.code = FUNCTIONCALL;
-			userevent.data1 = (void*)mesg[i].type;
-			union cwiid_mesg *m = (union cwiid_mesg *)malloc(sizeof(union cwiid_mesg));
-			*m = mesg[i];
-			userevent.data2 = m;
-			event.user = userevent;
-			SDL_PushEvent(&event);
-			printf("Nunchuk Report: btns=%.2X stick=(%d,%d) acc.x=%d acc.y=%d "
-			       "acc.z=%d\n", mesg[i].nunchuk_mesg.buttons,
-			       mesg[i].nunchuk_mesg.stick[CWIID_X],
-			       mesg[i].nunchuk_mesg.stick[CWIID_Y],
-			       mesg[i].nunchuk_mesg.acc[CWIID_X],
-			       mesg[i].nunchuk_mesg.acc[CWIID_Y],
-			       mesg[i].nunchuk_mesg.acc[CWIID_Z]);
-			break;
-		}*/
 				break;
 			}
 		break;

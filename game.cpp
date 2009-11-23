@@ -141,7 +141,7 @@ void Game::mainLoop() {
 
 	player = new Player(this, spawn, config->player["speed"]);
 	Controle *c;
-	if (true) 
+	if (false) 
 		c = new ControleTeclado(*player);
 	else
 		c = new ControleWii(*player);

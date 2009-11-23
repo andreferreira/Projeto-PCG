@@ -13,6 +13,10 @@ class ControleWii: public Controle {
 	unsigned char led_state;
 	unsigned char rpt_mode;
 	unsigned char rumble;
+	unsigned int buttonsWii;
+	unsigned int buttonsNunchuck;
+	int stickX;
+	int stickY;
 	public:
 	ControleWii(Player &p);
 	bool initializeWiimote();

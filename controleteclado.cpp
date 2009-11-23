@@ -6,7 +6,7 @@ ControleTeclado::ControleTeclado(Player &p) : Controle(p) {
 
 void ControleTeclado::handleOther() {
 	Uint8 *keystates = SDL_GetKeyState( NULL );
-	jogador.bypass = false;
+
 	if (keystates[SDLK_DOWN]) {
 		jogador.onGround = false;
 		jogador.bypass = true;
