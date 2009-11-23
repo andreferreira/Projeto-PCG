@@ -154,6 +154,7 @@ void Game::mainLoop() {
 
 	collisionManager->subscribe(player);
 	bool quit = false;
+	rate = 1.0;
 	while (!quit) {
 		int ifps = config->screen["fps"];
 		fps.start();
@@ -170,6 +171,8 @@ void Game::mainLoop() {
 		quit = c->getQuit();
 		show();
 		rate = ((double)fps.get_ticks())/ifps;
+		if (rate < 1.0)
+			rate = 1.0;
 		if (fps.get_ticks() < 1000 / ifps ) {
 			SDL_Delay( ( 1000 / ifps ) - fps.get_ticks() );
 		}
