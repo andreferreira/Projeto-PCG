@@ -1,5 +1,6 @@
 #include "controlewii.h"
 #include "usereventtype.h"
+#include <math.h>
 
 
 ControleWii::ControleWii(Player &p) : Controle(p) {
@@ -8,6 +9,8 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 	stickY = 0xffff;
 	buttonsNunchuck = 0;
 	buttonsWii = 0;
+	for (int i = 0; i < 4; i++)
+		cyclesSinceSeen[i] = -1;
 }
 
 void ControleWii::handleOther() {
@@ -44,6 +47,41 @@ void ControleWii::handleEvent(SDL_Event &e) {
 					cwiid_mesg_type* type = (cwiid_mesg_type*)e.user.data1;
 					union cwiid_mesg *mesg = (union cwiid_mesg*)e.user.data2;
 					switch (*type) {
+						case CWIID_MESG_IR: {
+							//printf("IR Report: ");
+							int sources = 0;
+							double x = 0.0;
+							double y = 0.0;
+							for (int j = 0; j < CWIID_IR_SRC_COUNT; j++) {
+								cyclesSinceSeen[j]++;
+								if (mesg->ir_mesg.src[j].valid) {
+									x += mesg->ir_mesg.src[j].pos[CWIID_X];
+									y += mesg->ir_mesg.src[j].pos[CWIID_Y];
+									sources++;
+									cyclesSinceSeen[j] = 0;
+									lastSeenAt[j].x = mesg->ir_mesg.src[j].pos[CWIID_X];
+									lastSeenAt[j].y = mesg->ir_mesg.src[j].pos[CWIID_Y];
+									//printf("(%d,%d) ", mesg->ir_mesg.src[j].pos[CWIID_X],
+									//				   mesg->ir_mesg.src[j].pos[CWIID_Y]);
+
+									//break;
+								}
+							}
+							if (sources > 0) {
+								y = y / sources;
+								double angle = (y / 738.0) * PI;
+								y = jogador.getY() + jogador.pescoco().y - jogador.game->camera.y - 100 * cos(angle);
+								x = jogador.getX() + jogador.pescoco().x - jogador.game->camera.x + 100 * sin(angle);
+								jogador.setAim(x,y);
+								//x = x / sources;
+								//y = y / sources;
+								//x = 1024.0 - (x / 1024.0) * jogador.game->config->screen["width"];
+								//y = (y / 738.0) * jogador.game->config->screen["height"];
+								//jogador.setAim(x,y);
+								//printf("%f %f\n",x,y);
+							}
+						}
+						break;
 						case CWIID_MESG_BTN: {
 							//printf("Button Report: %.4X\n", mesg->btn_mesg.buttons);
 							buttonsWii = mesg->btn_mesg.buttons;
@@ -65,8 +103,8 @@ void ControleWii::handleEvent(SDL_Event &e) {
 								   mesg->nunchuk_mesg.acc[CWIID_Z]);*/
 
 							if (stickX != 0xffff) { //para calibrar
-								jogador.addSpeed(-3.0*stickX/128,0);
-								jogador.addSpeed(3.0*newX/128,0);
+								//jogador.addSpeed(-3.0*stickX/128,0);
+								jogador.setSpeed(3.0*newX/128,jogador.getSpeedY());
 							}
 							stickX = newX;
 							stickY = newY;
@@ -93,7 +131,7 @@ void ControleWii::handleEvent(SDL_Event &e) {
 			}
 		break;
 		case SDL_MOUSEMOTION: {
-				jogador.setAim(e.motion.x,e.motion.y);
+				//jogador.setAim(e.motion.x,e.motion.y);
 			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
@@ -284,13 +322,16 @@ bool ControleWii::ControleWii::initializeWiimote() {
 	}
 	
 	toggle_bit(rpt_mode, CWIID_RPT_BTN); //abilita status report de botoes
-	set_rpt_mode(wiimote, rpt_mode);
+	//set_rpt_mode(wiimote, rpt_mode);
 	
 	toggle_bit(rpt_mode, CWIID_RPT_NUNCHUK); //abilita status report de nunchuck
-	set_rpt_mode(wiimote, rpt_mode);
+	//set_rpt_mode(wiimote, rpt_mode);
 	
 	toggle_bit(led_state, CWIID_LED1_ON); //liga primeiro LED por motivo nenhum
 	set_led_state(wiimote, led_state);
+	
+	toggle_bit(rpt_mode, CWIID_RPT_IR); //abilita recebimento do infravermelho
+	set_rpt_mode(wiimote, rpt_mode);
 	
 	if (cwiid_enable(wiimote, CWIID_FLAG_MESG_IFC)) {
 		fprintf(stderr, "Error enabling messages\n");

@@ -16,7 +16,6 @@ class Shooter: public Thing {
 		Ponto cintura();
 		Ponto leftArm();
 		Ponto rightArm();
-        Ponto pescoco();
 		Ponto aim;
 		Weapon* weapon;
 		double tamanhoAntebraco();
@@ -25,6 +24,7 @@ class Shooter: public Thing {
 		Ponto getCotovelo(Ponto ombro, Ponto hand);
 		bool canfire;
 	public:
+		Ponto pescoco();
 		Game* game;
         Shooter(Game* agame, Ponto pos, Ponto speed);
         void desenha();

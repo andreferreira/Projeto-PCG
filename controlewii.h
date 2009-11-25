@@ -22,6 +22,8 @@ class ControleWii: public Controle {
 	bool initializeWiimote();
 	virtual void handleEvent(SDL_Event &e);
 	virtual void handleOther();
+	Ponto lastSeenAt[4];
+	int cyclesSinceSeen[4];
 };
 
 
