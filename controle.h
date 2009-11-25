@@ -7,6 +7,7 @@ class Controle {
     protected:
         Player &jogador;
         bool quit;
+		Game* game;
     public:
         Controle(Player &p);
         void handleEvents();

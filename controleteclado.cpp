@@ -19,7 +19,7 @@ void ControleTeclado::handleOther() {
 void ControleTeclado::handleEvent(SDL_Event &e) {
 	switch( e.type ) {
 		case SDL_MOUSEMOTION: {
-				jogador.setAim(e.motion.x,e.motion.y);
+				jogador.setAim(e.motion.x+game->camera.x,e.motion.y+game->camera.y);
 			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:

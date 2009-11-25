@@ -3,6 +3,7 @@
 
 Controle::Controle(Player &p) : jogador( p )  {
     quit = false;
+	game = jogador.game;
 }
 
 void Controle::handleEvents() {

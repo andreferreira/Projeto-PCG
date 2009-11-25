@@ -4,12 +4,12 @@
 
 
 ControleWii::ControleWii(Player &p) : Controle(p) {
+	connected = false;
 	initializeWiimote();
 	stickX = 0xffff;
 	stickY = 0xffff;
 	buttonsNunchuck = 0;
 	buttonsWii = 0;
-	game = jogador.game;
 	for (int i = 0; i < CWIID_IR_SRC_COUNT; i++)
 		cyclesSinceSeen[i] = -1;
 }
@@ -130,6 +130,7 @@ void ControleWii::handleEvent(SDL_Event &e) {
 			}
 		break;
 		case SDL_MOUSEMOTION: {
+			if (!connected)
 				jogador.setAim(e.motion.x+game->camera.x,e.motion.y+game->camera.y);
 			}
 			break;
@@ -336,5 +337,6 @@ bool ControleWii::ControleWii::initializeWiimote() {
 		fprintf(stderr, "Error enabling messages\n");
 		return false;
 	}
-	
+	connected = true;
+	return true;
 }

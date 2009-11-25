@@ -24,7 +24,7 @@ class ControleWii: public Controle {
 	virtual void handleOther();
 	Ponto lastSeenAt[CWIID_IR_SRC_COUNT];
 	int cyclesSinceSeen[CWIID_IR_SRC_COUNT];
-	Game* game;
+	bool connected;
 };
 
 
