@@ -22,8 +22,9 @@ class ControleWii: public Controle {
 	bool initializeWiimote();
 	virtual void handleEvent(SDL_Event &e);
 	virtual void handleOther();
-	Ponto lastSeenAt[4];
-	int cyclesSinceSeen[4];
+	Ponto lastSeenAt[CWIID_IR_SRC_COUNT];
+	int cyclesSinceSeen[CWIID_IR_SRC_COUNT];
+	Game* game;
 };
 
 

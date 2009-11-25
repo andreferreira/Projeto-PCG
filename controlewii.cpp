@@ -9,7 +9,8 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 	stickY = 0xffff;
 	buttonsNunchuck = 0;
 	buttonsWii = 0;
-	for (int i = 0; i < 4; i++)
+	game = jogador.game;
+	for (int i = 0; i < CWIID_IR_SRC_COUNT; i++)
 		cyclesSinceSeen[i] = -1;
 }
 
@@ -48,37 +49,35 @@ void ControleWii::handleEvent(SDL_Event &e) {
 					union cwiid_mesg *mesg = (union cwiid_mesg*)e.user.data2;
 					switch (*type) {
 						case CWIID_MESG_IR: {
-							//printf("IR Report: ");
 							int sources = 0;
 							double x = 0.0;
 							double y = 0.0;
 							for (int j = 0; j < CWIID_IR_SRC_COUNT; j++) {
-								cyclesSinceSeen[j]++;
+								if (cyclesSinceSeen[j] != -1)
+									cyclesSinceSeen[j]++;
 								if (mesg->ir_mesg.src[j].valid) {
-									x += mesg->ir_mesg.src[j].pos[CWIID_X];
-									y += mesg->ir_mesg.src[j].pos[CWIID_Y];
-									sources++;
 									cyclesSinceSeen[j] = 0;
 									lastSeenAt[j].x = mesg->ir_mesg.src[j].pos[CWIID_X];
 									lastSeenAt[j].y = mesg->ir_mesg.src[j].pos[CWIID_Y];
-									//printf("(%d,%d) ", mesg->ir_mesg.src[j].pos[CWIID_X],
-									//				   mesg->ir_mesg.src[j].pos[CWIID_Y]);
-
-									//break;
 								}
 							}
+							for (int i = 0; i < CWIID_IR_SRC_COUNT; i++)
+								if (cyclesSinceSeen[i] != -1) {
+									x += lastSeenAt[i].x;
+									y += lastSeenAt[i].y;
+									sources++;
+								}
 							if (sources > 0) {
-								y = y / sources;
+								/*y = y / sources;
 								double angle = (y / 738.0) * PI;
 								y = jogador.getY() + jogador.pescoco().y - jogador.game->camera.y - 100 * cos(angle);
 								x = jogador.getX() + jogador.pescoco().x - jogador.game->camera.x + 100 * sin(angle);
-								jogador.setAim(x,y);
-								//x = x / sources;
-								//y = y / sources;
-								//x = 1024.0 - (x / 1024.0) * jogador.game->config->screen["width"];
-								//y = (y / 738.0) * jogador.game->config->screen["height"];
-								//jogador.setAim(x,y);
-								//printf("%f %f\n",x,y);
+								jogador.setAim(x,y);*/
+								x = x / sources;
+								y = y / sources;
+								x = jogador.game->config->screen["width"] - (x / 1024.0) * jogador.game->config->screen["width"];
+								y = (y / 738.0) * jogador.game->config->screen["height"];
+								jogador.setAim(x+game->camera.x,y+game->camera.y);
 							}
 						}
 						break;
@@ -131,7 +130,7 @@ void ControleWii::handleEvent(SDL_Event &e) {
 			}
 		break;
 		case SDL_MOUSEMOTION: {
-				//jogador.setAim(e.motion.x,e.motion.y);
+				jogador.setAim(e.motion.x+game->camera.x,e.motion.y+game->camera.y);
 			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
@@ -327,7 +326,7 @@ bool ControleWii::ControleWii::initializeWiimote() {
 	toggle_bit(rpt_mode, CWIID_RPT_NUNCHUK); //abilita status report de nunchuck
 	//set_rpt_mode(wiimote, rpt_mode);
 	
-	toggle_bit(led_state, CWIID_LED1_ON); //liga primeiro LED por motivo nenhum
+	toggle_bit(led_state, CWIID_LED4_ON); //liga quarto LED para indentificar ligaçao com o NOSSO jogo e nao o wii
 	set_led_state(wiimote, led_state);
 	
 	toggle_bit(rpt_mode, CWIID_RPT_IR); //abilita recebimento do infravermelho

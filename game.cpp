@@ -78,7 +78,7 @@ Game::Game(ConfigManager *cfg) {
 
 void Game::desenhaMira(Ponto aim) {
 	glPushMatrix();
-		glTranslatef(camera.x+aim.x,camera.y+aim.y,0);
+		glTranslatef(aim.x,aim.y,0);
 		drawCircle(10,10);
 	glPopMatrix();
 }

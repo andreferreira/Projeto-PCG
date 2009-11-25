@@ -141,7 +141,7 @@ double Shooter::tamanhoAntebraco() {
 }
 
 double Shooter::getAngle() {
-	Ponto gameaim(aim.x+game->camera.x,aim.y+game->camera.y);
+	Ponto gameaim(aim.x,aim.y);
 	Ponto gameneck(pescoco().x+getX(),pescoco().y+getY());
 	double hyp = sqrt((gameaim.x-gameneck.x)*(gameaim.x-gameneck.x) + 
 					  (gameaim.y-gameneck.y)*(gameaim.y-gameneck.y));
