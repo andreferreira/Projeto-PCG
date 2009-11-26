@@ -21,7 +21,8 @@ OBJS = \
 	controlewii.o \
 	collision.o \
 	enemy.o \
-	
+	weaponitem.o \
+
 	
 SRCS = $(OBJS,.o=.cpp) 
 

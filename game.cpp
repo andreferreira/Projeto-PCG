@@ -5,6 +5,7 @@
 #include "controleteclado.h"
 #include "controlewii.h"
 #include "shotmanager.h"
+#include "weaponitem.h"
 
 void Game::loadMap(std::string mapname) {
 	if (mapa != NULL)
@@ -134,11 +135,13 @@ void Game::resize(GLsizei x, GLsizei y) {
 	glViewport(0, 0, x, y);
 }
 
+WeaponItem* Game::dropWeapon(std::string name) {
+	return weaponManager->getItem(name);
+}
+
 void Game::mainLoop() {
 	Timer fps;
 	
-	loadMap(config->maps.front());
-
 	player = new Player(this, spawn, config->player["speed"]);
 	Controle *c;
 	if (true) 
@@ -150,9 +153,16 @@ void Game::mainLoop() {
 	weaponManager = new WeaponManager(this);
 	collisionManager = new CollisionManager;
 	weaponManager->loadWeapons();
+	loadMap(config->maps.front());
 	player->equip(weaponManager->getWeapon("Shotgun"));
 
 	collisionManager->subscribe(player);
+	std::list<WeaponItem*>::iterator itW;
+	for (itW = mapa->items.begin(); itW != mapa->items.end(); itW++) {
+		collisionManager->subscribe(*itW);
+		gravityManager->subscribe(*itW);
+	}
+	
 	bool quit = false;
 	while (!quit) {
 		int ifps = config->screen["fps"];

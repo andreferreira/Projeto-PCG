@@ -3,6 +3,9 @@ function map(t)
 	for i,p in pairs(t.platforms) do
 		regplatform(p[1],p[2],p[3],p[4],p.passable)
 	end
+	for i,w in pairs(t.weapons) do
+		regweapon(w.name, w.spawn[1], w.spawn[2])
+	end
 	return t
 end
 

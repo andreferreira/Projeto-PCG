@@ -7,6 +7,17 @@ function Weapon(t)
 	for i = 1, #t.sprite do
 		regspriteline(w,t.sprite[i][1],t.sprite[i][2],t.sprite[i][3],t.sprite[i][4])
 	end
+	local minX, minY, maxX, maxY = math.huge, math.huge, -math.huge, -math.huge
+	for i = 1, #t.sprite do
+		minX = math.min(minX, t.sprite[i][1], t.sprite[i][3])
+		minY = math.min(minY, t.sprite[i][2], t.sprite[i][4])
+		maxX = math.max(maxX, t.sprite[i][1], t.sprite[i][3])
+		maxY = math.max(maxY, t.sprite[i][2], t.sprite[i][4])
+	end
+	regcollision(t.name, minX, minY, minX, maxY)
+	regcollision(t.name, minX, minY, maxX, minY)
+	regcollision(t.name, maxX, maxY, minX, maxY)
+	regcollision(t.name, maxX, maxY, maxX, minY)		
 	return t
 end
 

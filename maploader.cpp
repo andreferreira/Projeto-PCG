@@ -23,12 +23,20 @@ static int regplatform (lua_State *L) {
 	return 0;
 }
 
+static int regweapon (lua_State *L) {
+	const char* nome = lua_tostring(L, 1);
+	double x = lua_tonumber(L, 2);
+	double y = lua_tonumber(L, 3);
+	mapa->dropWeapon(nome, Ponto(x, y));
+	return 0;
+}
 
 void MapLoader::load(std::string name, Mapa* m) {
 	mapa = m;
 	lua_State* l = newState();
 	registerFunction(l,"regmap",regmap);
 	registerFunction(l,"regplatform",regplatform);
+	registerFunction(l,"regweapon",regweapon);
 	doLuaFile(l,"maploader.lua");
 	doLuaFile(l,name.c_str());
 	lua_close(l);

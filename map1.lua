@@ -30,5 +30,8 @@ map {
 	spawn = {400,h-200},
 	width = w,
 	height = h,
-	platforms = platforms
+	platforms = platforms,
+	weapons = {
+		{name="Flamethrower", spawn={1000, 200}}
+	},
 }
