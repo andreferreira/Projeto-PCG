@@ -32,6 +32,6 @@ map {
 	height = h,
 	platforms = platforms,
 	weapons = {
-		{name="Flamethrower", spawn={1000, 200}}
+		{name="Flamethrower", spawn={485, 100}}
 	},
 }

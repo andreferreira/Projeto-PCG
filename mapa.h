@@ -28,6 +28,7 @@ class Mapa {
 		double xmax();
 		double ymax();
 		void setTamanho(double width, double height);
+		void move();
 };
 
 #endif

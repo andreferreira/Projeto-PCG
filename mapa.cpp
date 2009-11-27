@@ -53,3 +53,9 @@ double Mapa::xmax() {
 double Mapa::ymax() {
 	return tamanho.y;
 }
+
+void Mapa::move() {
+	std::list<WeaponItem*>::iterator it;
+	for (it = items.begin(); it != items.end(); it++)
+		(*it)->move();	
+}

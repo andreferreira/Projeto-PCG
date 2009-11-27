@@ -4,6 +4,8 @@ WeaponItem::WeaponItem(Weapon *a, Polygon c): arma(a), collision(c) {
 	setSpeed(0, 0);
 	maxspeed.x = 5;
 	maxspeed.y = 20;
+	bypass = false;
+	onGround = false;
 }
 
 Polygon WeaponItem::getCollision() {

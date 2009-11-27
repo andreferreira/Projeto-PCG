@@ -141,6 +141,11 @@ WeaponItem* Game::dropWeapon(std::string name) {
 
 void Game::mainLoop() {
 	Timer fps;
+	shotManager = new ShotManager;
+	weaponManager = new WeaponManager(this);
+	collisionManager = new CollisionManager;
+	weaponManager->loadWeapons();
+	loadMap(config->maps.front());
 	
 	player = new Player(this, spawn, config->player["speed"]);
 	Controle *c;
@@ -148,12 +153,6 @@ void Game::mainLoop() {
 		c = new ControleTeclado(*player);
 	else
 		c = new ControleWii(*player);
-	
-	shotManager = new ShotManager;
-	weaponManager = new WeaponManager(this);
-	collisionManager = new CollisionManager;
-	weaponManager->loadWeapons();
-	loadMap(config->maps.front());
 	player->equip(weaponManager->getWeapon("Shotgun"));
 
 	collisionManager->subscribe(player);
@@ -177,6 +176,7 @@ void Game::mainLoop() {
 		//movements
 		player->move();
 		shotManager->move();
+		mapa->move();
 		quit = c->getQuit();
 		show();
 		rate = ((double)fps.get_ticks())/ifps;
