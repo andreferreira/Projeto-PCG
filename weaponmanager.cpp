@@ -1,6 +1,7 @@
 #include "weaponmanager.h"
 #include "luaenv.h"
 #include "weapon.h"
+#include "weaponitem.h"
 #include "game.h"
 #include "shotmanager.h"
 #include "shot.h"
@@ -13,6 +14,7 @@ WeaponManager::WeaponManager(Game* g) {
 
 std::list<Weapon*> *_weapons = NULL;
 Game *_game = NULL;
+std::map<std::string, Polygon> *_collision = NULL;
 
 static int regweapon (lua_State *L) {
 	Ponto r,l,tip;
@@ -101,6 +103,22 @@ static int createshot (lua_State *L) {
 	return 1;
 }
 
+static int regcollision(lua_State *L) {
+	const char* nome = lua_tostring(L, 1);
+	double x1, y1, x2, y2;
+	x1 = lua_tonumber(L, 2);
+	y1 = lua_tonumber(L, 3);
+	x2 = lua_tonumber(L, 4);
+	y2 = lua_tonumber(L, 5);
+	Linha l(x1, y1, x2, y2);
+	if (_collision->find(nome) == _collision->end()) {
+		Polygon p;	
+		(*_collision)[nome] = p;
+	}
+	(*_collision)[nome].addLinha(l);
+	return 0;
+}
+
 Weapon* WeaponManager::getWeapon(std::string name) {
 	std::list<Weapon*>::iterator it;
 	for (it = weapons.begin(); it != weapons.end(); it++) {
@@ -108,6 +126,14 @@ Weapon* WeaponManager::getWeapon(std::string name) {
 			return (*it);
 	}
 	return NULL;
+}
+
+Polygon WeaponManager::getCollision(std::string name) {
+	return collision[name];
+}
+
+WeaponItem* WeaponManager::getItem(std::string name) {
+	return new WeaponItem(getWeapon(name), getCollision(name));
 }
 
 void WeaponManager::loadWeapons() {
@@ -119,12 +145,15 @@ void WeaponManager::loadWeapons() {
 	weapons.clear();
 	_weapons = &weapons;
 	_game = game;
+	collision.clear();
+	_collision = &collision;
 	lstate = newState();
 	registerFunction(lstate,"regweapon",regweapon);
 	registerFunction(lstate,"regspriteline",regspriteline);
 	registerFunction(lstate,"regspritelineshot",regspritelineshot);
 	registerFunction(lstate,"regfirefunction",regfirefunction);
 	registerFunction(lstate,"createshot",createshot);
+	registerFunction(lstate,"regcollision",regcollision);
 	doLuaFile(lstate,"weaponmanager.lua");
 	doLuaFile(lstate,"weapons.lua");
 }

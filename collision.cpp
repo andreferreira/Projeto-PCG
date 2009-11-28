@@ -38,6 +38,8 @@ void CollisionManager::checkCollision(Thing* a, Thing* b){
 	Polygon pa,pb;
 	pa = a->getCollision();
 	pb = b->getCollision();
+	pa.translate(a->getPosition());
+	pb.translate(b->getPosition());
 	std::vector<Linha>::iterator ita,itb;
 	if (pointInsidePolygon(pb.linhas[0].vertices[0],pa)) {
 		a->collide(b);

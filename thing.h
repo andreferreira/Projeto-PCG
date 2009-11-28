@@ -6,8 +6,8 @@
 class Thing {
 	protected:
 		Ponto posicao;
-		Vetor velocidade;
-		Vetor maxspeed;
+		Ponto velocidade;
+		Ponto maxspeed;
 	public:
 		double gravityRate;
 		bool onGround;
@@ -17,7 +17,9 @@ class Thing {
 		void setSpeed(double xspeed, double yspeed);
 		double getSpeedX() {return velocidade.x;}
 		double getSpeedY() {return velocidade.y;}
+		Ponto getSpeed() {return velocidade;}
 		void setPosition(double x, double y);
+		Ponto getPosition() {return posicao;}
 		double getX() {return posicao.x;}
 		double getY() {return posicao.y;}
 		void move();

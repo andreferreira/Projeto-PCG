@@ -37,6 +37,7 @@ class Game {
 		void setSpawn(Ponto spawn);
 		Ponto getSpawn() {return spawn;}
 		void resize(GLsizei x, GLsizei y);
+		WeaponItem* dropWeapon(std::string name);
 };
 
 #endif

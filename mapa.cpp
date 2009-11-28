@@ -1,5 +1,6 @@
 #include "mapa.h"
 #include "maploader.h"
+#include "weaponitem.h"
 
 Mapa::Mapa(std::string name, Game* g) {
 	game = g;
@@ -30,10 +31,19 @@ void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax, bo
 	game->addPlatform(plat);
 }
 
+void Mapa::dropWeapon(std::string name, Ponto p) {
+	WeaponItem *a = game->dropWeapon(name);
+	a->setPosition(p.x, p.y);
+	items.push_front(a);
+}
+
 void Mapa::desenha() {
-	std::list<Platform*>::iterator it;
-	for (it = platforms.begin(); it != platforms.end(); it++)
-		(*it)->desenha();
+	std::list<Platform*>::iterator itP;
+	for (itP = platforms.begin(); itP != platforms.end(); itP++)
+		(*itP)->desenha();
+	std::list<WeaponItem*>::iterator itW;
+	for (itW = items.begin(); itW != items.end(); itW++)
+		(*itW)->desenha();
 }
 
 double Mapa::xmax() {
@@ -42,4 +52,10 @@ double Mapa::xmax() {
 
 double Mapa::ymax() {
 	return tamanho.y;
+}
+
+void Mapa::move() {
+	std::list<WeaponItem*>::iterator it;
+	for (it = items.begin(); it != items.end(); it++)
+		(*it)->move();	
 }

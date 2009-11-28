@@ -9,6 +9,11 @@ Linha::Linha(double x1,double y1,double x2, double y2) {
 	vertices[1].y = y2;
 }
 
+void Linha::translate(Ponto v) {
+	vertices[0] = vertices[0] + v;
+	vertices[1] = vertices[1] + v;
+}
+
 Rect::Rect(double x1,double y1,double x2, double y2) {
 	vertices[0].x = x1;
 	vertices[0].y = y1;
@@ -42,6 +47,11 @@ void Polygon::desenha() {
 	for (int i = 0; i < n; i++) {
 		linhas[i].desenha();
 	}
+}
+
+void Polygon::translate(Ponto v) {
+	for (int i = 0; i < linhas.size(); i++)
+		linhas[i].translate(v);
 }
 
 double operator*(const Ponto &a, const Ponto &b) {

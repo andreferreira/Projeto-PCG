@@ -60,9 +60,7 @@ void Shooter::fire() {
 	Ponto tip;
 	tip.x = (cosAngle*tiplinha.x+sinAngle*tiplinha.y);
 	tip.y = -(sinAngle*tiplinha.x-cosAngle*tiplinha.y);
-	tip = tip + pescoco();
-	tip.x += getX();
-	tip.y += getY();
+	tip = tip + pescoco() + getPosition();
 	
 	weapon->fire(tip,angle);
 }
@@ -141,14 +139,13 @@ double Shooter::tamanhoAntebraco() {
 }
 
 double Shooter::getAngle() {
-	Ponto gameaim(aim.x,aim.y);
-	Ponto gameneck(pescoco().x+getX(),pescoco().y+getY());
-	double hyp = sqrt((gameaim.x-gameneck.x)*(gameaim.x-gameneck.x) + 
-					  (gameaim.y-gameneck.y)*(gameaim.y-gameneck.y));
-	if (gameaim.y <= gameneck.y)
-		return -acos((-gameaim.x+gameneck.x)/hyp);
+	Ponto gameneck = pescoco() + getPosition();
+	double hyp = sqrt((aim.x-gameneck.x)*(aim.x-gameneck.x) + 
+					  (aim.y-gameneck.y)*(aim.y-gameneck.y));
+	if (aim.y <= gameneck.y)
+		return -acos((-aim.x+gameneck.x)/hyp);
 	else
-		return acos((-gameaim.x+gameneck.x)/hyp);
+		return acos((-aim.x+gameneck.x)/hyp);
 }
 
 void Shooter::desenha() {
@@ -197,22 +194,18 @@ void Shooter::desenha() {
 
 
 Linha Shooter::getBaseLine() {
-	Ponto leftfeet = leftFeet();
-	Ponto rightfeet = rightFeet();
-	Linha ret(leftfeet.x+getX(),leftfeet.y+getY(),rightfeet.x+getX(),rightfeet.y+getY());
-	return ret;
+	return Linha(leftFeet(), rightFeet());
 }
 
 Polygon Shooter::getCollision() {
 	Polygon poly;
-	Ponto atual(getX(),getY());
-	Linha a(leftFeet()+atual,rightFeet()+atual);
-	Linha b(rightFeet()+atual,cintura()+atual);
-	Linha c(cintura()+atual,rightArm()+atual);
-	Linha d(rightArm()+atual,pescoco()+atual);
-	Linha e(pescoco()+atual,leftArm()+atual);
-	Linha f(leftArm()+atual,cintura()+atual);
-	Linha g(cintura()+atual,leftFeet()+atual);
+	Linha a(leftFeet(),rightFeet());
+	Linha b(rightFeet(),cintura());
+	Linha c(cintura(),rightArm());
+	Linha d(rightArm(),pescoco());
+	Linha e(pescoco(),leftArm());
+	Linha f(leftArm(),cintura());
+	Linha g(cintura(),leftFeet());
 	poly.addLinha(a);
 	poly.addLinha(b);
 	poly.addLinha(c);

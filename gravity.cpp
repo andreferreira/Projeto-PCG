@@ -42,12 +42,10 @@ bool contido(double x1,double y1, double x2, double y2, Ponto &ponto) {
 }
 
 bool GravityManager::checkGround(Thing* thing, Platform *platform) {
-	Linha baseLine = thing->getBaseLine();
-	Linha l1 = baseLine;
-	Linha l2(baseLine.vertices[0].x + thing->getSpeedX(),
-	         baseLine.vertices[0].y + thing->getSpeedY(),
-			 baseLine.vertices[1].x + thing->getSpeedX(),
-			 baseLine.vertices[1].y + thing->getSpeedY());
+	Linha l1 = thing->getBaseLine();
+	l1.translate(thing->getPosition());
+	Linha l2 = l1;
+	l2.translate(thing->getSpeed());
 	Linha l3(l1.vertices[0],l2.vertices[0]);
 	Linha l4(l1.vertices[1],l2.vertices[1]);
 	return (!platform->isPassable() || !thing->bypass) && (
