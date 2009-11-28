@@ -114,15 +114,16 @@ double areaTriangle(double a, double b, double c) {
 }
 
 //retorna cotovelo em relacao ao ombro, usa matematica levemente pesada, cuidado ao mexer
-Ponto Shooter::getCotovelo(Ponto ombro, Ponto hand) {
-	double a = tamanhoBraco();
-	double b = tamanhoAntebraco();
-	double d = distance(ombro,hand);
+Ponto Shooter::getJunta(Ponto superior, Ponto inferior, 
+						double tamanhoSuperior, double tamanhoInferior) {
+	double a = tamanhoSuperior;
+	double b = tamanhoInferior;
+	double d = distance(superior,inferior);
 	double area = areaTriangle(a,b,d);
 	double ylinha = 2.0*area/d;
 	double xlinha = sqrt(a*a-ylinha*ylinha);
-	double sinTheta = (hand.y-ombro.y)/d;
-	double cosTheta = (hand.x-ombro.x)/d;
+	double sinTheta = (inferior.y-superior.y)/d;
+	double cosTheta = (inferior.x-superior.x)/d;
 	Ponto ret;
 	ret.x = (cosTheta*xlinha-sinTheta*ylinha);
 	ret.y = (sinTheta*xlinha+cosTheta*ylinha);
@@ -167,8 +168,8 @@ void Shooter::desenha() {
 			glVertex3f(rightfeet.x,rightfeet.y,0);
 			glVertex3f(hips.x,hips.y,0);
 		glEnd();
-		Ponto rightelbow = getCotovelo(neck,rightarm+neck);
-		Ponto leftelbow = getCotovelo(neck,leftarm+neck);
+		Ponto rightelbow = getJunta(neck,rightarm+neck,tamanhoBraco(),tamanhoAntebraco());
+		Ponto leftelbow = getJunta(neck,leftarm+neck,tamanhoBraco(),tamanhoAntebraco());
 		glPushMatrix();
 			glTranslatef(neck.x,neck.y,0);
 			glRotatef(getAngle()*180.0/PI,0,0,-1);

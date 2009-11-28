@@ -21,7 +21,8 @@ class Shooter: public Thing {
 		double tamanhoAntebraco();
 		double tamanhoBraco();
 		double getAngle();
-		Ponto getCotovelo(Ponto ombro, Ponto hand);
+		Ponto getJunta(Ponto superior, Ponto inferior,
+						double tamanhoSuperior, double tamanhoInferior);
 		bool canfire;
 	public:
 		Ponto pescoco();
