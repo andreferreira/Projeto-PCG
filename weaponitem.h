@@ -14,6 +14,7 @@ class WeaponItem: public Thing {
 		WeaponItem(Weapon *a, Polygon c);
 		virtual Linha getBaseLine();
 		virtual Polygon getCollision();
+		virtual void collide(Thing* b);
 		void desenha();
 };
 

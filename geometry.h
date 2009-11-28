@@ -18,14 +18,11 @@ double operator*(const Ponto &a, const Ponto &b);
 Ponto operator-(const Ponto &a, const Ponto &b);
 Ponto operator+(const Ponto &a, const Ponto &b);
 
-struct Vetor { 
-	double x,y;
-};
-
 class Linha {
 	public:
 	Ponto vertices[2];
 
+	void translate(Ponto v);
 	void desenha();
 	Linha(double x1,double y1,double x2, double y2);
 	Linha(Ponto a, Ponto b) {vertices[0] = a; vertices[1] = b;}
@@ -45,6 +42,7 @@ class Polygon {
 		std::vector<Linha> linhas;
 		void addLinha(Linha linha) {linhas.push_back(linha);}
 		void desenha();
+		void translate(Ponto v);
 };
 
 void drawCircle(double radius, int lines);

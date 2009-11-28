@@ -15,10 +15,16 @@ Polygon WeaponItem::getCollision() {
 void WeaponItem::desenha() {
 	glPushMatrix();
 		glTranslatef(posicao.x, posicao.y, 0);
+		//glRotatef(180, 0, 0, -1);
 		arma->desenha();
 	glPopMatrix();
 }
 
 Linha WeaponItem::getBaseLine() {
 	return collision.linhas[2]; // minX, minY, maxX, minY
+}
+
+void WeaponItem::collide(Thing* b) {
+	//static int i = 0;
+	//std::cout << "lol " << i++ << std::endl;
 }
