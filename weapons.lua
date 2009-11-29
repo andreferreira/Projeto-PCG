@@ -11,8 +11,8 @@ end
 
 shotgun = Weapon{
 			name = "Shotgun",
-			righthand = {-15,-15},
-			lefthand = {-30,-15+10},
+			righthand = {-30,-15+10},
+			lefthand = {-15,-15},
 			tip = {-45,-15+10},
 			firerate = 1000,
 			sprite = {
@@ -62,9 +62,62 @@ function mulXY(x,y,...)
 	return unpack(t)
 end
 
+
+local rainbowcolors = {{221,0,0},
+					   {254,98,48},
+					   {254,246,0},
+					   {0,188,0},
+					   {0,155,254},
+					   {0,0,131},
+					   {48,0,155}}
+for i = 1,7 do
+	rainbowcolors[i][1] = rainbowcolors[i][1]/255
+	rainbowcolors[i][2] = rainbowcolors[i][2]/255
+	rainbowcolors[i][3] = rainbowcolors[i][3]/255
+end
+
+local rainbowsprite = {}
+local rainbowsegments = 40
+local rainbowsize = 400
+local rainbowheight = 50
+for i = 1, rainbowsegments do
+	for j = 1,7 do
+		rainbowsprite[#rainbowsprite+1] = Line{
+								(i/rainbowsegments)*rainbowsize,
+								math.sin((i/rainbowsegments)*math.pi)*-rainbowheight+j,
+								((i+1)/rainbowsegments)*rainbowsize,
+								math.sin(((i+1)/rainbowsegments)*math.pi)*-rainbowheight+j,
+								color = rainbowcolors[j],
+								}
+	end
+end
+
+
+rainbow = Weapon{
+		name = "Flamethrower",
+		righthand = {10,-30},
+		lefthand = {-10,-30},
+		tip = {-10,15},
+		firerate = 1000,
+		sprite = {},
+		whenfire = function (x,y,angle,w)
+					peitox = math.cos(angle)*x-math.sin(angle)*y --desfaz todo o calculo que eh feito pra ajuste de tip... mas vale apena :D
+					peitoy = math.sin(angle)*x+math.cos(angle)*y
+					Shot {
+						x = peitox,
+						y = peitoy, 
+						angle = 0,
+						weapon = w,
+						speed = 0,
+						duration = 600,
+						sprite = rainbowsprite,
+					}
+					end
+}
+
 local t = 0
 flamethrower = Weapon{
-			name = "Flamethrower",
+			name = "Flamethrower2",
 			righthand = {-20,-13},
 			lefthand = {-25,-10},
 			tip = {-65,-15+10},
@@ -86,7 +139,7 @@ flamethrower = Weapon{
 					)
 					},
 			whenfire = function (x,y,angle,w)
-						red = {1,0,0}
+						red = {math.random()/4+0.75,math.random()/3,0}
 						for i = 1,math.random(4) do
 							local flametip = math.random()*4
 							local flamesprite = {mulXY(3,4,

@@ -64,8 +64,8 @@ void Shooter::fire() {
 	Ponto tip;
 	tip.x = (cosAngle*tiplinha.x+sinAngle*tiplinha.y);
 	tip.y = -(sinAngle*tiplinha.x-cosAngle*tiplinha.y);
-	tip = tip + pescoco() + getPosition();
-	
+
+	weapon->position = getPosition() + pescoco();
 	weapon->fire(tip,angle);
 }
 

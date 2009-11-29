@@ -15,6 +15,7 @@ class Weapon {
 		Ponto tip;
 		lua_State* lstate;
 	public:
+		Ponto position; //POSICAO USADA SOMENTE QUANDO ATIRADA, NAO USAR PARA OUTRAS COISAS
 		Game *game;
 		Weapon (Game* g,lua_State* l) {game = g; lstate = l;}
 		Polygon sprite;

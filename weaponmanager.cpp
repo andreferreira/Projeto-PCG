@@ -102,6 +102,9 @@ static int createshot (lua_State *L) {
 	gravity = lua_tonumber(L, 6);
 	speed = lua_tonumber(L, 7);
 	
+	x += weapon->position.x;
+	y += weapon->position.y;
+	
 	Shot* newshot = new Shot(x,y,angle,speed,gravity,weapon);
 	weapon->game->shotManager->addShot(newshot);
 	SDL_AddTimer(rate*_game->rate,deleteShotCallback,newshot);
