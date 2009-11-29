@@ -21,11 +21,12 @@ Ponto operator+(const Ponto &a, const Ponto &b);
 class Linha {
 	public:
 	Ponto vertices[2];
+	double color[3];
 
 	void translate(Ponto v);
 	void desenha();
 	Linha(double x1,double y1,double x2, double y2);
-	Linha(Ponto a, Ponto b) {vertices[0] = a; vertices[1] = b;}
+	Linha(Ponto a, Ponto b) {vertices[0] = a; vertices[1] = b; color[0] = color[1] = color[2] = 0.0; }
 };
 
 class Rect {
@@ -47,5 +48,6 @@ class Polygon {
 
 void drawCircle(double radius, int lines);
 bool linesIntersect(const Linha a,const Linha b);
+double abs(double x);
 
 #endif

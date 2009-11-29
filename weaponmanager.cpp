@@ -47,6 +47,9 @@ static int regspriteline (lua_State *L) {
 	b.x = lua_tonumber(L, 4);
 	b.y = lua_tonumber(L, 5);
 	Linha linha(a,b);
+	linha.color[0] = lua_tonumber(L, 6);
+	linha.color[1] = lua_tonumber(L, 7);
+	linha.color[2] = lua_tonumber(L, 8);
 	w->sprite.addLinha(linha);
 	return 0;
 }
@@ -59,6 +62,9 @@ static int regspritelineshot (lua_State *L) {
 	b.x = lua_tonumber(L, 4);
 	b.y = lua_tonumber(L, 5);
 	Linha linha(a,b);
+	linha.color[0] = lua_tonumber(L, 6);
+	linha.color[1] = lua_tonumber(L, 7);
+	linha.color[2] = lua_tonumber(L, 8);
 	w->sprite.addLinha(linha);
 	return 0;
 }

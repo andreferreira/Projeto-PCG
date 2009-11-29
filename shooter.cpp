@@ -80,36 +80,51 @@ Ponto Shooter::rightFeet() {
 
 Ponto Shooter::imaginaryLeftfeet(int t) {
 	Ponto pe(0,0);
-	if (onGround && abs(getSpeedX()) < 0.1) {
+	if (onGround && abs(getSpeedX()) < 0.05) {
 		pe.x = -8;
 		pe.y = 0;
 	}
 	else if (onGround) {
-		pe.x = 8*cos(PI+t/10.0);
-		pe.y = 2.5*sin(PI+t/10.0)-2.5;
+		if (getSpeedX() < 0)
+			t = -t;
+		t *= 1.0+abs(getSpeedX());
+		pe.x = 6*cos(PI+t/30.0);
+		pe.y = 2.5*sin(PI+t/30.0)-2.5;
 	}
 	else {
 		pe.x = -4;
-		pe.y = -5;
+		pe.y = -19;
 	}
 	return pe;
 }
 
 Ponto Shooter::imaginaryRightfeet(int t) {
 	Ponto pe(0,0);
-	if (onGround && abs(getSpeedX()) < 0.1) {
+	if (onGround && abs(getSpeedX()) < 0.05) {
 		pe.x = 8;
 		pe.y = 0;
 	}
 	else if (onGround) {
-		pe.x = 8*cos(t/10.0);
-		pe.y = 2.5*sin(t/10.0)-2.5;
+		if (getSpeedX() < 0)
+			t = -t;
+		t *= 1.0+abs(getSpeedX());
+		pe.x = 6*cos(t/30.0);
+		pe.y = 2.5*sin(t/30.0)-2.5;
 	}
 	else {
 		pe.x = 4;
-		pe.y = -5;
+		pe.y = -19;
 	}
 	return pe;
+}
+
+double sign(double n) {
+	if (n == 0.0)
+		return 0.0;
+	if (n < 0.0)
+		return -1.0;
+	if (n > 0.0)
+		return 1.0;
 }
 
 void Shooter::animate() {
@@ -119,11 +134,11 @@ void Shooter::animate() {
 	Ponto ir = imaginaryRightfeet(t);
 	t++;
 	
-	realLeftfeet.x += (il.x - realLeftfeet.x)/10.0;
-	realLeftfeet.y += (il.y - realLeftfeet.y)/10.0;
+	realLeftfeet.x += sign(il.x - realLeftfeet.x)*0.5;
+	realLeftfeet.y += sign(il.y - realLeftfeet.y)*0.5;
 	
-	realRightfeet.x += (ir.x - realRightfeet.x)/10.0;
-	realRightfeet.y += (ir.y - realRightfeet.y)/10.0;
+	realRightfeet.x += sign(ir.x - realRightfeet.x)*0.5;
+	realRightfeet.y += sign(ir.y - realRightfeet.y)*0.5;
 	
 	double dl = distance(il,realLeftfeet);
 	double dr = distance(ir,realRightfeet);
@@ -154,8 +169,9 @@ Ponto Shooter::cintura() {
 }
 
 Ponto Shooter::pescoco() {
-   Ponto neck(0,-70);
-   return neck;
+	Ponto hips = cintura();
+	Ponto neck(hips.x,hips.y-30);
+	return neck;
 }
 
 double areaTriangle(double a, double b, double c) {
@@ -218,6 +234,7 @@ void Shooter::desenha() {
 		glTranslatef(getX(),getY(),0);
 		Ponto leftfeet = leftFeet();
 		Ponto rightfeet = rightFeet();
+		glTranslatef(0,std::min(-rightfeet.y,-leftfeet.y),0);
 		Ponto hips = cintura();
 		Ponto leftarm = leftArm();
 		Ponto rightarm = rightArm();

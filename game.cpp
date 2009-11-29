@@ -170,11 +170,11 @@ void Game::mainLoop() {
 		//player events
 		c->handleEvents();
 		
-		player->animate();
-
 		//collision, gravity
 		gravityManager->update();
 		collisionManager->update();
+		
+		player->animate();
 
 		//movements
 		player->move();

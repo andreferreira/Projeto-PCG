@@ -5,7 +5,8 @@ function Weapon(t)
 						t.tip[1],t.tip[2])
 	regfirefunction(w,t.whenfire)
 	for i = 1, #t.sprite do
-		regspriteline(w,t.sprite[i][1],t.sprite[i][2],t.sprite[i][3],t.sprite[i][4])
+		regspriteline(w,t.sprite[i][1],t.sprite[i][2],t.sprite[i][3],t.sprite[i][4],
+					  t.sprite[i].color[1],t.sprite[i].color[2],t.sprite[i].color[3])
 	end
 	local minX, minY, maxX, maxY = math.huge, math.huge, -math.huge, -math.huge
 	for i = 1, #t.sprite do
@@ -22,6 +23,9 @@ function Weapon(t)
 end
 
 function Line(t)
+	if t.color == nil then
+		t.color = {0,0,0}
+	end
 	return t
 end
 
@@ -37,6 +41,7 @@ function Shot(t)
 	default(t,"speed",10)
 	local s = createshot(t.x,t.y,t.angle,t.duration,t.weapon,t.gravity,t.speed)
 	for i = 1, #t.sprite do
-		regspritelineshot(s,t.sprite[i][1],t.sprite[i][2],t.sprite[i][3],t.sprite[i][4])
+		regspritelineshot(s,t.sprite[i][1],t.sprite[i][2],t.sprite[i][3],t.sprite[i][4],
+						  t.sprite[i].color[1],t.sprite[i].color[2],t.sprite[i].color[3])
 	end
 end

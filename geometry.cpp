@@ -35,11 +35,12 @@ void Rect::normaliza() {
 }
 
 void Linha::desenha() {
-	glColor3f(0,0,0);
+	glColor3f(color[0],color[1],color[2]);
 	glBegin(GL_LINES);
 		glVertex3f(vertices[0].x, vertices[0].y, -1.5f); // origin of the line
 		glVertex3f(vertices[1].x, vertices[1].y, -1.5f); // origin of the line
 	glEnd( );
+	glColor3f(0,0,0);
 }
 
 void Polygon::desenha() {
@@ -131,4 +132,10 @@ bool linesIntersect(const Linha a,const Linha b) {
 		return true;
 	else
 		return false;
+}
+
+double abs(double x) {
+	if (x < 0.0)
+		return -x;
+	return x;
 }

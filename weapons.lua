@@ -86,16 +86,17 @@ flamethrower = Weapon{
 					)
 					},
 			whenfire = function (x,y,angle,w)
+						red = {1,0,0}
 						for i = 1,math.random(4) do
 							local flametip = math.random()*4
 							local flamesprite = {mulXY(3,4,
-											Line{flametip,0,0,2},
-											Line{0,2,0,3},
-											Line{0,3,1,4},
-											Line{1,4,3,4},
-											Line{3,4,4,3},
-											Line{4,3,4,2},
-											Line{4,2,flametip,0}
+											Line{flametip,0,0,2,color = red},
+											Line{0,2,0,3,color = red},
+											Line{0,3,1,4,color = red},
+											Line{1,4,3,4,color = red},
+											Line{3,4,4,3,color = red},
+											Line{4,3,4,2,color = red},
+											Line{4,2,flametip,0,color = red}
 											)}
 							t = t + 0.4
 							Shot {
