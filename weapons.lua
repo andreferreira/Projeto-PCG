@@ -96,7 +96,7 @@ end
 rainbow = Weapon{
 		name = "Flamethrower",
 		righthand = {10,-30},
-		lefthand = {-10,-30},
+		lefthand = {30,-10},
 		tip = {-10,15},
 		firerate = 1000,
 		sprite = {},
