@@ -145,8 +145,8 @@ void Shooter::animate() {
 }
 
 
-Ponto Shooter::leftArm() {
-	if (weapon == NULL) {
+Ponto Shooter::leftArm(bool w) {
+	if (!w || (weapon == NULL)) {
 		Ponto braco(-10,-30);
 		return braco;
 	}
@@ -154,8 +154,8 @@ Ponto Shooter::leftArm() {
 		return weapon->getLeftHand();
 }
 
-Ponto Shooter::rightArm() {
-	if (weapon == NULL) {
+Ponto Shooter::rightArm(bool w) {
+	if (!w || (weapon == NULL)) {
 		Ponto braco(10,-30);
 		return braco;
 	}
@@ -228,7 +228,7 @@ double Shooter::getAngle() {
 	else
 		return acos((-aim.x+gameneck.x)/hyp);
 }
-#include <iostream>
+
 void Shooter::desenha() {
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
@@ -236,8 +236,8 @@ void Shooter::desenha() {
 		Ponto rightfeet = rightFeet();
 		glTranslatef(0,std::min(-rightfeet.y,-leftfeet.y),0);
 		Ponto hips = cintura();
-		Ponto leftarm = leftArm();
-		Ponto rightarm = rightArm();
+		Ponto leftarm = leftArm(true);
+		Ponto rightarm = rightArm(true);
 		Ponto neck = pescoco();
 		Ponto rightknee = getJunta(rightfeet,hips,tamanhoPerna(),tamanhoCoxa()) + rightfeet;
 		Ponto leftknee = getJunta(leftfeet,hips,tamanhoPerna(),tamanhoCoxa()) + leftfeet;
@@ -293,10 +293,10 @@ Polygon Shooter::getCollision() {
 	Polygon poly;
 	Linha a(leftFeet(),rightFeet());
 	Linha b(rightFeet(),cintura());
-	Linha c(cintura(),rightArm());
-	Linha d(rightArm(),pescoco());
-	Linha e(pescoco(),leftArm());
-	Linha f(leftArm(),cintura());
+	Linha c(cintura(),rightArm(false));
+	Linha d(rightArm(false),pescoco());
+	Linha e(pescoco(),leftArm(false));
+	Linha f(leftArm(false),cintura());
 	Linha g(cintura(),leftFeet());
 	poly.addLinha(a);
 	poly.addLinha(b);

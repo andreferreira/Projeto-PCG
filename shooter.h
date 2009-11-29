@@ -14,8 +14,8 @@ class Shooter: public Thing {
 		Ponto leftFeet();
 		Ponto rightFeet();
 		Ponto cintura();
-		Ponto leftArm();
-		Ponto rightArm();
+		Ponto leftArm(bool w);
+		Ponto rightArm(bool w);
 		Ponto aim;
 		Ponto realRightfeet;
 		Ponto realLeftfeet;
