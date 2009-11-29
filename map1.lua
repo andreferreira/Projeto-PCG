@@ -1,4 +1,4 @@
-local w = 800
+local w = 1600
 local h = 1600
 
 local platforms = {

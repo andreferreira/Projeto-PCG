@@ -169,6 +169,8 @@ void Game::mainLoop() {
 		fps.start();
 		//player events
 		c->handleEvents();
+		
+		player->animate();
 
 		//collision, gravity
 		gravityManager->update();

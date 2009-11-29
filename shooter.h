@@ -17,9 +17,15 @@ class Shooter: public Thing {
 		Ponto leftArm();
 		Ponto rightArm();
 		Ponto aim;
+		Ponto realRightfeet;
+		Ponto realLeftfeet;
+		Ponto imaginaryRightfeet(int t);
+		Ponto imaginaryLeftfeet(int t);
 		Weapon* weapon;
 		double tamanhoAntebraco();
 		double tamanhoBraco();
+		double tamanhoCoxa();
+		double tamanhoPerna();
 		double getAngle();
 		Ponto getJunta(Ponto superior, Ponto inferior,
 						double tamanhoSuperior, double tamanhoInferior);
@@ -33,6 +39,7 @@ class Shooter: public Thing {
 		void equip(Weapon* aweapon);
 		void fire();
 		void allowFire();
+		void animate();
 		virtual Linha getBaseLine();
 		virtual Polygon getCollision();
 };

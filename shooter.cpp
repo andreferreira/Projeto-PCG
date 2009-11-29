@@ -15,6 +15,10 @@ Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
 	maxspeed.x = 5;
 	maxspeed.y = 20;
 	canfire = true;
+	realLeftfeet.x = -8;
+	realLeftfeet.y = 0;
+	realRightfeet.x = 8;
+	realRightfeet.y = 0;
 }
 
 void Shooter::equip(Weapon* aweapon) {
@@ -67,14 +71,64 @@ void Shooter::fire() {
 
 
 Ponto Shooter::leftFeet() {
-	Ponto pe(-10,0);
-	return pe;
+	return realLeftfeet;
 }
 
 Ponto Shooter::rightFeet() {
-	Ponto pe(10,0);
+	return realRightfeet;
+}
+
+Ponto Shooter::imaginaryLeftfeet(int t) {
+	Ponto pe(0,0);
+	if (onGround && abs(getSpeedX()) < 0.1) {
+		pe.x = -8;
+		pe.y = 0;
+	}
+	else if (onGround) {
+		pe.x = 8*cos(PI+t/10.0);
+		pe.y = 2.5*sin(PI+t/10.0)-2.5;
+	}
+	else {
+		pe.x = -4;
+		pe.y = -5;
+	}
 	return pe;
 }
+
+Ponto Shooter::imaginaryRightfeet(int t) {
+	Ponto pe(0,0);
+	if (onGround && abs(getSpeedX()) < 0.1) {
+		pe.x = 8;
+		pe.y = 0;
+	}
+	else if (onGround) {
+		pe.x = 8*cos(t/10.0);
+		pe.y = 2.5*sin(t/10.0)-2.5;
+	}
+	else {
+		pe.x = 4;
+		pe.y = -5;
+	}
+	return pe;
+}
+
+void Shooter::animate() {
+	static int t = 0;
+	
+	Ponto il = imaginaryLeftfeet(t);
+	Ponto ir = imaginaryRightfeet(t);
+	t++;
+	
+	realLeftfeet.x += (il.x - realLeftfeet.x)/10.0;
+	realLeftfeet.y += (il.y - realLeftfeet.y)/10.0;
+	
+	realRightfeet.x += (ir.x - realRightfeet.x)/10.0;
+	realRightfeet.y += (ir.y - realRightfeet.y)/10.0;
+	
+	double dl = distance(il,realLeftfeet);
+	double dr = distance(ir,realRightfeet);
+}
+
 
 Ponto Shooter::leftArm() {
 	if (weapon == NULL) {
@@ -95,12 +149,12 @@ Ponto Shooter::rightArm() {
 }
 
 Ponto Shooter::cintura() {
-    Ponto c(0,-30);
+    Ponto c(0,-40);
     return c;
 }
 
 Ponto Shooter::pescoco() {
-   Ponto neck(0,-60);
+   Ponto neck(0,-70);
    return neck;
 }
 
@@ -122,8 +176,10 @@ Ponto Shooter::getJunta(Ponto superior, Ponto inferior,
 	double area = areaTriangle(a,b,d);
 	double ylinha = 2.0*area/d;
 	double xlinha = sqrt(a*a-ylinha*ylinha);
+
 	double sinTheta = (inferior.y-superior.y)/d;
 	double cosTheta = (inferior.x-superior.x)/d;
+		
 	Ponto ret;
 	ret.x = (cosTheta*xlinha-sinTheta*ylinha);
 	ret.y = (sinTheta*xlinha+cosTheta*ylinha);
@@ -132,11 +188,19 @@ Ponto Shooter::getJunta(Ponto superior, Ponto inferior,
 
 //cuidado, distancia da arma nao pode exceder tamanhoBraco+tamanhoAntebraco
 double Shooter::tamanhoBraco() {
-	return 20.0;
+	return 23.0;
 }
 
 double Shooter::tamanhoAntebraco() {
-	return 13.0;
+	return 16.0;
+}
+
+double Shooter::tamanhoCoxa() {
+	return 20.0;
+}
+
+double Shooter::tamanhoPerna() {
+	return 22.0;
 }
 
 double Shooter::getAngle() {
@@ -148,7 +212,7 @@ double Shooter::getAngle() {
 	else
 		return acos((-aim.x+gameneck.x)/hyp);
 }
-
+#include <iostream>
 void Shooter::desenha() {
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
@@ -158,14 +222,22 @@ void Shooter::desenha() {
 		Ponto leftarm = leftArm();
 		Ponto rightarm = rightArm();
 		Ponto neck = pescoco();
+		Ponto rightknee = getJunta(rightfeet,hips,tamanhoPerna(),tamanhoCoxa()) + rightfeet;
+		Ponto leftknee = getJunta(leftfeet,hips,tamanhoPerna(),tamanhoCoxa()) + leftfeet;
 		glBegin(GL_LINES);
 			glVertex3f(hips.x,hips.y,0);
 			glVertex3f(neck.x,neck.y,0);
 
 			glVertex3f(leftfeet.x,leftfeet.y,0);
+			glVertex3f(leftknee.x,leftknee.y,0);
+			
+			glVertex3f(leftknee.x,leftknee.y,0);
 			glVertex3f(hips.x,hips.y,0);
 
 			glVertex3f(rightfeet.x,rightfeet.y,0);
+			glVertex3f(rightknee.x,rightknee.y,0);
+			
+			glVertex3f(rightknee.x,rightknee.y,0);
 			glVertex3f(hips.x,hips.y,0);
 		glEnd();
 		Ponto rightelbow = getJunta(neck,rightarm+neck,tamanhoBraco(),tamanhoAntebraco());
@@ -187,15 +259,17 @@ void Shooter::desenha() {
 			if (weapon != NULL) weapon->desenha();
 		glPopMatrix();
 		glPushMatrix();
-			glTranslatef(neck.x,neck.y-10,0);
-			drawCircle(10,30);
+			glTranslatef(neck.x,neck.y-11,0);
+			drawCircle(11,30);
 		glPopMatrix();
 	glPopMatrix();
 }
 
 
 Linha Shooter::getBaseLine() {
-	return Linha(leftFeet(), rightFeet());
+	Ponto left(-8,0);
+	Ponto right(8,0);
+	return Linha(left, right);
 }
 
 Polygon Shooter::getCollision() {
