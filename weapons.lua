@@ -101,8 +101,24 @@ rainbow = Weapon{
 		firerate = 1000,
 		sprite = {},
 		whenfire = function (x,y,angle,w)
-					peitox = math.cos(angle)*x-math.sin(angle)*y --desfaz todo o calculo que eh feito pra ajuste de tip... mas vale apena :D
-					peitoy = math.sin(angle)*x+math.cos(angle)*y
+					local peitox = math.cos(angle)*x-math.sin(angle)*y --desfaz todo o calculo que eh feito pra ajuste de tip... mas vale apena :D
+					local peitoy = math.sin(angle)*x+math.cos(angle)*y
+					local s = {}
+					local dir = 1
+					local add = 0
+					if math.abs(angle) < math.pi/2 then
+						dir = -1
+						add = 17
+					end
+					for i = 1, #rainbowsprite do
+						s[i] = Line {
+									rainbowsprite[i][1]*dir+add,
+									rainbowsprite[i][2],
+									rainbowsprite[i][3]*dir+add,
+									rainbowsprite[i][4],
+									color = rainbowsprite[i].color
+								}
+					end
 					Shot {
 						x = peitox,
 						y = peitoy, 
@@ -110,7 +126,7 @@ rainbow = Weapon{
 						weapon = w,
 						speed = 0,
 						duration = 600,
-						sprite = rainbowsprite,
+						sprite = s,
 					}
 					end
 }
