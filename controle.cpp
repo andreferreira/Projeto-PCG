@@ -4,6 +4,7 @@
 Controle::Controle(Player &p) : jogador( p )  {
     quit = false;
 	game = jogador.game;
+	map = game->mapa;
 }
 
 void Controle::handleEvents() {
@@ -27,16 +28,16 @@ void Controle::handleEvents() {
             case SDL_KEYDOWN:
                 switch (e.key.keysym.sym) {
 					case SDLK_F3:
-						jogador.equip(jogador.game->weaponManager->getWeapon("Shotgun"));
+						jogador.equip(game->weaponManager->getWeapon("Shotgun"));
 						break;
 					case SDLK_F4:
-						jogador.equip(jogador.game->weaponManager->getWeapon("Flamethrower"));
+						jogador.equip(game->weaponManager->getWeapon("Flamethrower"));
 						break;
 					case SDLK_F5:
-						jogador.game->reloadLua();
+						game->reloadLua();
 						break;
 					case SDLK_F6:
-						jogador.setPosition(jogador.game->getSpawn().x,jogador.game->getSpawn().y);
+						jogador.setPosition(game->getSpawn().x, game->getSpawn().y);
 						break;
                     default: handleEvent(e);break;
                 }

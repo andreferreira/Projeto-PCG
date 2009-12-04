@@ -8,6 +8,7 @@ class Controle {
         Player &jogador;
         bool quit;
 		Game* game;
+		Mapa* map;
     public:
         Controle(Player &p);
         void handleEvents();

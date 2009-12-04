@@ -34,7 +34,7 @@ bool pointInsidePolygon(Ponto ponto, Polygon p) {
 		return false;
 }
 
-void CollisionManager::checkCollision(Thing* a, Thing* b){
+bool CollisionManager::checkCollision(Thing* a, Thing* b){
 	Polygon pa,pb;
 	pa = a->getCollision();
 	pb = b->getCollision();
@@ -44,7 +44,7 @@ void CollisionManager::checkCollision(Thing* a, Thing* b){
 	if (pointInsidePolygon(pb.linhas[0].vertices[0],pa)) {
 		a->collide(b);
 		b->collide(a);
-		return;		
+		return true;
 	}
 	for (ita = pa.linhas.begin(); ita != pa.linhas.end(); ita++) {
 		for (itb = pb.linhas.begin(); itb != pb.linhas.end(); itb++) {
@@ -55,8 +55,9 @@ void CollisionManager::checkCollision(Thing* a, Thing* b){
 			if (linesIntersect(*ita,*itb)) {
 				a->collide(b);
 				b->collide(a);
-				return;
+				return true;
 			}
 		}
 	}
+	return false;
 }

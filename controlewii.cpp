@@ -1,7 +1,7 @@
 #include "controlewii.h"
 #include "usereventtype.h"
-#include <math.h>
-
+#include "weaponitem.h"
+#include <cmath>
 
 ControleWii::ControleWii(Player &p) : Controle(p) {
 	connected = false;
@@ -41,6 +41,8 @@ void ControleWii::handleOther() {
 }
 
 void ControleWii::handleEvent(SDL_Event &e) {
+	std::list<WeaponItem*>::iterator it;
+	bool pegou = false;
 	switch( e.type ) {
 		case SDL_USEREVENT:
 			switch (e.user.code) {
@@ -165,6 +167,16 @@ void ControleWii::handleEvent(SDL_Event &e) {
 					break;
 				case SDLK_RIGHT:
 					jogador.addSpeed( 3,  0);
+					break;
+				case SDLK_RETURN:
+					for (it = map->items.begin(); it != map->items.end(); ++it)
+						if (game->collisionManager->checkCollision(&jogador, (Thing*) *it)) {
+							jogador.equip((*it)->getWeapon());
+							pegou = true;
+							break;
+						}
+					if (pegou)
+						map->items.erase(it);
 					break;
 				default: break;
 			}

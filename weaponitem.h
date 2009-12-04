@@ -16,6 +16,7 @@ class WeaponItem: public Thing {
 		virtual Polygon getCollision();
 		virtual void collide(Thing* b);
 		void desenha();
+		Weapon* getWeapon() {return arma;}
 };
 
 #endif
