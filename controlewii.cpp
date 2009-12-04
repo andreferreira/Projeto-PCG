@@ -15,7 +15,6 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 }
 
 void ControleWii::handleOther() {
-	std::list<WeaponItem*>::iterator it;
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if (keystates[SDLK_DOWN]) {
 		jogador.onGround = false;
@@ -42,6 +41,8 @@ void ControleWii::handleOther() {
 }
 
 void ControleWii::handleEvent(SDL_Event &e) {
+	std::list<WeaponItem*>::iterator it;
+	bool pegou = false;
 	switch( e.type ) {
 		case SDL_USEREVENT:
 			switch (e.user.code) {
@@ -171,8 +172,12 @@ void ControleWii::handleEvent(SDL_Event &e) {
 					for (it = map->items.begin(); it != map->items.end(); ++it)
 						if (game->collisionManager->checkCollision(&jogador, (Thing*) *it)) {
 							jogador.equip((*it)->getWeapon());
-							map->items.erase(it);
+							pegou = true;
+							break;
 						}
+					if (pegou)
+						map->items.erase(it);
+					break;
 				default: break;
 			}
 			break;
