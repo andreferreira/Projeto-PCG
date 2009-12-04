@@ -1,7 +1,7 @@
 #include "controlewii.h"
 #include "usereventtype.h"
-#include <math.h>
-
+#include "weaponitem.h"
+#include <cmath>
 
 ControleWii::ControleWii(Player &p) : Controle(p) {
 	connected = false;
@@ -15,6 +15,7 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 }
 
 void ControleWii::handleOther() {
+	std::list<WeaponItem*>::iterator it;
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if (keystates[SDLK_DOWN]) {
 		jogador.onGround = false;
@@ -166,6 +167,12 @@ void ControleWii::handleEvent(SDL_Event &e) {
 				case SDLK_RIGHT:
 					jogador.addSpeed( 3,  0);
 					break;
+				case SDLK_RETURN:
+					for (it = map->items.begin(); it != map->items.end(); ++it)
+						if (game->collisionManager->checkCollision(&jogador, (Thing*) *it)) {
+							jogador.equip((*it)->getWeapon());
+							map->items.erase(it);
+						}
 				default: break;
 			}
 			break;

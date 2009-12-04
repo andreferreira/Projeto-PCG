@@ -7,8 +7,8 @@
 class CollisionManager {
 	private:
 		std::set<Thing*> things;
-		void checkCollision(Thing* a, Thing* b);
 	public:
+		bool checkCollision(Thing* a, Thing* b);
 		void subscribe(Thing* thing);
 		void remove(Thing* thing);
 		void update();
