@@ -94,7 +94,7 @@ end
 
 
 rainbow = Weapon{
-		name = "Flamethrower",
+		name = "CareBear",
 		righthand = {10,-30},
 		lefthand = {30,-10},
 		tip = {-10,15},
@@ -133,7 +133,7 @@ rainbow = Weapon{
 
 local t = 0
 flamethrower = Weapon{
-			name = "Flamethrower2",
+			name = "Flamethrower",
 			righthand = {-20,-13},
 			lefthand = {-25,-10},
 			tip = {-65,-15+10},
