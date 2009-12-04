@@ -14,14 +14,17 @@ class Shooter: public Thing {
 		Ponto leftFeet();
 		Ponto rightFeet();
 		Ponto cintura();
+		Ponto cabeca();
 		Ponto leftArm(bool w);
 		Ponto rightArm(bool w);
 		Ponto aim;
 		Ponto realRightfeet;
 		Ponto realLeftfeet;
-		Ponto imaginaryRightfeet(int t);
-		Ponto imaginaryLeftfeet(int t);
+		Ponto imaginaryRightfeet();
+		Ponto imaginaryLeftfeet();
+		double imaginaryBodyAngle();
 		Weapon* weapon;
+		double bodyAngle;
 		double tamanhoAntebraco();
 		double tamanhoBraco();
 		double tamanhoCoxa();
@@ -30,6 +33,10 @@ class Shooter: public Thing {
 		Ponto getJunta(Ponto superior, Ponto inferior,
 						double tamanhoSuperior, double tamanhoInferior);
 		bool canfire;
+		unsigned int feetTime;
+		unsigned int angleTime;
+		void updateFeetTime();
+		void updateAngleTime();
 	public:
 		Ponto pescoco();
 		Game* game;

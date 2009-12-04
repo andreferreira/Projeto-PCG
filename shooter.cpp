@@ -19,6 +19,9 @@ Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
 	realLeftfeet.y = 0;
 	realRightfeet.x = 8;
 	realRightfeet.y = 0;
+	bodyAngle = 0;
+	angleTime = 0;
+	feetTime = 0;
 }
 
 void Shooter::equip(Weapon* aweapon) {
@@ -71,14 +74,29 @@ void Shooter::fire() {
 
 
 Ponto Shooter::leftFeet() {
-	return realLeftfeet;
+	Ponto ret;
+	Ponto hips = cintura();
+	Ponto feetFromHips = realLeftfeet - hips;
+	double cosTheta = cos(bodyAngle);
+	double sinTheta = sin(bodyAngle);
+	ret.x = (cosTheta*feetFromHips.x-sinTheta*feetFromHips.y);
+	ret.y = (sinTheta*feetFromHips.x+cosTheta*feetFromHips.y);
+	return ret + hips;
 }
 
 Ponto Shooter::rightFeet() {
-	return realRightfeet;
+	Ponto ret;
+	Ponto hips = cintura();
+	Ponto feetFromHips = realRightfeet - hips;
+	double cosTheta = cos(bodyAngle);
+	double sinTheta = sin(bodyAngle);
+	ret.x = (cosTheta*feetFromHips.x-sinTheta*feetFromHips.y);
+	ret.y = (sinTheta*feetFromHips.x+cosTheta*feetFromHips.y);
+	return ret + hips;
 }
 
-Ponto Shooter::imaginaryLeftfeet(int t) {
+Ponto Shooter::imaginaryLeftfeet() {
+	int t = feetTime;
 	Ponto pe(0,0);
 	if (onGround && abs(getSpeedX()) < 0.05) {
 		pe.x = -8;
@@ -91,6 +109,10 @@ Ponto Shooter::imaginaryLeftfeet(int t) {
 		pe.x = 6*cos(PI+t/30.0);
 		pe.y = 2.5*sin(PI+t/30.0)-2.5;
 	}
+	else if (bypass) {
+		pe.x = -4;
+		pe.y = -19;
+	}
 	else {
 		pe.x = -4;
 		pe.y = -19;
@@ -98,7 +120,8 @@ Ponto Shooter::imaginaryLeftfeet(int t) {
 	return pe;
 }
 
-Ponto Shooter::imaginaryRightfeet(int t) {
+Ponto Shooter::imaginaryRightfeet() {
+	int t = feetTime;
 	Ponto pe(0,0);
 	if (onGround && abs(getSpeedX()) < 0.05) {
 		pe.x = 8;
@@ -111,11 +134,23 @@ Ponto Shooter::imaginaryRightfeet(int t) {
 		pe.x = 6*cos(t/30.0);
 		pe.y = 2.5*sin(t/30.0)-2.5;
 	}
+	else if (bypass) {
+		pe.x = 4;
+		pe.y = -19;
+	}
 	else {
 		pe.x = 4;
 		pe.y = -19;
 	}
 	return pe;
+}
+
+double Shooter::imaginaryBodyAngle() {
+	int t = angleTime;
+	if ((bypass && !onGround) || bodyAngle > PI/2) {
+		return 2*PI*((t % 360) / 360.0);
+	}
+	return 0;
 }
 
 double sign(double n) {
@@ -127,19 +162,47 @@ double sign(double n) {
 		return 1.0;
 }
 
+double closerToZero(double a, double b) {
+	if (abs(a) < abs(b))
+		return a;
+	return b;
+}
+
+void Shooter::updateFeetTime() {
+	if (onGround && abs(getSpeedX()) >= 0.05)
+		feetTime++;
+	else
+		feetTime = 0;
+}
+
+void Shooter::updateAngleTime() {
+	if ((bypass && !onGround) || bodyAngle > PI/2)
+		angleTime+= 10;
+	else
+		angleTime = 0;
+}
+
+
 void Shooter::animate() {
-	static int t = 0;
+	updateFeetTime();
+	updateAngleTime();
+	Ponto il = imaginaryLeftfeet();
+	Ponto ir = imaginaryRightfeet();
 	
-	Ponto il = imaginaryLeftfeet(t);
-	Ponto ir = imaginaryRightfeet(t);
-	t++;
+	realLeftfeet.x += closerToZero(sign(il.x - realLeftfeet.x)*0.5, il.x - realLeftfeet.x);
+	realLeftfeet.y += closerToZero(sign(il.y - realLeftfeet.y)*0.5,il.y - realLeftfeet.y);
 	
-	realLeftfeet.x += sign(il.x - realLeftfeet.x)*0.5;
-	realLeftfeet.y += sign(il.y - realLeftfeet.y)*0.5;
+	realRightfeet.x += closerToZero(sign(ir.x - realRightfeet.x)*0.5,ir.x - realRightfeet.x);
+	realRightfeet.y += closerToZero(sign(ir.y - realRightfeet.y)*0.5,ir.y - realRightfeet.y);
 	
-	realRightfeet.x += sign(ir.x - realRightfeet.x)*0.5;
-	realRightfeet.y += sign(ir.y - realRightfeet.y)*0.5;
-	
+	double iangle = imaginaryBodyAngle();
+	double dif = iangle - bodyAngle;
+	if (dif > PI)
+		dif = dif - 2*PI;
+	if (dif < -PI)
+		dif = dif + 2*PI;
+	bodyAngle += closerToZero(sign(dif)*0.2,dif);
+	bodyAngle = fmod(bodyAngle,2*PI);
 	double dl = distance(il,realLeftfeet);
 	double dr = distance(ir,realRightfeet);
 }
@@ -170,8 +233,24 @@ Ponto Shooter::cintura() {
 
 Ponto Shooter::pescoco() {
 	Ponto hips = cintura();
-	Ponto neck(hips.x,hips.y-30);
-	return neck;
+	Ponto neck (0,-30); //em relaçao a cintura
+	Ponto ret;
+	double cosTheta = cos(bodyAngle);
+	double sinTheta = sin(bodyAngle);
+	ret.x = (cosTheta*neck.x-sinTheta*neck.y);
+	ret.y = (sinTheta*neck.x+cosTheta*neck.y);
+	return ret + hips;
+}
+
+Ponto Shooter::cabeca() {
+	Ponto hips = cintura();
+	Ponto head(0,-11 -30);  //-30 é pelo pescoco
+	Ponto ret;
+	double cosTheta = cos(bodyAngle);
+	double sinTheta = sin(bodyAngle);
+	ret.x = (cosTheta*head.x-sinTheta*head.y);
+	ret.y = (sinTheta*head.x+cosTheta*head.y);
+	return ret + hips;
 }
 
 double areaTriangle(double a, double b, double c) {
@@ -275,8 +354,9 @@ void Shooter::desenha() {
 			glEnd();
 			if (weapon != NULL) weapon->desenha();
 		glPopMatrix();
+		Ponto head = cabeca();
 		glPushMatrix();
-			glTranslatef(neck.x,neck.y-11,0);
+			glTranslatef(head.x,head.y,0);
 			drawCircle(11,30);
 		glPopMatrix();
 	glPopMatrix();
