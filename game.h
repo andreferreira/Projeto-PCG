@@ -6,6 +6,7 @@
 #include "mapa.h"
 #include "weaponmanager.h"
 #include "configmanager.h"
+#include "enemymanager.h"
 #include "collision.h"
 
 class Player;
@@ -23,6 +24,7 @@ class Game {
 		CollisionManager* collisionManager;
 		WeaponManager* weaponManager;
 		ShotManager* shotManager;
+		EnemyManager* enemyManager;
 		double rate;
 		Ponto camera;
 		Game(ConfigManager *cfg);
@@ -38,6 +40,7 @@ class Game {
 		Ponto getSpawn() {return spawn;}
 		void resize(GLsizei x, GLsizei y);
 		WeaponItem* dropWeapon(std::string name);
+		void spawnEnemy(std::string name, Ponto position);
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "controlewii.h"
 #include "shotmanager.h"
 #include "weaponitem.h"
+#include "enemy.h"
 
 void Game::loadMap(std::string mapname) {
 	if (mapa != NULL)
@@ -108,6 +109,7 @@ void Game::show() {
 	player->desenha();
 	mapa->desenha();
 	shotManager->desenha();
+	enemyManager->desenha();
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
@@ -139,12 +141,19 @@ WeaponItem* Game::dropWeapon(std::string name) {
 	return weaponManager->getItem(name);
 }
 
+void Game::spawnEnemy(std::string name, Ponto position) {
+	Enemy* enemy = enemyManager->createEnemy(name);
+	enemy->setPosition(position.x,position.y);
+}
+
 void Game::mainLoop() {
 	Timer fps;
 	shotManager = new ShotManager;
 	weaponManager = new WeaponManager(this);
 	collisionManager = new CollisionManager;
 	weaponManager->loadWeapons();
+	enemyManager = new EnemyManager(this);
+	enemyManager->loadEnemies();
 	loadMap(config->maps.front());
 	
 	player = new Player(this, spawn, config->player["speed"]);

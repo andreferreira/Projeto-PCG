@@ -6,6 +6,9 @@ function map(t)
 	for i,w in pairs(t.weapons) do
 		regweapon(w.name, w.spawn[1], w.spawn[2])
 	end
+	for i,e in pairs(t.enemies) do
+		regenemy(e.name, e.spawn[1], e.spawn[2])
+	end
 	return t
 end
 

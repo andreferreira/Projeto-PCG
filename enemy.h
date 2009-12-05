@@ -4,7 +4,8 @@
 #include "shooter.h"
 
 class Enemy: public Shooter {
-	
+	public:
+		Enemy(Game* agame);
 	
 };
 

@@ -15,9 +15,9 @@ class WeaponItem;
 class Mapa {
 	private:
 		Ponto tamanho;
-		Game *game;
 		std::list<Platform*> platforms;
 	public:
+		Game *game;
 		std::list<WeaponItem*> items;
 		Mapa(std::string name, Game *g);
 		~Mapa();

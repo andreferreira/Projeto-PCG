@@ -35,4 +35,7 @@ map {
 		{name="Flamethrower", spawn={500, h-200}},
 		{name="Shotgun", spawn={300, h-200}},		
 	},
+	enemies = {
+		{name = "Soldier", spawn={700, h-200}},
+	},
 }
