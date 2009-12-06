@@ -16,15 +16,19 @@ local platSize = 80
 
 for x = 0, 4 do
 	for y = 1, 50 do
-		addPlat({x*platW,h-200-y*platH,platSize+x*platW,h-200-y*platH})
+		--addPlat({x*platW,h-200-y*platH,platSize+x*platW,h-200-y*platH})
 	end
 end
 
 for x = 0, 4 do
 	for y = 1, 50 do
-		addPlat({platSize+5+x*platW,h-175-y*platH,platSize+platSize+x*platW-5,h-175-y*platH})
+		--addPlat({platSize+5+x*platW,h-175-y*platH,platSize+platSize+x*platW-5,h-175-y*platH})
 	end
 end
+
+addPlat {200,h-215,298,h-290,passable=false}
+addPlat {500,h-200,500,h-400,passable=false}
+addPlat {600,h-300,700,h-300}
 
 map {
 	spawn = {400,h-200},
@@ -32,10 +36,10 @@ map {
 	height = h,
 	platforms = platforms,
 	weapons = {
-		{name="Flamethrower", spawn={500, h-200}},
-		{name="Shotgun", spawn={300, h-200}},		
+		--{name="Flamethrower", spawn={500, h-200}},
+		--{name="Shotgun", spawn={300, h-200}},		
 	},
 	enemies = {
-		{name = "Soldier", spawn={700, h-200}},
+		--{name = "Soldier", spawn={700, h-200}},
 	},
 }

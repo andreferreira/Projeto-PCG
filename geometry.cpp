@@ -133,9 +133,38 @@ bool linesIntersect(const Linha a,const Linha b) {
 	else
 		return false;
 }
+#include <iostream>
+double timeToIntersection(const Linha a,const Linha b) {
+	double x1 = a.vertices[0].x, y1 = a.vertices[0].y,
+		   x2 = a.vertices[1].x, y2 = a.vertices[1].y,
+		   x3 = b.vertices[0].x, y3 = b.vertices[0].y,
+		   x4 = b.vertices[1].x, y4 = b.vertices[1].y;
+	
+	double denominator = ((y4 - y3) * (x2 - x1) - (x4 - x3)*(y2 - y1));
+	double numeratorA = ((x4 - x3)*(y1 - y3) - (y4 - y3)*(x1 - x3));
+	double numeratorB = ((x2 - x1)*(y1 - y3) - (y2 - y1)*(x1 - x3));
+	double ua,ub;
+	if (denominator == 0) {
+		ua = 9999;
+		ub = 9999;
+		return ua;
+	}
+	ua = numeratorA / denominator;
+	ub = numeratorB / denominator;
+	return ua;
+}
 
 double abs(double x) {
 	if (x < 0.0)
 		return -x;
 	return x;
+}
+
+double sign(double n) {
+	if (n == 0.0)
+		return 0.0;
+	if (n < 0.0)
+		return -1.0;
+	if (n > 0.0)
+		return 1.0;
 }

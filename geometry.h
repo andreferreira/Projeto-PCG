@@ -48,6 +48,8 @@ class Polygon {
 
 void drawCircle(double radius, int lines);
 bool linesIntersect(const Linha a,const Linha b);
+double timeToIntersection(const Linha a,const Linha b);
 double abs(double x);
+double sign(double n);
 
 #endif

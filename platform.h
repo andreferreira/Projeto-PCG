@@ -13,6 +13,7 @@ class Platform {
 	bool isPassable() {return passable;};
 	void setPassable() {passable = true;}
 	void desenha();
+	double angle();
 };
 
 #endif

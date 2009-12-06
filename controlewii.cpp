@@ -20,6 +20,14 @@ void ControleWii::handleOther() {
 		jogador.onGround = false;
 		jogador.bypass = true;
 	}
+	if (keystates[SDLK_LEFT]) {
+		jogador.addSpeed(-3,  0);
+	}
+	if (keystates[SDLK_RIGHT]) {
+		jogador.addSpeed(3,  0);
+	}
+	if (!keystates[SDLK_RIGHT] && !keystates[SDLK_LEFT])
+		jogador.addSpeed(sign(jogador.getSpeedX())*-0.5,0);
 	if(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1)) { //botao esquerdo do mouse pressionado
 		jogador.fire();
 	}
@@ -141,12 +149,6 @@ void ControleWii::handleEvent(SDL_Event &e) {
 		break;
 		case SDL_KEYUP:
 			switch (e.key.keysym.sym) {
-				case SDLK_LEFT:
-					jogador.addSpeed(3,0);
-					break;
-				case SDLK_RIGHT:
-					jogador.addSpeed(-3,0);
-					break;
 				default: break;
 			}
 			break;
@@ -161,12 +163,6 @@ void ControleWii::handleEvent(SDL_Event &e) {
 						jogador.addSpeed( 0, -8);
 						jogador.onGround = false;
 					}
-					break;
-				case SDLK_LEFT:
-					jogador.addSpeed(-3,  0);
-					break;
-				case SDLK_RIGHT:
-					jogador.addSpeed( 3,  0);
 					break;
 				case SDLK_RETURN:
 					for (it = map->items.begin(); it != map->items.end(); ++it)

@@ -10,7 +10,7 @@ class GravityManager {
 	private:
 		std::set<Thing*> things;
 		std::set<Platform*> platforms;
-		bool checkGround(Thing* thing, Platform *platform);
+		bool checkGround(Thing* thing, Platform *platform, double &t);
 	public:
 		void subscribe(Thing* thing);
 		void addPlatform(Platform* linha);

@@ -12,7 +12,7 @@ Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
     setSpeed(speed.x, speed.y);
 	game = agame;
 	game->gravityManager->subscribe(this);
-	maxspeed.x = 5;
+	maxspeed.x = 3;
 	maxspeed.y = 20;
 	canfire = true;
 	realLeftfeet.x = -8;
@@ -151,15 +151,6 @@ double Shooter::imaginaryBodyAngle() {
 		return 2*PI*((t % 360) / 360.0);
 	}
 	return 0;
-}
-
-double sign(double n) {
-	if (n == 0.0)
-		return 0.0;
-	if (n < 0.0)
-		return -1.0;
-	if (n > 0.0)
-		return 1.0;
 }
 
 double closerToZero(double a, double b) {
