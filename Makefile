@@ -11,7 +11,6 @@ OBJS = \
 	gravity.o \
 	mapa.o \
 	platform.o \
-	controleteclado.o \
 	weapon.o \
 	maploader.o \
 	weaponmanager.o \

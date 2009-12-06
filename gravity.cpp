@@ -28,7 +28,7 @@ void GravityManager::update() {
 				collidedWith = *plat;
 				double angle = collidedWith->angle();
 				double slope = angle / (PI/2);
-				if (slope != 1)
+				if (slope != 1 && (*it)->getSpeedY() >= 0)
 					(*it)->onGround = true;
 				if (slope == 1) { //colisao com parede
 					double dir = sign((*it)->getSpeedX());

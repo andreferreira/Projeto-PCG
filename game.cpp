@@ -2,7 +2,6 @@
 #include "geometry.h"
 #include "luaenv.h"
 #include "timer.h"
-#include "controleteclado.h"
 #include "controlewii.h"
 #include "shotmanager.h"
 #include "weaponitem.h"
@@ -158,10 +157,7 @@ void Game::mainLoop() {
 	
 	player = new Player(this, spawn, config->player["speed"]);
 	Controle *c;
-	if (false) 
-		c = new ControleTeclado(*player);
-	else
-		c = new ControleWii(*player);
+	c = new ControleWii(*player);
 	player->equip(weaponManager->getWeapon("Shotgun"));
 
 	collisionManager->subscribe(player);
