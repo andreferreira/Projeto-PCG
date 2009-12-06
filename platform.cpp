@@ -13,5 +13,5 @@ double Platform::angle() {
 	double size = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 	if (size == 0.0)
 		return 0;
-	return acos(abs(x1-x2)/size);
+	return asin(abs(y2-y1)/size);
 }

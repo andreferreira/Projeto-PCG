@@ -51,5 +51,6 @@ bool linesIntersect(const Linha a,const Linha b);
 double timeToIntersection(const Linha a,const Linha b);
 double abs(double x);
 double sign(double n);
+double closerToZero(double a, double b);
 
 #endif

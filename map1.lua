@@ -26,7 +26,6 @@ for x = 0, 4 do
 	end
 end
 
-addPlat {200,h-215,298,h-290,passable=false}
 addPlat {500,h-200,500,h-400,passable=false}
 addPlat {600,h-300,700,h-300}
 

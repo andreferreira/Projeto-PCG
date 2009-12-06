@@ -168,3 +168,9 @@ double sign(double n) {
 	if (n > 0.0)
 		return 1.0;
 }
+
+double closerToZero(double a, double b) {
+	if (abs(a) < abs(b))
+		return a;
+	return b;
+}

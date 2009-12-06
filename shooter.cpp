@@ -153,12 +153,6 @@ double Shooter::imaginaryBodyAngle() {
 	return 0;
 }
 
-double closerToZero(double a, double b) {
-	if (abs(a) < abs(b))
-		return a;
-	return b;
-}
-
 void Shooter::updateFeetTime() {
 	if (onGround && abs(getSpeedX()) >= 0.05)
 		feetTime++;

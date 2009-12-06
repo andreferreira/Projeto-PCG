@@ -27,7 +27,7 @@ void ControleWii::handleOther() {
 		jogador.addSpeed(3,  0);
 	}
 	if (!keystates[SDLK_RIGHT] && !keystates[SDLK_LEFT])
-		jogador.addSpeed(sign(jogador.getSpeedX())*-0.5,0);
+		jogador.addSpeed(closerToZero(-jogador.getSpeedX(),sign(jogador.getSpeedX())*-0.5),0);
 	if(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1)) { //botao esquerdo do mouse pressionado
 		jogador.fire();
 	}

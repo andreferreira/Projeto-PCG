@@ -24,18 +24,20 @@ void GravityManager::update() {
 		for (plat = platforms.begin(); plat != platforms.end(); plat++) {
 			double t;
 			if (checkGround(*it, *plat, t)) {
-				static int counter = 0;
-				counter++;
 				timeToCollide = t;
 				collidedWith = *plat;
-				double slope = collidedWith->angle() / (PI/2);
+				double angle = collidedWith->angle();
+				double slope = angle / (PI/2);
 				if (slope != 1)
 					(*it)->onGround = true;
-				if (slope == 1) {
-					(*it)->setSpeed(sign((*it)->getSpeedX())*-0.01,(*it)->getSpeedY());
+				if (slope == 1) { //colisao com parede
+					double dir = sign((*it)->getSpeedX());
+					(*it)->setSpeed(dir*-3,(*it)->getSpeedY());
 				}
-				else if (slope == 0 && (*it)->getSpeedY() > 0.0) {
+				else if ((*it)->getSpeedY() >= (*it)->gravityRate) {
 					(*it)->setSpeed((*it)->getSpeedX(),(*it)->getSpeedY()*timeToCollide);
+				}
+				if ((*it)->getSpeedY() < 0) {
 				}
 			}
 		}
@@ -48,6 +50,8 @@ void GravityManager::removePlatforms() {
 
 //caso ocorra colisao, t retorna em quanto tempo ela ocorrera
 bool GravityManager::checkGround(Thing* thing, Platform *platform, double &t) {
+	if (platform->isPassable() && thing->bypass)
+		return false;
 	Linha l1 = thing->getBaseLine();
 	l1.translate(thing->getPosition());
 	Linha l2 = l1;
@@ -66,6 +70,5 @@ bool GravityManager::checkGround(Thing* thing, Platform *platform, double &t) {
 		if (linesIntersect(l2,plat))
 			t = std::min(t,1.0);
 	}
-	return (!platform->isPassable() || !thing->bypass) && (
-	           0<= t && t <= 1.0); 
+	return (0<= t && t <= 1.0); 
 }
