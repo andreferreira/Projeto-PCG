@@ -26,7 +26,7 @@ for x = 0, 4 do
 	end
 end
 
-addPlat {500,h-200,500,h-400,passable=false}
+--addPlat {500,h-200,500,h-400,passable=false}
 addPlat {600,h-300,700,h-300}
 
 map {
@@ -39,6 +39,6 @@ map {
 		--{name="Shotgun", spawn={300, h-200}},		
 	},
 	enemies = {
-		--{name = "Soldier", spawn={700, h-200}},
+		{name = "Soldier", spawn={400, h-300}},
 	},
 }

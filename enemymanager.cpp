@@ -12,9 +12,9 @@ EnemyManager::EnemyManager(Game* g) {
 }
 
 void EnemyManager::loadEnemies() {
-	std::vector<Enemy*>::iterator it;
+	std::set<Enemy*>::iterator it;
 	for (it = enemies.begin();it != enemies.end(); it++) {
-		delete (*it);
+		(*it)->die();
 	}
 	enemies.clear();
 	if (lstate != NULL)
@@ -26,10 +26,35 @@ void EnemyManager::loadEnemies() {
 }
 
 void EnemyManager::desenha() {
-	std::vector<Enemy*>::iterator it;
+	std::set<Enemy*>::iterator it;
 	for (it = enemies.begin();it != enemies.end(); it++) {
 		(*it)->desenha();
 	}
+}
+
+void EnemyManager::move() {
+	std::set<Enemy*>::iterator it;
+	for (it = enemies.begin();it != enemies.end(); it++) {
+		(*it)->move();
+	}
+}
+
+void EnemyManager::animate() {
+	std::set<Enemy*>::iterator it;
+	for (it = enemies.begin();it != enemies.end(); it++) {
+		(*it)->animate();
+	}
+}
+
+void EnemyManager::think() {
+	std::set<Enemy*>::iterator it;
+	for (it = enemies.begin();it != enemies.end(); it++) {
+		(*it)->think();
+	}
+}
+
+void EnemyManager::remove(Enemy* enemy) {
+	enemies.erase(enemies.find(enemy));
 }
 
 Enemy* EnemyManager::createEnemy(std::string name) {
@@ -39,7 +64,9 @@ Enemy* EnemyManager::createEnemy(std::string name) {
         printf("error: %s", lua_tostring(lstate, -1));
 	std::string weaponname = lua_tostring(lstate, 1);
 	Enemy* ret = new Enemy(game);
-	enemies.push_back(ret);
+	enemies.insert(ret);
+	game->gravityManager->subscribe(ret);
+	game->collisionManager->subscribe(ret);
 	ret->equip(game->weaponManager->getWeapon(weaponname));
 	return ret;
 }

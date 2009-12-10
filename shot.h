@@ -5,11 +5,13 @@
 
 class Weapon;
 class Game;
+class Shooter;
 
 class Shot: public Thing {
 	private:
 	Game* game;
 	public:
+	Shooter* firedBy;
 	Polygon sprite;
 	Shot(double x, double y, double angle, double speed, double gravityRate, Weapon* w);
 	~Shot();

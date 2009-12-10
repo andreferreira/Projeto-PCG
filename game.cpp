@@ -174,16 +174,19 @@ void Game::mainLoop() {
 		fps.start();
 		//player events
 		c->handleEvents();
+		enemyManager->think();
 		
 		//collision, gravity
 		gravityManager->update();
 		collisionManager->update();
 		
 		player->animate();
+		enemyManager->animate();
 
 		//movements
 		player->move();
 		shotManager->move();
+		enemyManager->move();
 		mapa->move();
 		quit = c->getQuit();
 		show();

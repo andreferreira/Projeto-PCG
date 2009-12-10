@@ -1,7 +1,7 @@
 #ifndef ENEMYMANAGER_H
 #define ENEMYMANAGER_H
 
-#include <vector>
+#include <set>
 #include "luaenv.h"
 
 class Enemy;
@@ -11,12 +11,16 @@ class EnemyManager {
 	private:
 		lua_State* lstate;
 		Game* game;
-		std::vector<Enemy*> enemies;
+		std::set<Enemy*> enemies;
 	public:
 		EnemyManager(Game* g);
 		void loadEnemies();
 		Enemy* createEnemy(std::string name);
+		void animate();
+		void think();
 		void desenha();
+		void move();
+		void remove(Enemy* enemy);
 };
 
 #endif

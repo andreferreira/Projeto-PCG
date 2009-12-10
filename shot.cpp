@@ -4,10 +4,13 @@
 #include "shotmanager.h"
 #include "collision.h"
 #include "player.h"
+#include "shooter.h"
+#include "enemy.h"
 #include <math.h>
 
 Shot::Shot(double x, double y, double angle, double speed, double gravity, Weapon* w) {
 	game = w->game;
+	firedBy = w->firedBy;
 	setPosition(x,y);
 	if (gravity != 0.0)
 		game->gravityManager->subscribe(this);
@@ -32,20 +35,21 @@ void Shot::desenha() {
 }
 
 Polygon Shot::getCollision() {
-	Ponto atual(getX(),getY());
 	Polygon collisionSprite = sprite;
-	for (int i = 0; i < collisionSprite.linhas.size();i++) {
-		collisionSprite.linhas[i].vertices[0] = collisionSprite.linhas[i].vertices[0] + atual;
-		collisionSprite.linhas[i].vertices[1] = collisionSprite.linhas[i].vertices[1] + atual;
-	}
 	return collisionSprite;
 }
 
 #include <iostream>
 
 void Shot::collide(Thing* b){
-	Player* p;
-	if (p = dynamic_cast<Player*>(b)) {
-		std::cout<<"Player deaded "<<p<<std::endl;
+	/*Player* p = dynamic_cast<Player*>(b);
+	
+	Enemy* e = dynamic_cast<Enemy*>(b);
+	std::cout<<b<<std::endl;
+	if (p ) {
 	}
+	else if (e ) {
+		e->die();
+		
+	}*/
 }

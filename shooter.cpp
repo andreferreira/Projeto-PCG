@@ -69,7 +69,7 @@ void Shooter::fire() {
 	tip.y = -(sinAngle*tiplinha.x-cosAngle*tiplinha.y);
 
 	weapon->position = getPosition() + pescoco();
-	weapon->fire(tip,angle);
+	weapon->fire(tip,angle,this);
 }
 
 
@@ -296,6 +296,7 @@ double Shooter::getAngle() {
 void Shooter::desenha() {
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
+		//getCollision().desenha();
 		Ponto leftfeet = leftFeet();
 		Ponto rightfeet = rightFeet();
 		glTranslatef(0,std::min(-rightfeet.y,-leftfeet.y),0);
@@ -356,13 +357,28 @@ Linha Shooter::getBaseLine() {
 
 Polygon Shooter::getCollision() {
 	Polygon poly;
-	Linha a(leftFeet(),rightFeet());
-	Linha b(rightFeet(),cintura());
-	Linha c(cintura(),rightArm(false));
-	Linha d(rightArm(false),pescoco());
-	Linha e(pescoco(),leftArm(false));
-	Linha f(leftArm(false),cintura());
-	Linha g(cintura(),leftFeet());
+	Ponto leftfeet = leftFeet();
+	Ponto rightfeet = rightFeet();
+	int deslocy = std::min(-rightfeet.y,-leftfeet.y);
+	Ponto hips = cintura();
+	Ponto leftarm = leftArm(false);
+	Ponto rightarm = rightArm(false);
+	Ponto neck = pescoco();
+	
+	leftfeet.y += deslocy;
+	rightfeet.y += deslocy;
+	neck.y += deslocy;
+	hips.y += deslocy;
+	leftarm.y += deslocy;
+	rightarm.y += deslocy;
+	
+	Linha a(leftfeet,rightfeet);
+	Linha b(rightfeet,hips);
+	Linha c(hips,rightarm);
+	Linha d(rightarm,neck);
+	Linha e(neck,leftarm);
+	Linha f(leftarm,hips);
+	Linha g(hips,leftfeet);
 	poly.addLinha(a);
 	poly.addLinha(b);
 	poly.addLinha(c);

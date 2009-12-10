@@ -7,6 +7,7 @@
 #include "luaenv.h"
 
 class Game;
+class Shooter;
 
 class Weapon {
 	private:
@@ -16,6 +17,7 @@ class Weapon {
 		lua_State* lstate;
 	public:
 		Ponto position; //POSICAO USADA SOMENTE QUANDO ATIRADA, NAO USAR PARA OUTRAS COISAS
+		Shooter* firedBy; //MESMA COISA
 		Game *game;
 		Weapon (Game* g,lua_State* l) {game = g; lstate = l;}
 		Polygon sprite;
@@ -29,7 +31,7 @@ class Weapon {
 		void desenha();
 		void setTip(Ponto t) {tip = t;}
 		Ponto getTip() {return tip;}
-		void fire(Ponto place, double angle);
+		void fire(Ponto place, double angle, Shooter *_firedBy);
 };
 
 
