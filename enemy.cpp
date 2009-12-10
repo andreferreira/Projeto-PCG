@@ -11,7 +11,7 @@ void Enemy::die() {
 	dead = true;
 	game->enemyManager->remove(this);
 	game->gravityManager->deleteThing(this);
-	game->collisionManager->remove(this);
+	//game->collisionManager->remove(this);
 }
 
 void Enemy::think() {
@@ -20,7 +20,8 @@ void Enemy::think() {
 		direction = -1;
 	else
 		direction = 1;
-	setAim(game->player->getPosition().x,game->player->getPosition().y);
+	setAim(game->player->getPosition().x,game->player->getPosition().y-50);
+	fire();
 }
 
 void Enemy::collide(Thing* b) {
