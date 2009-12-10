@@ -22,6 +22,7 @@ Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
 	bodyAngle = 0;
 	angleTime = 0;
 	feetTime = 0;
+	direction = 1;
 }
 
 void Shooter::equip(Weapon* aweapon) {
@@ -296,6 +297,7 @@ double Shooter::getAngle() {
 void Shooter::desenha() {
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
+		glScalef(direction,1,1);
 		//getCollision().desenha();
 		Ponto leftfeet = leftFeet();
 		Ponto rightfeet = rightFeet();
@@ -326,7 +328,8 @@ void Shooter::desenha() {
 		Ponto leftelbow = getJunta(neck,leftarm+neck,tamanhoBraco(),tamanhoAntebraco());
 		glPushMatrix();
 			glTranslatef(neck.x,neck.y,0);
-			glRotatef(getAngle()*180.0/PI,0,0,-1);
+			glScalef(direction,direction,1);
+			glRotatef(direction*getAngle()*180.0/PI,0,0,-1);
 			glBegin(GL_LINES);
 				glVertex3f(0,0,-1);
 				glVertex3f(leftelbow.x,leftelbow.y,-1);
