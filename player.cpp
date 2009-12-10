@@ -13,6 +13,7 @@ void Player::desenha() {
 void Player::collide(Thing *b) {
 	Shot* shot = dynamic_cast<Shot*>(b);
 	if (shot) {
+		shot->dead = true;
 		std::cout<<"I have been shot"<<std::endl;
 	}
 }

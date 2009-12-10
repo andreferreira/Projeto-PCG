@@ -3,7 +3,6 @@
 #include "player.h"
 
 Enemy::Enemy(Game* agame): Shooter(agame, Ponto(0,0), Ponto(0,0)) {
-	dead = false;
 }
 
 void Enemy::die() {
@@ -27,7 +26,7 @@ void Enemy::think() {
 void Enemy::collide(Thing* b) {
 	if (dead) return;
 	Shot* shot = dynamic_cast<Shot*>(b);
-	if (shot && shot->firedBy != this) {
+	if (shot && shot->firedBy == game->player) {
 		this->die();
 	}
 }

@@ -28,6 +28,7 @@ Shot::~Shot() {
 }
 
 void Shot::desenha() {
+	if (dead) return;
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
 		sprite.desenha();
@@ -42,6 +43,7 @@ Polygon Shot::getCollision() {
 #include <iostream>
 
 void Shot::collide(Thing* b){
+	if (dead) return;
 	/*Player* p = dynamic_cast<Player*>(b);
 	
 	Enemy* e = dynamic_cast<Enemy*>(b);

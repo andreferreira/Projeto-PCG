@@ -5,7 +5,6 @@
 
 class Enemy: public Shooter {
 	public:
-		bool dead;
 		Enemy(Game* agame);
 		void die();
 		void think();

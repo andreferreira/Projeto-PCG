@@ -9,6 +9,7 @@ class Thing {
 		Ponto velocidade;
 		Ponto maxspeed;
 	public:
+		bool dead;
 		double gravityRate;
 		bool onGround;
 		bool bypass;
