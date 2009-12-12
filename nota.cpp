@@ -16,7 +16,7 @@ void Nota::setSemitom(char st) {
 	}
 }
 
-Nota::Nota(byte midi) {
+Nota::Nota(byte midi): diatonica("C D EF G A B") {
 	oitava = (midi / 12) - 1;
 	int tom = midi % 12;
 	if (diatonica[tom] != ' ') {
@@ -28,7 +28,7 @@ Nota::Nota(byte midi) {
 	}
 }
 	
-Nota::Nota(std::string nota) {
+Nota::Nota(std::string nota): diatonica("C D EF G A B"), oitava(4) {
 	switch(nota.size()) {
 	case 1:
 		setSemitom(' '); break;

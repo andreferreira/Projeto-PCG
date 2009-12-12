@@ -4,9 +4,9 @@ Acorde::Acorde(std::string c): cifra(c) {
 	if (!valida())
 		return;
 	
-	regoff_t i = parser[0].rm_so;
-	regoff_t l = parser[0].rm_eo;
-	raiz = new Nota(cifra.substr(i, l-i));
+	regoff_t i = parser[1].rm_so;
+	regoff_t l = parser[1].rm_eo;
+	raiz = new Nota(cifra.substr(i, l));
 
 	switch(numNotas) {
 	case 3:
@@ -17,9 +17,9 @@ Acorde::Acorde(std::string c): cifra(c) {
 }
 
 void Acorde::tetrade() {
-	regoff_t i = parser[1].rm_so;
-	regoff_t l = parser[1].rm_eo;
-	std::string tom = cifra.substr(i, l-i);
+	regoff_t i = parser[2].rm_so;
+	regoff_t l = parser[2].rm_eo;
+	std::string tom = cifra.substr(i, l);
 	
 	if (tom.size() == 0)
 		return;
@@ -61,7 +61,7 @@ void Acorde::tetrade() {
 }
 
 void Acorde::triade() {
-	regoff_t i = parser[1].rm_so;
+	regoff_t i = parser[2].rm_so;
 	if (i == -1) {
 		maior();
 	} else {
@@ -98,16 +98,17 @@ void Acorde::maior() {
 }
 
 bool Acorde::valida() {
-	regex_t triade, tetrade;
+	regex_t reg;
 	
-	regcomp(&triade, "^([A-G][#b]?)([+\\-_])?$", 0);
-	if (regexec(&triade, cifra.c_str(), 2, parser, 0) == 0) {
+	regcomp(&reg, "^([A-G][#b]?)([-+_])?$", REG_EXTENDED);
+	if (regexec(&reg, cifra.c_str(), 3, parser, 0) == 0) {
 		numNotas = 3;
 		return true;
 	}
+	regfree(&reg);
 	
-	regcomp(&tetrade, "^([A-G][#b]?)([+\\-]?/M?|_/m?|m5/)?7$", 0);
-	if (regexec(&tetrade, cifra.c_str(), 2, parser, 0) == 0) {
+	regcomp(&reg, "^([A-G][#b]?)([-+]?/M?|_/m?|m5/)?7$", REG_EXTENDED);
+	if (regexec(&reg, cifra.c_str(), 3, parser, 0) == 0) {
 		numNotas = 4;
 		return true;
 	}

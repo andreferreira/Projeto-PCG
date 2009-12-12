@@ -14,7 +14,6 @@ class Nota {
 		void setNome(char t);
 		void setSemitom(char st);
 	public:
-		//Nota(): diatonica("C D EF G A B") { }
 		Nota(std::string nota);
 		Nota(byte midi);
 		byte toMidi();
