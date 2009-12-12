@@ -1,0 +1,14 @@
+#define SEGUNDA 1
+#define SEGUNDA_MAIOR 2
+#define TERCEIRA_MENOR 3
+#define TERCEIRA_MAIOR 4
+#define QUARTA 5
+#define QUARTA_AUMENTADA 6
+#define QUINTA_DIMINUTA 6
+#define QUINTA 7
+#define QUINTA_AUMENTADA 8
+#define SEXTA 8
+#define SEXTA_MAIOR 9
+#define SETIMA_DIMINUTA 9
+#define SETIMA 10
+#define SETIMA_MAIOR 11
