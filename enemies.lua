@@ -7,3 +7,8 @@ bear = Enemy {
 	name = "Bear",
 	weapon = "CareBear",
 }
+
+pyro = Enemy {
+	name = "Pyro",
+	weapon = "Flamethrower",
+}

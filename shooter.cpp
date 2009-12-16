@@ -23,6 +23,7 @@ Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
 	angleTime = 0;
 	feetTime = 0;
 	direction = 1;
+	addToAngle = 0;
 }
 
 void Shooter::equip(Weapon* aweapon) {
@@ -148,10 +149,12 @@ Ponto Shooter::imaginaryRightfeet() {
 
 double Shooter::imaginaryBodyAngle() {
 	int t = angleTime;
+	if (dead)
+		return 3*PI/2;
 	if ((bypass && !onGround) || bodyAngle > PI/2) {
-		return 2*PI*((t % 360) / 360.0);
+		return 2*PI*((t % 360) / 360.0) + addToAngle;
 	}
-	return 0;
+	return addToAngle;
 }
 
 void Shooter::updateFeetTime() {
@@ -189,6 +192,10 @@ void Shooter::animate() {
 		dif = dif + 2*PI;
 	bodyAngle += closerToZero(sign(dif)*0.2,dif);
 	bodyAngle = fmod(bodyAngle,2*PI);
+	if (abs(addToAngle) > 0.2)
+		addToAngle += -sign(addToAngle)*0.2;
+	else
+		addToAngle = 0;
 	double dl = distance(il,realLeftfeet);
 	double dr = distance(ir,realRightfeet);
 }

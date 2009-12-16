@@ -38,6 +38,7 @@ class Shooter: public Thing {
 		void updateFeetTime();
 		void updateAngleTime();
 		int direction;
+		double addToAngle;
 	public:
 		Ponto pescoco();
 		Game* game;

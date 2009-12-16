@@ -8,8 +8,8 @@ Enemy::Enemy(Game* agame): Shooter(agame, Ponto(0,0), Ponto(0,0)) {
 void Enemy::die() {
 	if (dead) return;
 	dead = true;
-	game->enemyManager->remove(this);
-	game->gravityManager->deleteThing(this);
+	//game->enemyManager->remove(this);
+	//game->gravityManager->deleteThing(this);
 	//game->collisionManager->remove(this);
 }
 

@@ -9,6 +9,7 @@ class Player: public Shooter {
         Player(Game* agame, Ponto pos, Ponto speed);
 		void desenha();
 		virtual void collide(Thing* b);
+		int hp;
 };
 
 #endif
