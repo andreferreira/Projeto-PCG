@@ -10,8 +10,6 @@ void Player::desenha() {
     Shooter::desenha();
 }
 
-#include <iostream>
-
 void Player::collide(Thing *b) {
 	Shot* shot = dynamic_cast<Shot*>(b);
 	if (shot) {
@@ -20,6 +18,5 @@ void Player::collide(Thing *b) {
 			addToAngle -= 0.5;
 		else
 			addToAngle += 0.5;
-		std::cout<<"I have been shot"<<std::endl;
 	}
 }

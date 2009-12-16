@@ -175,7 +175,6 @@ flamethrower = Weapon{
 								weapon = w,
 								speed = 3,
 								duration = 500+math.random(500)-250,
-								gravity = -0.04,
 								sprite = flamesprite,
 								}
 						end
