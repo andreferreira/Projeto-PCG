@@ -1,5 +1,5 @@
-local w = 1600
-local h = 1600
+local w = 8000
+local h = 1000
 
 local platforms = {
 		platform{0,h-200,w,h-200,passable = false},
@@ -7,30 +7,23 @@ local platforms = {
 }
 
 function addPlat(plat)
+	plat[2] = h-plat[2]
+	plat[4] = h-plat[4]
 	platforms[#platforms+1] = platform(plat)
 end
 
-local platW = 160
-local platH = 50
-local platSize = 80
-
-for x = 0, 4 do
-	for y = 1, 50 do
-		--addPlat({x*platW,h-200-y*platH,platSize+x*platW,h-200-y*platH})
-	end
+function Enemy(t)
+	t.spawn[2] = h-t.spawn[2]
+	return t
 end
 
-for x = 0, 4 do
-	for y = 1, 50 do
-		--addPlat({platSize+5+x*platW,h-175-y*platH,platSize+platSize+x*platW-5,h-175-y*platH})
-	end
-end
-
---addPlat {500,h-200,500,h-400,passable=false}
-addPlat {600,h-300,700,h-300}
+addPlat {400,200,400,1000, passable = false}
+addPlat {400,300,800,300}
+addPlat {700,200,700,299, passable = false}
+addPlat {800,300,800,1000, passable = false}
 
 map {
-	spawn = {400,h-200},
+	spawn = {500,h-200},
 	width = w,
 	height = h,
 	platforms = platforms,
@@ -39,6 +32,6 @@ map {
 		--{name="Shotgun", spawn={300, h-200}},		
 	},
 	enemies = {
-		{name = "Soldier", spawn={600, h-200}},
+		Enemy {name = "Soldier", spawn={1200, 200}},
 	},
 }

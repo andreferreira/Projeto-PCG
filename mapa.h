@@ -21,7 +21,7 @@ class Mapa {
 		std::list<WeaponItem*> items;
 		Mapa(std::string name, Game *g);
 		~Mapa();
-		void novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass);
+		void novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass, double r, double g, double b);
 		void dropWeapon(std::string name, Ponto p);
 		void desenha();
 		void setSpawn(Ponto spawn);

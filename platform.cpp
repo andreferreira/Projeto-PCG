@@ -1,7 +1,11 @@
 #include "platform.h"
 #include "math.h"
 
-Platform::Platform(Linha aline, bool pass): line(aline), passable(pass) { }
+Platform::Platform(Linha aline, bool pass, double r, double g, double b): line(aline), passable(pass) { 
+	line.color[0] = r;
+	line.color[1] = g;
+	line.color[2] = b;
+	}
 
 void Platform::desenha() {
 	line.desenha();

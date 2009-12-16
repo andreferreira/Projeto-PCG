@@ -24,9 +24,9 @@ void Mapa::setSpawn(Ponto spawn) {
 	game->setSpawn(spawn);
 }
 
-void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass) {
+void Mapa::novaPlataforma(double xmin, double ymin, double xmax, double ymax, bool pass, double r, double g, double b) {
 	Linha l(xmin, ymin, xmax, ymax);
-	Platform *plat = new Platform(l, pass);
+	Platform *plat = new Platform(l, pass, r, g, b);
 	platforms.push_front(plat);
 	game->addPlatform(plat);
 }

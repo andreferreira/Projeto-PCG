@@ -19,7 +19,10 @@ static int regplatform (lua_State *L) {
 						 luaL_checknumber(L, 2), 
 						 luaL_checknumber(L, 3),
 						 luaL_checknumber(L, 4),
-						 lua_toboolean(L, 5));
+						 lua_toboolean(L, 5),
+						 luaL_checknumber(L, 6),
+						 luaL_checknumber(L, 7),
+						 luaL_checknumber(L, 8));
 	return 0;
 }
 

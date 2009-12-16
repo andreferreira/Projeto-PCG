@@ -8,7 +8,7 @@ class Platform {
 	Linha line;
 	bool passable;
 	public:
-	Platform(Linha aline, bool pass);
+	Platform(Linha aline, bool pass, double r, double g, double b);
 	Linha getLine() {return line;};
 	bool isPassable() {return passable;};
 	void setPassable() {passable = true;}
