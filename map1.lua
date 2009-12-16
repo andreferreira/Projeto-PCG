@@ -32,6 +32,6 @@ map {
 		--{name="Shotgun", spawn={300, h-200}},		
 	},
 	enemies = {
-		Enemy {name = "Soldier", spawn={1200, 200}},
+		Enemy {name = "Bear", spawn={1200, 200}},
 	},
 }

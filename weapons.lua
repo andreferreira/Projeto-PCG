@@ -79,7 +79,7 @@ end
 local rainbowsprite = {}
 local rainbowsegments = 40
 local rainbowsize = 400
-local rainbowheight = 50
+local rainbowheight = 30
 for i = 1, rainbowsegments do
 	for j = 1,7 do
 		rainbowsprite[#rainbowsprite+1] = Line{

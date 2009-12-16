@@ -28,7 +28,6 @@ Shot::~Shot() {
 }
 
 void Shot::desenha() {
-	if (dead) return;
 	glPushMatrix();
 		glTranslatef(getX(),getY(),0);
 		sprite.desenha();
@@ -39,8 +38,6 @@ Polygon Shot::getCollision() {
 	Polygon collisionSprite = sprite;
 	return collisionSprite;
 }
-
-#include <iostream>
 
 void Shot::collide(Thing* b){
 	if (dead) return;
