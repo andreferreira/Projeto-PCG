@@ -39,6 +39,8 @@ bool CollisionManager::checkCollision(Thing* a, Thing* b){
 		return false;
 	if (!(a->canCollide(b) && b->canCollide(a)))
 		return false;
+	if (distance(a->getPosition(),b->getPosition()) > 500)
+		return false;
 	Polygon pa,pb;
 	pa = a->getCollision();
 	pb = b->getCollision();
