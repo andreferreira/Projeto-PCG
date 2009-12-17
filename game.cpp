@@ -147,18 +147,21 @@ void Game::spawnEnemy(std::string name, Ponto position) {
 
 void Game::previousMap() {
 	enemyManager->loadEnemies();
+	shotManager->clearShots();
 	loadMap(config->previousMap());
 	player->setPosition(spawn.x, spawn.y);
 }
 
 void Game::reloadMap() {
 	enemyManager->loadEnemies();
+	shotManager->clearShots();
 	loadMap(config->currentMap());
 	player->setPosition(spawn.x, spawn.y);
 }
 
 void Game::nextMap() {
 	enemyManager->loadEnemies();
+	shotManager->clearShots();
 	loadMap(config->nextMap());
 	player->setPosition(spawn.x, spawn.y);
 }
