@@ -2,7 +2,7 @@
 #include "shot.h"
 
 Player::Player(Game* agame, Ponto pos, Ponto speed): Shooter(agame, pos, speed) { 
-	hp = 1000;
+	hp = 100;
 }
 
 void Player::desenha() {
@@ -19,5 +19,9 @@ void Player::collide(Thing *b) {
 		else
 			addToAngle += 0.5;
 		addToAngle = std::max(std::min(addToAngle, PI/2),-PI/2);
+		hp -= shot->damage;
+		if (hp <= 0) {
+			dead = true;
+		}
 	}
 }

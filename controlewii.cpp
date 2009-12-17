@@ -15,6 +15,7 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 }
 
 void ControleWii::handleOther() {
+	if (jogador.dead) return;
 	jogador.crawl = false;
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if (keystates[SDLK_DOWN]) {
@@ -53,6 +54,7 @@ void ControleWii::handleOther() {
 }
 
 void ControleWii::handleEvent(SDL_Event &e) {
+	if (jogador.dead) return;
 	std::list<WeaponItem*>::iterator it;
 	bool pegou = false;
 	switch( e.type ) {
