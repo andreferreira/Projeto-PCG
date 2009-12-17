@@ -12,7 +12,7 @@ void Player::desenha() {
 
 void Player::collide(Thing *b) {
 	Shot* shot = dynamic_cast<Shot*>(b);
-	if (shot) {
+	if (shot && shot->firedBy != this) {
 		shot->dead = true;
 		if (this->getPosition().x < shot->firedBy->getPosition().x)
 			addToAngle -= 0.5;
