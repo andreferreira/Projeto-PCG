@@ -24,6 +24,7 @@ Shooter::Shooter(Game* agame, Ponto pos, Ponto speed) {
 	feetTime = 0;
 	direction = 1;
 	addToAngle = 0;
+	crawl = false;
 }
 
 void Shooter::equip(Weapon* aweapon) {
@@ -154,6 +155,9 @@ double Shooter::imaginaryBodyAngle() {
 	if ((bypass && !onGround) || bodyAngle > PI/2) {
 		return 2*PI*((t % 360) / 360.0) + addToAngle;
 	}
+	
+	if (crawl)
+		return addToAngle + PI/2;
 	return addToAngle;
 }
 

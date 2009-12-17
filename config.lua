@@ -1,5 +1,5 @@
 config {
-    screen = {width=640, height=480, bpp=32, fps=60},
+    screen = {width=800, height=600, bpp=32, fps=60},
 	
     player = {
     	speed = {0, 0}

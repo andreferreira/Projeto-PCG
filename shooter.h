@@ -13,7 +13,6 @@ class Shooter: public Thing {
 	protected:
 		Ponto leftFeet();
 		Ponto rightFeet();
-		Ponto cintura();
 		Ponto cabeca();
 		Ponto leftArm(bool w);
 		Ponto rightArm(bool w);
@@ -40,7 +39,9 @@ class Shooter: public Thing {
 		int direction;
 		double addToAngle;
 	public:
+		bool crawl;
 		Ponto pescoco();
+		Ponto cintura();
 		Game* game;
         Shooter(Game* agame, Ponto pos, Ponto speed);
         void desenha();

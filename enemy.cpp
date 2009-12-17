@@ -21,7 +21,7 @@ void Enemy::think() {
 		direction = 1;
 	if (distance(game->player->getPosition(), this->getPosition()) >= 500)
 		return;
-	setAim(game->player->getPosition().x,game->player->getPosition().y-50);
+	setAim(game->player->getPosition().x + game->player->cintura().x,game->player->getPosition().y+ game->player->cintura().y);
 	fire();
 }
 

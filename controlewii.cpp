@@ -15,13 +15,20 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 }
 
 void ControleWii::handleOther() {
+	jogador.crawl = false;
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if (keystates[SDLK_DOWN]) {
 		jogador.onGround = false;
 		jogador.bypass = true;
 	}
+	if (jogador.onGround && keystates[SDLK_RCTRL]) {
+		jogador.crawl = true;
+	}
 	if (keystates[SDLK_LEFT]) {
 		jogador.addSpeed(-3,  0);
+	}
+	if (keystates[SDLK_RIGHT]) {
+		jogador.addSpeed(3,  0);
 	}
 	if (keystates[SDLK_RIGHT]) {
 		jogador.addSpeed(3,  0);
@@ -36,10 +43,8 @@ void ControleWii::handleOther() {
 		jogador.addSpeed( 0, -8);
 		jogador.onGround = false;
 	}
-
-	if (buttonsNunchuck & 1) {//descer com botao Z ou para baixo
-		jogador.onGround = false;
-		jogador.bypass = true;
+	if (jogador.onGround && buttonsNunchuck & 1) {//deitar com z
+		jogador.crawl = true;
 	}
 	
 	if (buttonsWii & 4) { //R atira
@@ -98,7 +103,7 @@ void ControleWii::handleEvent(SDL_Event &e) {
 							int newY = mesg->nunchuk_mesg.stick[CWIID_Y] - 131;
 
 							if (stickX != 0xffff) {
-								jogador.setSpeed(3.0*newX/128,jogador.getSpeedY());
+								jogador.setSpeed(4.0*newX/128,jogador.getSpeedY());
 							}
 							stickX = newX;
 							stickY = newY;
@@ -111,7 +116,7 @@ void ControleWii::handleEvent(SDL_Event &e) {
 								jogador.onGround = false;
 							}
 
-							if (newY < -60 || (mesg->nunchuk_mesg.buttons & 1)) {//descer com botao Z ou para baixo
+							if (newY < -60) {// || (mesg->nunchuk_mesg.buttons & 1)) {//descer com botao Z ou para baixo
 								jogador.onGround = false;
 								jogador.bypass = true;
 							}
