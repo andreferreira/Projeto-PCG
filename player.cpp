@@ -18,5 +18,6 @@ void Player::collide(Thing *b) {
 			addToAngle -= 0.5;
 		else
 			addToAngle += 0.5;
+		addToAngle = std::max(std::min(addToAngle, PI/2),-PI/2);
 	}
 }
