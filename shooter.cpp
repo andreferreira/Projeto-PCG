@@ -56,8 +56,6 @@ void Shooter::allowFire() {
 	canfire = true;
 }
 
-
-
 void Shooter::fire() {
 	if (!canfire || weapon == NULL)
 		return;
@@ -70,8 +68,12 @@ void Shooter::fire() {
 	Ponto tip;
 	tip.x = (cosAngle*tiplinha.x+sinAngle*tiplinha.y);
 	tip.y = -(sinAngle*tiplinha.x-cosAngle*tiplinha.y);
-
-	weapon->position = getPosition() + pescoco();
+	Ponto leftfeet = leftFeet();
+	Ponto rightfeet = rightFeet();
+	weapon->position = pescoco();
+	weapon->position.x = direction*weapon->position.x;
+	weapon->position.y += + std::min(-rightfeet.y,-leftfeet.y);
+	weapon->position = weapon->position + getPosition();
 	weapon->fire(tip,angle,this);
 }
 
@@ -296,7 +298,10 @@ double Shooter::tamanhoPerna() {
 }
 
 double Shooter::getAngle() {
+	Ponto leftfeet = leftFeet();
+	Ponto rightfeet = rightFeet();
 	Ponto gameneck = pescoco() + getPosition();
+	gameneck.y += std::min(-rightfeet.y,-leftfeet.y);
 	double hyp = sqrt((aim.x-gameneck.x)*(aim.x-gameneck.x) + 
 					  (aim.y-gameneck.y)*(aim.y-gameneck.y));
 	if (aim.y <= gameneck.y)

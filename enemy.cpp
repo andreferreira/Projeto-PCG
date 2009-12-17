@@ -15,13 +15,19 @@ void Enemy::die() {
 
 void Enemy::think() {
 	if (dead) return;
-	if (game->player->getPosition().x < this->getPosition().x)
+	Player *player = game->player;
+	if (player->getPosition().x < this->getPosition().x)
 		direction = -1;
 	else
 		direction = 1;
-	if (distance(game->player->getPosition(), this->getPosition()) >= 500)
+	if (distance(player->getPosition(), this->getPosition()) >= 500)
 		return;
-	setAim(game->player->getPosition().x + game->player->cintura().x,game->player->getPosition().y+ game->player->cintura().y);
+	if (player->crawl && onGround) {
+		crawl = true;
+	}
+	else
+		crawl = false;
+	setAim(player->getPosition().x + player->cintura().x,player->getPosition().y+player->cintura().y);
 	fire();
 }
 
