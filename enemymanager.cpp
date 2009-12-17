@@ -63,6 +63,7 @@ Enemy* EnemyManager::createEnemy(std::string name) {
 	if (lua_pcall(lstate,0,2,0) != 0)  /* do the call */
         printf("error: %s", lua_tostring(lstate, -1));
 	std::string weaponname = lua_tostring(lstate, 1);
+	lua_pop(lstate,2);
 	Enemy* ret = new Enemy(game);
 	enemies.insert(ret);
 	game->gravityManager->subscribe(ret);

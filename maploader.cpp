@@ -35,7 +35,7 @@ static int regweapon (lua_State *L) {
 }
 
 static int regenemy (lua_State *L) {
-	const char* nome = lua_tostring(L, 1);
+	std::string nome = lua_tostring(L, 1);
 	double x = lua_tonumber(L, 2);
 	double y = lua_tonumber(L, 3);
 	mapa->game->spawnEnemy(nome, Ponto(x, y));
