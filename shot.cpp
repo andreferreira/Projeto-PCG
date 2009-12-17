@@ -53,3 +53,8 @@ void Shot::collide(Thing* b){
 		
 	}*/
 }
+
+bool Shot::canCollide(Thing* b) {
+	Shooter* shooter = dynamic_cast<Shooter*>(b);
+	return shooter;
+}

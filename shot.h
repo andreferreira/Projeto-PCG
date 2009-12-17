@@ -19,6 +19,7 @@ class Shot: public Thing {
 	void desenha();
 	virtual Polygon getCollision();
 	virtual void collide(Thing* b);
+	virtual bool canCollide(Thing* b);
 };
 
 #endif

@@ -27,6 +27,7 @@ class Thing {
 		virtual Linha getBaseLine();
 		virtual Polygon getCollision();
 		virtual void collide(Thing* b);
+		virtual bool canCollide(Thing* b);
 };
 
 

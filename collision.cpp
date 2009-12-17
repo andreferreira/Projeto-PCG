@@ -37,6 +37,8 @@ bool pointInsidePolygon(Ponto ponto, Polygon p) {
 bool CollisionManager::checkCollision(Thing* a, Thing* b){
 	if (a->dead || b->dead)
 		return false;
+	if (!(a->canCollide(b) && b->canCollide(a)))
+		return false;
 	Polygon pa,pb;
 	pa = a->getCollision();
 	pb = b->getCollision();

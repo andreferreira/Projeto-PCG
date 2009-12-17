@@ -40,3 +40,7 @@ Polygon Thing::getCollision() {
 void Thing::collide(Thing* b) {
 	return;
 }
+
+bool Thing::canCollide(Thing* b) {
+	return true;
+}
