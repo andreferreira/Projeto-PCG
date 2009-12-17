@@ -177,8 +177,8 @@ void Game::mainLoop() {
 		enemyManager->think();
 		
 		//collision, gravity
-		gravityManager->update();
 		collisionManager->update();
+		gravityManager->update();
 		
 		player->animate();
 		enemyManager->animate();
