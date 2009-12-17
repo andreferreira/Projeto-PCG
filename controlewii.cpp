@@ -18,7 +18,6 @@ void ControleWii::handleOther() {
 	jogador.crawl = false;
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if (keystates[SDLK_DOWN]) {
-		jogador.onGround = false;
 		jogador.bypass = true;
 	}
 	if (jogador.onGround && keystates[SDLK_RCTRL]) {
@@ -117,7 +116,6 @@ void ControleWii::handleEvent(SDL_Event &e) {
 							}
 
 							if (newY < -60) {// || (mesg->nunchuk_mesg.buttons & 1)) {//descer com botao Z ou para baixo
-								jogador.onGround = false;
 								jogador.bypass = true;
 							}
 						}
