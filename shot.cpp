@@ -8,9 +8,10 @@
 #include "enemy.h"
 #include <math.h>
 
-Shot::Shot(double x, double y, double angle, double speed, double gravity, Weapon* w) {
+Shot::Shot(double x, double y, double angle, double speed, double gravity, Weapon* w, int damage) {
 	game = w->game;
 	firedBy = w->firedBy;
+	this->damage = damage;
 	setPosition(x,y);
 	if (gravity != 0.0)
 		game->gravityManager->subscribe(this);

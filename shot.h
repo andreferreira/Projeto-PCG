@@ -11,9 +11,10 @@ class Shot: public Thing {
 	private:
 	Game* game;
 	public:
+	int damage;
 	Shooter* firedBy;
 	Polygon sprite;
-	Shot(double x, double y, double angle, double speed, double gravityRate, Weapon* w);
+	Shot(double x, double y, double angle, double speed, double gravityRate, Weapon* w, int damage);
 	~Shot();
 	void desenha();
 	virtual Polygon getCollision();

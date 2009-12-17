@@ -93,6 +93,7 @@ static Uint32 deleteShotCallback(Uint32 interval, void *param) {
 
 static int createshot (lua_State *L) {
 	double x,y,angle,rate,gravity,speed;
+	int damage;
 	Weapon* weapon;
 	x = lua_tonumber(L, 1);
 	y = lua_tonumber(L, 2);
@@ -101,11 +102,12 @@ static int createshot (lua_State *L) {
 	weapon = (Weapon*)lua_touserdata(L, 5);
 	gravity = lua_tonumber(L, 6);
 	speed = lua_tonumber(L, 7);
+	damage = lua_tonumber(L, 8);
 	
 	x += weapon->position.x;
 	y += weapon->position.y;
 	
-	Shot* newshot = new Shot(x,y,angle,speed,gravity,weapon);
+	Shot* newshot = new Shot(x,y,angle,speed,gravity,weapon,damage);
 	weapon->game->shotManager->addShot(newshot);
 	SDL_AddTimer(rate*_game->rate,deleteShotCallback,newshot);
 	lua_pushlightuserdata(L, newshot);
