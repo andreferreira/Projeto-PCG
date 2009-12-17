@@ -74,7 +74,7 @@ Game::Game(ConfigManager *cfg) {
     }
 
     //Set caption
-    SDL_WM_SetCaption( "Prototipo Jogo", NULL );
+    SDL_WM_SetCaption( "Big Stick", NULL );
 }
 
 void Game::desenhaMira(Ponto aim) {
