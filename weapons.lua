@@ -136,7 +136,7 @@ flamethrower = Weapon{
 			name = "Flamethrower",
 			righthand = {-20,-13},
 			lefthand = {-25,-10},
-			tip = {-65,0},
+			tip = {-65,-15+10},
 			firerate = 60,
 			sprite = {addXY(-10,0,
 					Line{-20,-15,-20,-15+10},
