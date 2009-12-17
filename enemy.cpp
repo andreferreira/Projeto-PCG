@@ -18,6 +18,7 @@ double Enemy::distanceFromPlayer() {
 }
 #include <iostream>
 void Enemy::think() {
+	addSpeed(closerToZero(-getSpeedX(),sign(getSpeedX())*-0.5),0);
 	if (dead) return;
 	Player *player = game->player;
 	Ponto playerpos = player->getPosition();
@@ -25,7 +26,6 @@ void Enemy::think() {
 		direction = -1;
 	else
 		direction = 1;
-	addSpeed(closerToZero(-getSpeedX(),sign(getSpeedX())*-0.5),0);
 	if (distanceFromPlayer() >= 500)
 		return;
 	if (player->crawl && onGround) {
@@ -43,7 +43,9 @@ void Enemy::think() {
 	}
 	if (distanceFromPlayer() <= 300 && distanceFromPlayer() >= 200)
 		addSpeed( direction*3, 0);
-	setAim(playerpos.x + player->cintura().x,playerpos.y+player->cintura().y);
+	Ponto leftfeet = player->leftFeet();
+	Ponto rightfeet = player->rightFeet();
+	setAim(playerpos.x + player->pescoco().x,playerpos.y+player->pescoco().y + std::min(-rightfeet.y,-leftfeet.y));
 	fire();
 }
 
