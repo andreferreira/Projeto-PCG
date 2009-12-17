@@ -119,7 +119,7 @@ void Game::show() {
 void Game::reloadLua() {
 	config->load();
 	resize(config->screen["width"], config->screen["height"]);
-	loadMap(config->maps.front());
+	loadMap(config->currentMap());
 	weaponManager->loadWeapons();
 	shotManager->clearShots();
 	player->equip(weaponManager->getWeapon("Shotgun"));
@@ -145,6 +145,24 @@ void Game::spawnEnemy(std::string name, Ponto position) {
 	enemy->setPosition(position.x,position.y);
 }
 
+void Game::previousMap() {
+	enemyManager->loadEnemies();
+	loadMap(config->previousMap());
+	player->setPosition(spawn.x, spawn.y);
+}
+
+void Game::reloadMap() {
+	enemyManager->loadEnemies();
+	loadMap(config->currentMap());
+	player->setPosition(spawn.x, spawn.y);
+}
+
+void Game::nextMap() {
+	enemyManager->loadEnemies();
+	loadMap(config->nextMap());
+	player->setPosition(spawn.x, spawn.y);
+}
+
 void Game::mainLoop() {
 	Timer fps;
 	shotManager = new ShotManager;
@@ -153,7 +171,7 @@ void Game::mainLoop() {
 	weaponManager->loadWeapons();
 	enemyManager = new EnemyManager(this);
 	enemyManager->loadEnemies();
-	loadMap(config->maps.front());
+	loadMap(config->currentMap());
 	
 	player = new Player(this, spawn, config->player["speed"]);
 	Controle *c;

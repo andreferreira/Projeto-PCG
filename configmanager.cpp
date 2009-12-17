@@ -21,12 +21,24 @@ static int regplayer(lua_State *L) {
 }
 
 static int regmap(lua_State *L) {
-	m->push_front(lua_tostring(L, 1));
+	m->push_back(lua_tostring(L, 1));
 	return 0;
 }
 
 ConfigManager::ConfigManager() {
     lstate = NULL;
+}
+
+std::string ConfigManager::previousMap() {
+	return map != maps.begin() ? *(--map) : *map;
+}
+
+std::string ConfigManager::currentMap() {
+	return *map;
+}
+
+std::string ConfigManager::nextMap() {
+	return map != --(maps.end()) ? *(++map) : *map;
 }
 
 void ConfigManager::load() {
@@ -44,4 +56,5 @@ void ConfigManager::load() {
 	registerFunction(lstate, "regmap", regmap);
 	doLuaFile(lstate,"configmanager.lua");
 	doLuaFile(lstate,"config.lua");
+	map = maps.begin();
 }

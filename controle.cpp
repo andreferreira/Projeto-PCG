@@ -34,16 +34,22 @@ void Controle::handleEvents() {
 						jogador.equip(game->weaponManager->getWeapon("Flamethrower"));
 						break;
 					case SDLK_F5:
-						game->reloadLua();
-						break;
-					case SDLK_F6:
 						jogador.setPosition(game->getSpawn().x, game->getSpawn().y);
 						break;
-                    default: handleEvent(e);break;
+					case SDLK_F6:
+						game->previousMap();
+						break;
+					case SDLK_F7:
+						game->reloadMap();
+						break;
+					case SDLK_F8:
+						game->nextMap();
+						break;
+                    default: handleEvent(e); break;
                 }
                 break;
 			case SDL_VIDEORESIZE:
-				jogador.game->resize(e.resize.w, e.resize.h);
+				game->resize(e.resize.w, e.resize.h);
 				break;
 			default:
 				handleEvent(e);

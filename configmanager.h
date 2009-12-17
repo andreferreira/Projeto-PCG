@@ -12,10 +12,14 @@ struct lua_State;
 class ConfigManager {
 	private:
 		lua_State* lstate;
+		std::list<std::string> maps;
+		std::list<std::string>::iterator map;
 	public:
 		std::map<std::string, int> screen;
 		std::map<std::string, Ponto> player;
-		std::list<std::string> maps;
+		std::string previousMap();
+		std::string currentMap();
+		std::string nextMap();
 		ConfigManager();
 		void load();
 };
