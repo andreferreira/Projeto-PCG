@@ -17,7 +17,6 @@ class Game {
 	private:
 		void show();
 		void loadMap(std::string mapname);
-		std::string currentMap;
 		Ponto spawn;
 	public:
 		ConfigManager *config;
@@ -41,6 +40,9 @@ class Game {
 		void resize(GLsizei x, GLsizei y);
 		WeaponItem* dropWeapon(std::string name);
 		void spawnEnemy(std::string name, Ponto position);
+		void previousMap();
+		void reloadMap();
+		void nextMap();
 };
 
 #endif
