@@ -13,6 +13,10 @@ void Enemy::die() {
 	//game->collisionManager->remove(this);
 }
 
+double Enemy::distanceFromPlayer() {
+	return distance(game->player->getPosition(), this->getPosition());
+}
+
 void Enemy::think() {
 	if (dead) return;
 	Player *player = game->player;
@@ -20,7 +24,7 @@ void Enemy::think() {
 		direction = -1;
 	else
 		direction = 1;
-	if (distance(player->getPosition(), this->getPosition()) >= 500)
+	if (distanceFromPlayer() >= 500)
 		return;
 	if (player->crawl && onGround) {
 		crawl = true;

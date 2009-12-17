@@ -8,6 +8,7 @@ class Enemy: public Shooter {
 		Enemy(Game* agame);
 		void die();
 		void think();
+		double distanceFromPlayer();
 		virtual void collide(Thing *b);
 };
 

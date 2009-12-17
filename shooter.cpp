@@ -382,11 +382,11 @@ Polygon Shooter::getCollision() {
 	Ponto hips = cintura();
 	Ponto leftarm = leftArm(false);
 	Ponto rightarm = rightArm(false);
-	Ponto neck = pescoco();
+	Ponto head = cabeca();
 	
 	leftfeet.y += deslocy;
 	rightfeet.y += deslocy;
-	neck.y += deslocy;
+	head.y += deslocy;
 	hips.y += deslocy;
 	leftarm.y += deslocy;
 	rightarm.y += deslocy;
@@ -394,8 +394,8 @@ Polygon Shooter::getCollision() {
 	Linha a(leftfeet,rightfeet);
 	Linha b(rightfeet,hips);
 	Linha c(hips,rightarm);
-	Linha d(rightarm,neck);
-	Linha e(neck,leftarm);
+	Linha d(rightarm,head);
+	Linha e(head,leftarm);
 	Linha f(leftarm,hips);
 	Linha g(hips,leftfeet);
 	poly.addLinha(a);
