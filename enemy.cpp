@@ -37,7 +37,7 @@ void Enemy::think() {
 		bypass = true;
 	else
 		bypass = false;
-	if (playerpos.y < getPosition().y - 30 && distanceFromPlayer() <= 200 && onGround) {
+	if (playerpos.y < getPosition().y - 30 && distanceFromPlayer() <= 200 && onGround && player->onGround) {
 		addSpeed( 0, -9);
 		onGround = false;
 	}
