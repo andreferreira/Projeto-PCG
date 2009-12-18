@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "enemymanager.h"
 #include "enemy.h"
 #include "game.h"
@@ -70,4 +72,14 @@ Enemy* EnemyManager::createEnemy(std::string name) {
 	game->collisionManager->subscribe(ret);
 	ret->equip(game->weaponManager->getWeapon(weaponname));
 	return ret;
+}
+
+bool enemyAlive(Enemy* e) {
+	return !e->dead;
+}
+
+bool EnemyManager::hasEnemies() {
+	if (enemies.empty())
+		return false;
+	return count_if(enemies.begin(), enemies.end(), enemyAlive) > 0;
 }
