@@ -5,5 +5,5 @@ config {
     	speed = {0, 0}
     },
 
-    maps = {"map1.lua", "map2.lua"}
+    maps = {"map1.lua", "map2.lua", "mario.lua"}
 }

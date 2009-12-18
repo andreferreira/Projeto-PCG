@@ -40,10 +40,13 @@ void Controle::handleEvents() {
 						game->previousMap();
 						break;
 					case SDLK_F7:
-						game->reloadMap();
+						game->reloadMap(true);
 						break;
 					case SDLK_F8:
 						game->nextMap();
+						break;
+					case SDLK_F9:
+						game->reloadMap(false);
 						break;
                     default: handleEvent(e); break;
                 }

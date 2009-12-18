@@ -173,11 +173,12 @@ void Game::previousMap() {
 	player->setPosition(spawn.x, spawn.y);
 }
 
-void Game::reloadMap() {
+void Game::reloadMap(bool respawn) {
 	enemyManager->loadEnemies();
 	shotManager->clearShots();
 	loadMap(config->currentMap());
-	player->setPosition(spawn.x, spawn.y);
+	if (respawn)
+		player->setPosition(spawn.x, spawn.y);
 }
 
 void Game::nextMap() {

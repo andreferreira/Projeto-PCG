@@ -41,7 +41,7 @@ class Game {
 		WeaponItem* dropWeapon(std::string name);
 		void spawnEnemy(std::string name, Ponto position);
 		void previousMap();
-		void reloadMap();
+		void reloadMap(bool respawn);
 		void nextMap();
 };
 
