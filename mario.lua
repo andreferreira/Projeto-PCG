@@ -103,6 +103,6 @@ map {
 		{name = "Flamethrower", spawn = {5400, y-400}},
 	},
 	enemies = {
-		{name = "Soldier", spawn = {200, y-500}},
+		{name = "Bear", spawn = {9500, y-500}},
 	},
 }

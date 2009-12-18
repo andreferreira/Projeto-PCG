@@ -36,6 +36,8 @@ void Controle::handleEvents() {
 						break;
 					case SDLK_F5:
 						jogador.setPosition(game->getSpawn().x, game->getSpawn().y);
+						jogador.hp = game->config->integer["hp"];
+						jogador.dead = false;
 						break;
 					case SDLK_F6:
 						game->previousMap();

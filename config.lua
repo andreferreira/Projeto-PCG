@@ -3,7 +3,7 @@ config {
 	
     player = {
     	speed = {0, 0},
-		hp = 50
+		hp = 1000,
     },
 	
     maps = {"map1.lua", "map2.lua", "mario.lua"}

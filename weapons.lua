@@ -29,7 +29,7 @@ shotgun = Weapon{
 								weapon = w,
 								duration = 1000,
 								speed = 4,
-								damage = 5,
+								damage = 20,
 								sprite = {
 										Line{0,0,3,0},
 										Line{3,0,3,3},
@@ -128,7 +128,7 @@ rainbow = Weapon{
 						speed = 0,
 						duration = 600,
 						sprite = s,
-						damage = 70,
+						damage = 300,
 					}
 					end
 }
@@ -178,7 +178,7 @@ flamethrower = Weapon{
 								speed = 3,
 								duration = 500+math.random(500)-250,
 								sprite = flamesprite,
-								damage = 1,
+								damage = 5,
 								}
 						end
 					   end
