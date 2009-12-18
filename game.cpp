@@ -109,6 +109,27 @@ void Game::show() {
 	mapa->desenha();
 	shotManager->desenha();
 	enemyManager->desenha();
+	
+	double vida = std::max(0.0,player->hp/double(MAXHP));
+	
+	glPushMatrix();
+		glTranslatef(camera.x,camera.y,0);
+		glColor3f(0,0,0);
+		glBegin(GL_LINE_LOOP);
+			glVertex3f(10,10,0);
+			glVertex3f(50,10,0);
+			glVertex3f(50,500,0);
+			glVertex3f(10,500,0);
+		glEnd();
+		glColor3f(1,0,0);
+		glBegin(GL_POLYGON);
+			glVertex3f(10+1,10+1,0);
+			glVertex3f(50-1,10+1,0);
+			glVertex3f(50-1,std::max(vida*(500-1)-1,10.0),0);
+			glVertex3f(10+1,std::max(vida*(500-1)-1,10.0),0);
+		glEnd();
+		glColor3f(0,0,0);
+	glPopMatrix();
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();

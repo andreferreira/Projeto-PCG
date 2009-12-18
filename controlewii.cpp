@@ -15,6 +15,7 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 }
 
 void ControleWii::handleOther() {
+	jogador.addSpeed(closerToZero(-jogador.getSpeedX(),sign(jogador.getSpeedX())*-0.5),0);
 	if (jogador.dead) return;
 	jogador.crawl = false;
 	Uint8 *keystates = SDL_GetKeyState( NULL );
@@ -32,9 +33,7 @@ void ControleWii::handleOther() {
 	}
 	if (keystates[SDLK_RIGHT]) {
 		jogador.addSpeed(3,  0);
-	}
-	if (!keystates[SDLK_RIGHT] && !keystates[SDLK_LEFT])
-		jogador.addSpeed(closerToZero(-jogador.getSpeedX(),sign(jogador.getSpeedX())*-0.5),0);
+	}		
 	if(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1)) { //botao esquerdo do mouse pressionado
 		jogador.fire();
 	}

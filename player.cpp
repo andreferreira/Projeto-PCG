@@ -2,7 +2,7 @@
 #include "shot.h"
 
 Player::Player(Game* agame, Ponto pos, Ponto speed): Shooter(agame, pos, speed) { 
-	hp = 100;
+	hp = MAXHP;
 }
 
 void Player::desenha() {
