@@ -34,6 +34,8 @@ void Player::drawEquipment() {
 		glTranslatef(hip.x,hip.y,0);
 		glRotatef(bodyAngle*180.0/PI,0,0,1);
 		glTranslatef(0,-11-30,0); //cabeca
+		if (crawl)
+			glRotatef(-bodyAngle*180.0/PI,0,0,1);
 		glBegin(GL_POLYGON);
 			glVertex3f(-11,-2,0);
 			glVertex3f( 11,-2,0);
