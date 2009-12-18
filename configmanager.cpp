@@ -20,6 +20,13 @@ static int regplayer(lua_State *L) {
 	return 0;
 }
 
+static int regplayerhp(lua_State *L) {
+	const char *name = lua_tostring(L, 1);
+	double x = lua_tonumber(L, 2);
+	(*scr)[name] = x;
+	return 0;
+}
+
 static int regmap(lua_State *L) {
 	m->push_back(lua_tostring(L, 1));
 	return 0;
@@ -44,15 +51,16 @@ std::string ConfigManager::nextMap() {
 void ConfigManager::load() {
 	if (lstate != NULL)
 		lua_close(lstate);
-	screen.clear();
-	player.clear();
+	integer.clear();
+	ponto.clear();
 	maps.clear();
-	scr = &screen;
-	play = &player;
+	scr = &integer;
+	play = &ponto;
 	m = &maps;
 	lstate = newState();
 	registerFunction(lstate, "regscreen", regscreen);
 	registerFunction(lstate, "regplayer", regplayer);
+	registerFunction(lstate, "regplayerhp", regplayerhp);
 	registerFunction(lstate, "regmap", regmap);
 	doLuaFile(lstate,"configmanager.lua");
 	doLuaFile(lstate,"config.lua");

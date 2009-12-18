@@ -85,8 +85,8 @@ void ControleWii::handleEvent(SDL_Event &e) {
 							if (sources > 0) {
 								x = x / sources;
 								y = y / sources;
-								x = jogador.game->config->screen["width"] - (x / 1024.0) * jogador.game->config->screen["width"];
-								y = (y / 738.0) * jogador.game->config->screen["height"];
+								x = jogador.game->config->integer["width"] - (x / 1024.0) * jogador.game->config->integer["width"];
+								y = (y / 738.0) * jogador.game->config->integer["height"];
 								jogador.setAim(x+game->camera.x,y+game->camera.y);
 							}
 						}

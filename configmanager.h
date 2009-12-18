@@ -15,8 +15,8 @@ class ConfigManager {
 		std::list<std::string> maps;
 		std::list<std::string>::iterator map;
 	public:
-		std::map<std::string, int> screen;
-		std::map<std::string, Ponto> player;
+		std::map<std::string, int> integer;
+		std::map<std::string, Ponto> ponto;
 		std::string previousMap();
 		std::string currentMap();
 		std::string nextMap();

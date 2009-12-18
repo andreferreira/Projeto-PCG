@@ -62,7 +62,7 @@ Game::Game(ConfigManager *cfg) {
     }
 
     //Create Window
-    if( SDL_SetVideoMode( config->screen["width"], config->screen["height"], config->screen["bpp"], SDL_OPENGL | SDL_RESIZABLE ) == NULL )
+    if( SDL_SetVideoMode( config->integer["width"], config->integer["height"], config->integer["bpp"], SDL_OPENGL | SDL_RESIZABLE ) == NULL )
     {
         //erro
     }
@@ -87,8 +87,8 @@ void Game::desenhaMira(Ponto aim) {
 void Game::show() {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     double x, y;
-	int width = config->screen["width"];
-	int height = config->screen["height"];
+	int width = config->integer["width"];
+	int height = config->integer["height"];
 	
     if (player->getX() <= width/2)
     	x = 0;
@@ -110,7 +110,7 @@ void Game::show() {
 	shotManager->desenha();
 	enemyManager->desenha();
 	
-	double vida = std::max(0.0,player->hp/double(MAXHP));
+	double vida = std::max(0.0,player->hp/double(config->integer["hp"]));
 	
 	glPushMatrix();
 		glTranslatef(camera.x,camera.y,0);
@@ -139,7 +139,7 @@ void Game::show() {
 
 void Game::reloadLua() {
 	config->load();
-	resize(config->screen["width"], config->screen["height"]);
+	resize(config->integer["width"], config->integer["height"]);
 	loadMap(config->currentMap());
 	weaponManager->loadWeapons();
 	shotManager->clearShots();
@@ -151,9 +151,9 @@ void Game::setSpawn(Ponto spawn) {
 }
 
 void Game::resize(GLsizei x, GLsizei y) {
-	config->screen["width"] = x;
-	config->screen["height"] = y;
-	SDL_SetVideoMode(x, y, config->screen["bpp"], SDL_OPENGL | SDL_RESIZABLE);
+	config->integer["width"] = x;
+	config->integer["height"] = y;
+	SDL_SetVideoMode(x, y, config->integer["bpp"], SDL_OPENGL | SDL_RESIZABLE);
 	glViewport(0, 0, x, y);
 }
 
@@ -198,7 +198,7 @@ void Game::mainLoop() {
 	enemyManager->loadEnemies();
 	loadMap(config->currentMap());
 	
-	player = new Player(this, spawn, config->player["speed"]);
+	player = new Player(this, spawn, config->ponto["speed"]);
 	Controle *c;
 	c = new ControleWii(*player);
 	player->equip(weaponManager->getWeapon("Shotgun"));
@@ -213,7 +213,7 @@ void Game::mainLoop() {
 	bool quit = false;
 	rate = 1.0;
 	while (!quit) {
-		int ifps = config->screen["fps"];
+		int ifps = config->integer["fps"];
 		fps.start();
 		//player events
 		c->handleEvents();

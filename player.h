@@ -1,6 +1,5 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#define MAXHP 10000
 
 #include "game.h"
 #include "shooter.h"
