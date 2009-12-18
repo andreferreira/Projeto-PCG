@@ -45,7 +45,7 @@ void Player::drawEquipment() {
 		glBegin(GL_POLYGON);
 			glVertex3f(11,-2,0);
 			glVertex3f(11, 2,0);
-			glVertex3f( 2, 2,0);
+			glVertex3f( 5, 2,0);
 			glVertex3f( 2,-2,0);
 		glEnd();
 	glPopMatrix();
