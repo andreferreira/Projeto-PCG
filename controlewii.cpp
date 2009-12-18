@@ -15,7 +15,6 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 }
 
 void ControleWii::handleOther() {
-	jogador.addSpeed(closerToZero(-jogador.getSpeedX(),sign(jogador.getSpeedX())*-0.5),0);
 	jogador.crawl = false;
 	if (jogador.dead) return;
 	Uint8 *keystates = SDL_GetKeyState( NULL );
@@ -31,9 +30,6 @@ void ControleWii::handleOther() {
 	if (keystates[SDLK_RIGHT]) {
 		jogador.addSpeed(3,  0);
 	}
-	if (keystates[SDLK_RIGHT]) {
-		jogador.addSpeed(3,  0);
-	}		
 	if(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(1)) { //botao esquerdo do mouse pressionado
 		jogador.fire();
 	}
@@ -49,10 +45,23 @@ void ControleWii::handleOther() {
 	if (buttonsWii & 4) { //R atira
 		jogador.fire();
 	}
-
+	bool pegou = false;
+	std::list<WeaponItem*>::iterator it;
+	if (buttonsWii & 8) { //R atira
+		for (it = map->items.begin(); it != map->items.end(); ++it)
+			if (game->collisionManager->checkCollision(&jogador, (Thing*) *it)) {
+				jogador.equip((*it)->getWeapon());
+				pegou = true;
+				break;
+			}
+		if (pegou)
+			map->items.erase(it);
+	}
+	
 }
 
 void ControleWii::handleEvent(SDL_Event &e) {
+	jogador.addSpeed(closerToZero(-jogador.getSpeedX(),sign(jogador.getSpeedX())*-0.5),0);
 	if (jogador.dead) return;
 	std::list<WeaponItem*>::iterator it;
 	bool pegou = false;
@@ -103,15 +112,14 @@ void ControleWii::handleEvent(SDL_Event &e) {
 							int newY = mesg->nunchuk_mesg.stick[CWIID_Y] - 131;
 
 							if (stickX != 0xffff) {
-								jogador.setSpeed(4.0*newX/128,jogador.getSpeedY());
+								jogador.addSpeed(8.0*newX/128.0,0);
 							}
 							stickX = newX;
 							stickY = newY;
 							buttonsNunchuck = mesg->nunchuk_mesg.buttons;
-							
 							if (jogador.onGround && 
 								((mesg->nunchuk_mesg.buttons & 2) ||
-								 newY > 60)) { //pulo com botao C ou para cima
+								 newY > 50)) { //pulo com botao C ou para cima
 								jogador.addSpeed( 0, -8);
 								jogador.onGround = false;
 							}
