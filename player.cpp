@@ -25,3 +25,26 @@ void Player::collide(Thing *b) {
 		}
 	}
 }
+
+void Player::drawEquipment() {
+	glPushMatrix();
+		Ponto hip = cintura();
+		Ponto leftfeet = leftFeet();
+		Ponto rightfeet = rightFeet();
+		glTranslatef(hip.x,hip.y,0);
+		glRotatef(bodyAngle*180.0/PI,0,0,1);
+		glTranslatef(0,-11-30,0); //cabeca
+		glBegin(GL_POLYGON);
+			glVertex3f(-11,-2,0);
+			glVertex3f( 11,-2,0);
+			glVertex3f( 11,-1,0);
+			glVertex3f(-11,-1,0);
+		glEnd();
+		glBegin(GL_POLYGON);
+			glVertex3f(11,-2,0);
+			glVertex3f(11, 2,0);
+			glVertex3f( 2, 2,0);
+			glVertex3f( 2,-2,0);
+		glEnd();
+	glPopMatrix();
+}

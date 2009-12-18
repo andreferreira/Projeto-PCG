@@ -364,6 +364,7 @@ void Shooter::desenha() {
 			glTranslatef(head.x,head.y,0);
 			drawCircle(11,30);
 		glPopMatrix();
+		drawEquipment();
 	glPopMatrix();
 }
 
@@ -378,7 +379,7 @@ Polygon Shooter::getCollision() {
 	Polygon poly;
 	Ponto leftfeet = leftFeet();
 	Ponto rightfeet = rightFeet();
-	int deslocy = std::min(-rightfeet.y,-leftfeet.y);
+	double deslocy = std::min(-rightfeet.y,-leftfeet.y);
 	Ponto hips = cintura();
 	Ponto leftarm = leftArm(false);
 	Ponto rightarm = rightArm(false);

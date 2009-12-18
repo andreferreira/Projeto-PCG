@@ -10,6 +10,7 @@ class Enemy: public Shooter {
 		void think();
 		double distanceFromPlayer();
 		virtual void collide(Thing *b);
+		virtual void drawEquipment();
 };
 
 #endif

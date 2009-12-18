@@ -52,6 +52,7 @@ class Shooter: public Thing {
 		void animate();
 		virtual Linha getBaseLine();
 		virtual Polygon getCollision();
+		virtual void drawEquipment() = 0;
 };
 
 #endif

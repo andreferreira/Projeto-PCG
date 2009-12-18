@@ -1,6 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#define MAXHP 100
+#define MAXHP 10000
 
 #include "game.h"
 #include "shooter.h"
@@ -11,6 +11,7 @@ class Player: public Shooter {
 		void desenha();
 		virtual void collide(Thing* b);
 		int hp;
+		virtual void drawEquipment();
 };
 
 #endif

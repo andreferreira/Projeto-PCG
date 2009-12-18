@@ -37,9 +37,8 @@ void Enemy::think() {
 		bypass = true;
 	else
 		bypass = false;
-	if (playerpos.y < getPosition().y - 30 && distanceFromPlayer() <= 200 && onGround && player->onGround) {
-		addSpeed( 0, -9);
-		onGround = false;
+	if (playerpos.y < getPosition().y  && player->onGround) {
+		addSpeed( 0, -1);
 	}
 	if (distanceFromPlayer() <= 300 && distanceFromPlayer() >= 200)
 		addSpeed( direction*3, 0);
@@ -62,4 +61,26 @@ void Enemy::collide(Thing* b) {
 		else
 			addSpeed(2,0);
 	}
+}
+
+void Enemy::drawEquipment() {
+	glPushMatrix();
+		Ponto hip = cintura();
+		Ponto leftfeet = leftFeet();
+		Ponto rightfeet = rightFeet();
+		glTranslatef(hip.x,hip.y,0);
+		glRotatef(bodyAngle*180.0/PI,0,0,1);
+		glBegin(GL_LINE_LOOP);
+			glVertex3f(0,0,0);
+			glVertex3f(-10,0,0);
+			glVertex3f(-10,-30,0);
+			glVertex3f(0,-30,0);
+		glEnd();
+		glBegin(GL_LINE_LOOP);
+			glVertex3f(-2.5,0,0);
+			glVertex3f(-7.5,0,0);
+			glVertex3f(-7.5,5,0);
+			glVertex3f(-2.5,5,0);
+		glEnd();
+	glPopMatrix();
 }
