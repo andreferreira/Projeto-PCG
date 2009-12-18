@@ -103,6 +103,14 @@ map {
 		{name = "Flamethrower", spawn = {5400, y-400}},
 	},
 	enemies = {
+		{name = "Soldier", spawn = {750, y-750}},
+		{name = "Pyro", spawn = {1500, y-750}},
+		{name = "Soldier", spawn = {2250, y-750}},
+		{name = "Soldier", spawn = {3000, y-750}},
+		{name = "Soldier", spawn = {3750, y-750}},
+		{name = "Pyro", spawn = {4500, y-750}},
+		{name = "Soldier", spawn = {5250, y-750}},
+		{name = "Soldier", spawn = {6000, y-750}},
 		{name = "Bear", spawn = {9500, y-500}},
 	},
 }
