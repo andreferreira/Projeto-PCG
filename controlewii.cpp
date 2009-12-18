@@ -111,7 +111,7 @@ void ControleWii::handleEvent(SDL_Event &e) {
 							int newY = mesg->nunchuk_mesg.stick[CWIID_Y] - 131;
 
 							if (stickX != 0xffff) {
-								jogador.addSpeed(8.0*newX/128.0,0);
+								jogador.addSpeed(3.0*newX/128.0,0);
 							}
 							stickX = newX;
 							stickY = newY;
