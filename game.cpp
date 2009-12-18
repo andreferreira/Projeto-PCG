@@ -215,6 +215,10 @@ void Game::mainLoop() {
 	while (!quit) {
 		int ifps = config->integer["fps"];
 		fps.start();
+		
+		if (!enemyManager->hasEnemies())
+			nextMap();
+		
 		//player events
 		c->handleEvents();
 		enemyManager->think();

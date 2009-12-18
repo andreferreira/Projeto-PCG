@@ -21,6 +21,7 @@ class EnemyManager {
 		void desenha();
 		void move();
 		void remove(Enemy* enemy);
+		bool hasEnemies();
 };
 
 #endif
