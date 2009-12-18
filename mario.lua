@@ -6,9 +6,9 @@ map {
 	width = x,
 	height = y,
 	platforms = {
-		platform{0,    y,     0,    y-250, color = {0.5, 0.5, 0}},
-		platform{0,    y-250, 650,  y-250, color = {0.5, 0.5, 0}},
-		platform{650,  y,     650,  y-250, color = {0.5, 0.5, 0}},
+		platform{0,    y,     0,    y-250, color = {0.5, 0.5, 0}, passable = false},
+		platform{0,    y-250, 650,  y-250, color = {0.5, 0.5, 0}, passable = false},
+		platform{650,  y,     650,  y-250, color = {0.5, 0.5, 0}, passable = false},
 
 		platform{150,  y-350, 350,  y-350, color = {0.5, 0.5, 0}},
 
@@ -23,25 +23,25 @@ map {
 		-- primeiro "balanço" 
 		platform{900,  y-550, 1050, y-550, color = {0.5, 0.25, 0}},
 
-		platform{1200, y,     1200, y-449, color = {0.5, 0.5, 0}},
-		platform{1200, y-450, 1500, y-450, color = {0.5, 0.5, 0}},
-		platform{1500, y,     1500, y-449, color = {0.5, 0.5, 0}},
+		platform{1200, y,     1200, y-449, color = {0.5, 0.5, 0}, passable = false},
+		platform{1200, y-450, 1500, y-450, color = {0.5, 0.5, 0}, passable = false},
+		platform{1500, y,     1500, y-449, color = {0.5, 0.5, 0}, passable = false},
 
 		platform{1550, y-550, 1700, y-550, color = {1, 1, 0}},
 
 		platform{1750, y-650, 1900, y-650, color = {1, 1, 0}},
 
-		platform{1900, y,     1900, y-249, color = {0.5, 0.5, 0}},
-		platform{1900, y-250, 2250, y-250, color = {0.5, 0.5, 0}},
-		platform{2250, y,     2250, y-249, color = {0.5, 0.5, 0}},
+		platform{1900, y,     1900, y-249, color = {0.5, 0.5, 0}, passable = false},
+		platform{1900, y-250, 2250, y-250, color = {0.5, 0.5, 0}, passable = false},
+		platform{2250, y,     2250, y-249, color = {0.5, 0.5, 0}, passable = false},
 
 		platform{2000, y-650, 2150, y-650, color = {0.5, 0.5, 0}},
 
 		platform{2300, y-600, 2450, y-600, color = {0.5, 0.25, 0}},
 
-		platform{2600, y,     2600, y-549, color = {0.5, 0.5, 0}},
-		platform{2600, y-550, 2750, y-550, color = {0.5, 0.5, 0}},
-		platform{2750, y,     2750, y-549, color = {0.5, 0.5, 0}},
+		platform{2600, y,     2600, y-549, color = {0.5, 0.5, 0}, passable = false},
+		platform{2600, y-550, 2750, y-550, color = {0.5, 0.5, 0}, passable = false},
+		platform{2750, y,     2750, y-549, color = {0.5, 0.5, 0}, passable = false},
 
 		platform{2900, y-550, 3050, y-550, color = {0.5, 0.5, 0.5}},
 
@@ -53,13 +53,13 @@ map {
 
 		platform{4050, y-450, 4200, y-450, color = {0.5, 0.25, 0}},
 
-		platform{4200, y,     4200, y-349, color = {0.5, 0.5, 0}},
-		platform{4200, y-350, 4500, y-350, color = {0.5, 0.5, 0}},
-		platform{4500, y-250, 4500, y-349, color = {0.5, 0.5, 0}},
-		platform{4500, y-250, 5500, y-250, color = {0.5, 0.5, 0}},
-		platform{5500, y-250, 5500, y-449, color = {0.5, 0.5, 0}},
-		platform{5500, y-450, 5650, y-450, color = {0.5, 0.5, 0}},
-		platform{5650, y,     5650, y-449, color = {0.5, 0.5, 0}},
+		platform{4200, y,     4200, y-349, color = {0.5, 0.5, 0}, passable = false},
+		platform{4200, y-350, 4500, y-350, color = {0.5, 0.5, 0}, passable = false},
+		platform{4500, y-250, 4500, y-349, color = {0.5, 0.5, 0}, passable = false},
+		platform{4500, y-250, 5500, y-250, color = {0.5, 0.5, 0}, passable = false},
+		platform{5500, y-250, 5500, y-449, color = {0.5, 0.5, 0}, passable = false},
+		platform{5500, y-450, 5650, y-450, color = {0.5, 0.5, 0}, passable = false},
+		platform{5650, y,     5650, y-449, color = {0.5, 0.5, 0}, passable = false},
 
 		platform{5300, y-350, 5450, y-350, color = {1, 1, 0}},
 
@@ -77,9 +77,9 @@ map {
 
 		platform{7250, y-650, 7350, y-650, color = {1, 1, 0}},
 
-		platform{7350, y,     7350, y-750, color = {0.5, 0.5, 0}},
-		platform{7350, y-750, 7500, y-750, color = {0.5, 0.5, 0}},
-		platform{7500, y,     7500, y-750, color = {0.5, 0.5, 0}},
+		platform{7350, y,     7350, y-750, color = {0.5, 0.5, 0}, passable = false},
+		platform{7350, y-750, 7500, y-750, color = {0.5, 0.5, 0}, passable = false},
+		platform{7500, y,     7500, y-750, color = {0.5, 0.5, 0}, passable = false},
 
 		platform{7650, y-650, 7800, y-650, color = {0.5, 0.5, 0.5}},
 
@@ -91,16 +91,16 @@ map {
 
 		platform{8750, y-550, 8900, y-550, color = {0.5, 0.25, 0}},
 
-		platform{9000, y,     9000, y-500, color = {0.5, 0.5, 0}},
-		platform{9000, y-500, 9200, y-500, color = {0.5, 0.5, 0}},
-		platform{9200, y-400, 9200, y-499, color = {0.5, 0.5, 0}},
-		platform{9200, y-400, 9400, y-400, color = {0.5, 0.5, 0}},
-		platform{9400, y-300, 9400, y-399, color = {0.5, 0.5, 0}},
-		platform{9400, y-300, 9999, y-300, color = {0.5, 0.5, 0}},
-		platform{9999, y,     9999, y-300, color = {0.5, 0.5, 0}},
+		platform{9000, y,     9000, y-500, color = {0.5, 0.5, 0}, passable = false},
+		platform{9000, y-500, 9200, y-500, color = {0.5, 0.5, 0}, passable = false},
+		platform{9200, y-400, 9200, y-499, color = {0.5, 0.5, 0}, passable = false},
+		platform{9200, y-400, 9400, y-400, color = {0.5, 0.5, 0}, passable = false},
+		platform{9400, y-300, 9400, y-399, color = {0.5, 0.5, 0}, passable = false},
+		platform{9400, y-300, 9999, y-300, color = {0.5, 0.5, 0}, passable = false},
+		platform{9999, y,     9999, y-300, color = {0.5, 0.5, 0}, passable = false},
 	},
 	weapons = {
-		{name = "Flamethrower", spawn = {x/3, y-5000}},
+		{name = "Flamethrower", spawn = {5400, y-400}},
 	},
 	enemies = {
 		
