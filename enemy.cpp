@@ -27,6 +27,9 @@ void Enemy::think() {
 		direction = -1;
 	else
 		direction = 1;
+	if (playerpos.y < getPosition().y  && (!onGround || player->onGround) && getSpeedY() > -4) {
+		addSpeed( 0, -1);
+	}
 	if (distanceFromPlayer() >= 500)
 		return;
 	if (player->crawl && onGround)
@@ -35,9 +38,6 @@ void Enemy::think() {
 		bypass = true;
 	else
 		bypass = false;
-	if (playerpos.y < getPosition().y  && player->onGround) {
-		addSpeed( 0, -1);
-	}
 	if (distanceFromPlayer() <= 300 && distanceFromPlayer() >= 200)
 		addSpeed( direction*3, 0);
 	Ponto leftfeet = player->leftFeet();
