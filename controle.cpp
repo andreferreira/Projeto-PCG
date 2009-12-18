@@ -10,6 +10,7 @@ Controle::Controle(Player &p) : jogador( p )  {
 void Controle::handleEvents() {
 	SDL_Event e;
 	jogador.bypass = false;
+	jogador.addSpeed(closerToZero(-jogador.getSpeedX(),sign(jogador.getSpeedX())*-0.5),0);
     while( SDL_PollEvent( &e ) ) {
         switch( e.type ) {
 			case SDL_USEREVENT:

@@ -61,7 +61,6 @@ void ControleWii::handleOther() {
 }
 
 void ControleWii::handleEvent(SDL_Event &e) {
-	jogador.addSpeed(closerToZero(-jogador.getSpeedX(),sign(jogador.getSpeedX())*-0.5),0);
 	if (jogador.dead) return;
 	std::list<WeaponItem*>::iterator it;
 	bool pegou = false;
