@@ -16,8 +16,8 @@ ControleWii::ControleWii(Player &p) : Controle(p) {
 
 void ControleWii::handleOther() {
 	jogador.addSpeed(closerToZero(-jogador.getSpeedX(),sign(jogador.getSpeedX())*-0.5),0);
-	if (jogador.dead) return;
 	jogador.crawl = false;
+	if (jogador.dead) return;
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if (keystates[SDLK_DOWN]) {
 		jogador.bypass = true;

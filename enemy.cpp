@@ -19,6 +19,7 @@ double Enemy::distanceFromPlayer() {
 #include <iostream>
 void Enemy::think() {
 	addSpeed(closerToZero(-getSpeedX(),sign(getSpeedX())*-0.5),0);
+	crawl = false;
 	if (dead) return;
 	Player *player = game->player;
 	Ponto playerpos = player->getPosition();
@@ -28,11 +29,8 @@ void Enemy::think() {
 		direction = 1;
 	if (distanceFromPlayer() >= 500)
 		return;
-	if (player->crawl && onGround) {
+	if (player->crawl && onGround)
 		crawl = true;
-	}
-	else
-		crawl = false;
 	if (playerpos.y > getPosition().y + 30 && distanceFromPlayer() <= 200)
 		bypass = true;
 	else
