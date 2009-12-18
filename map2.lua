@@ -1,12 +1,12 @@
 local x = 1024
-local y = 32768
+local y = 60000
 
 math.randomseed( os.time() )
 
 function enemies()
 	local e = { }
 	for i = 1, 20 do
-		e[#e] = {name = "Soldier", spawn = {math.random(1000), i*1000}}
+		e[i] = {name = "Soldier", spawn = {math.random(1000), i*3000}}
 	end
 	return e
 end
