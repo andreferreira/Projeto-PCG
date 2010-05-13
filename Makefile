@@ -27,16 +27,16 @@ OBJS = \
 	
 SRCS = $(OBJS,.o=.cpp) 
 
-all: a.out
+all: bigstick
 
-a.out: $(OBJS)
-	g++ -lSDL -lGL -lcwiid $(OBJS) liblua.a
+bigstick: $(OBJS)
+	g++ -o bigstick -O3 -lSDL -lGL -lcwiid $(OBJS) liblua.a
 
 .cpp.o:
-	g++ -c $<
+	g++ -O3 -c $<
 
 clean:
-	rm -f a.out *.o
+	rm -f bitstick *.o
 
 ubuntu: $(OBJS)
 	g++ -lSDL -lGL -llua5.1 -lcwiid $(OBJS)
