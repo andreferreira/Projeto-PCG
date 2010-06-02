@@ -39,4 +39,4 @@ clean:
 	rm -f bigstick *.o
 
 ubuntu: $(OBJS)
-	g++ -O3 -lSDL -lGL -llua5.1 -lcwiid $(OBJS)
+	g++ -o bigstick -O3 -lSDL -lGL -llua5.1 -lcwiid $(OBJS)
