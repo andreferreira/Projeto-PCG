@@ -36,7 +36,7 @@ bigstick: $(OBJS)
 	g++ -O3 -c $<
 
 clean:
-	rm -f bitstick *.o
+	rm -f bigstick *.o
 
 ubuntu: $(OBJS)
-	g++ -lSDL -lGL -llua5.1 -lcwiid $(OBJS)
+	g++ -O3 -lSDL -lGL -llua5.1 -lcwiid $(OBJS)
